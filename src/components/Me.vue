@@ -4,22 +4,24 @@
 			<img
 				class="u-avatar"
 				id="m-setting-avatar-img"
-				src="https://console.cnyixun.com/2019/09/logo.png?x-oss-process=image/auto-orient,1/resize,m_fill,w_240,h_240"
-				alt="浮烟"
+				:src="userData.avatar"
+				:alt="userData.name"
 			/>
 		</div>
 
 		<div class="m-user">
-			<a class="u-name" href="https://www.jx3box.com/author/8">浮烟</a>
-			<span class="u-uid">UID : 8</span>
+			<a class="u-name" href="https://www.jx3box.com/author/8">{{userData.name}}</a>
+			<span class="u-uid">UID : {{userData.uid}}</span>
 		</div>
 
-		<div class="m-bio">@浮烟烟烟烟烟烟</div>
+		<div class="m-bio">{{userData.bio}}</div>
 
 		<ul class="m-link">
-			<li class="u-role"><i class="u-icon u-icon-group" title="用户组"></i><span>管理员</span></li>
-			<li class="u-email"><i class="u-icon u-icon-email" title="E-mail"></i><span>17229398@qq.com</span></li>
-			<li class="u-join"><i class="u-icon u-icon-join"></i><span>加入于 2019-09-17</span></li>
+			<!-- <li class="u-role"><i class="u-icon u-icon-group" title="用户组"></i><span>管理员</span></li>
+			<li class="u-email"><i class="u-icon u-icon-email" title="E-mail"></i><span>17229398@qq.com</span></li> -->
+			<li class="u-join">
+				<i class="u-icon u-icon-join"></i><span>加入于 {{ userData.created_at | time }}</span>
+			</li>
 		</ul>
 	</div>
 </template>
@@ -27,12 +29,12 @@
 <script>
 export default {
 	name: 'Me',
-	data: function() {
-		return {}
+	props: ['userData'],
+	filters: {
+		time: (val) => {
+			return val.slice(0, 10)
+		},
 	},
-	computed: {},
-	methods: {},
-	mounted: function() {},
 }
 </script>
 

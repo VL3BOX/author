@@ -1,37 +1,60 @@
 <template>
-	<div class="m-Line">
-		<div class="t-year"><span>2020</span></div>
+	<div class="m-Line" v-if="list !== null">
+		<div class="t-year">
+			<span>更新至：{{ list[0].post_modified }}</span>
+		</div>
 
-		<div class="item">
+		<div class="item" v-for="(item, i) in list" :key="i">
 			<span class="icon"></span>
-			<a href="#" class="title">资源查询接口</a>
+			<a :href="item.post_guid" class="title">{{ item.post_title }}</a>
 			<div class="detail">
-				<a href="#" class="type">帮助文档</a>
-				<span class="date"><i class="u-icon u-icon-updatetime"></i> <time>2020-02-21</time></span>
+				<a :href="'https://www.jx3box.com/' + item.post_type" class="type">{{ item.post_type_name }}</a>
+				<span class="date"
+					><i class="u-icon u-icon-updatetime"></i> <time>{{ item.post_modified }}</time></span
+				>
 			</div>
 		</div>
 
-		<div class="item">
-			<span class="icon"></span>
-			<a href="#" class="title">资源查询接口</a>
-			<div class="detail">
-				<a href="#" class="type">帮助文档</a>
-				<span class="date"><i class="u-icon u-icon-updatetime"></i> <time>2020-02-21</time></span>
-			</div>
-		</div>
-
-		<el-button class="showmore">显示更多</el-button>
+		<el-pagination background layout="prev, pager, next" :total="total" @current-change="changePage">
+		</el-pagination>
 	</div>
 </template>
 
 <script>
+const { JX3BOX } = require('@jx3box/jx3box-common')
+const axios = require('axios')
+const API = JX3BOX.__helperUrl + 'api/posts/user/'
+
 export default {
 	name: 'mLine',
-	props: [],
+	props: ['uId'],
 	data: function() {
-		return {}
+		return {
+			list: null,
+			total: null,
+		}
 	},
-	methods: {},
+	created: function() {
+		axios.get(API + this.uId + '?page=' + '1').then((res) => {
+			let data = res.data.data.posts
+			data.forEach(function(item, i) {
+				item.post_type_name = JX3BOX.__postType[item.post_type]
+			})
+			this.list = data
+			this.total = res.data.data.total
+		})
+	},
+	methods: {
+		changePage(page) {
+			axios.get(API + this.uId + '?page=' + page).then((res) => {
+				let data = res.data.data.posts
+				data.forEach(function(item, i) {
+					item.post_type_name = JX3BOX.__postType[item.post_type]
+				})
+				this.list = data
+			})
+		},
+	},
 }
 </script>
 
