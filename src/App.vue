@@ -19,7 +19,7 @@
 </template>
 
 <script>
-const { JX3BOX } = require('@jx3box/jx3box-common')
+const { JX3BOX,Utils } = require('@jx3box/jx3box-common')
 const axios = require('axios')
 const url = JX3BOX.__server + 'user/info' + '?uid='
 
@@ -42,8 +42,8 @@ export default {
 	computed: {
 	},
 	created: function() {
-		let params = new URLSearchParams(location.search);
-		this.uid = params.get('uid')
+
+		this.uid = Utils.getQuery('uid')
 		axios.get(url + this.uid).then((res) => { 
 			let data = res.data.data
 			this.userdata = data

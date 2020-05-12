@@ -29,7 +29,7 @@
 </template>
 
 <script>
-const { JX3BOX } = require("@jx3box/jx3box-common");
+const { JX3BOX,Utils } = require('@jx3box/jx3box-common')
 const axios = require("axios");
 const API = JX3BOX.__server + "post/list";
 
@@ -47,8 +47,7 @@ export default {
     },
     methods: {
         loadData: function() {
-            let params = new URLSearchParams(location.search);
-            let uid = params.get('uid')
+            let uid = Utils.getQuery('uid')
             axios
                 .get(API, {
                     params: {
