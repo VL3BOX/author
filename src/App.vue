@@ -9,7 +9,7 @@
 			<Me v-if="userdata !== null" :userData="userdata" />
 		</LeftSidebar>
 		<Main :withoutRight="false">
-			<Con :uId="uId" />
+			<Cont :uId="uId" />
 			<RightSidebar>
 				<Extend />
 			</RightSidebar>
@@ -26,7 +26,7 @@ const url = JX3BOX.__server + 'user/info' + '?uid='
 
 import Info from '@/components/Info.vue'
 import Extend from '@/components/Extend.vue'
-import Con from '@/components/Con.vue'
+import Cont from '@/components/Cont.vue'
 import Me from '@/components/Me.vue'
 
 export default {
@@ -42,7 +42,7 @@ export default {
 	created: function() {
 		let uid = this.uId
 		// uid = this.$route.query.uid
-		axios.get(url + uid).then((res) => {
+		axios.get(url + uid).then((res) => { 
 			let data = res.data.data
 			this.userdata = data
 		})
@@ -51,7 +51,7 @@ export default {
 		Info,
 		Extend,
 		Me,
-		Con,
+		Cont,
 	},
 }
 </script>

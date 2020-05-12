@@ -23,7 +23,7 @@
 <script>
 const { JX3BOX } = require('@jx3box/jx3box-common')
 const axios = require('axios')
-const API = JX3BOX.__helperUrl + 'api/posts/user/'
+const API = JX3BOX.__helperUrl + 'api/posts/user/' 
 
 export default {
 	name: 'mLine',
