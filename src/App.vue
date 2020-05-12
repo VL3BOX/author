@@ -42,7 +42,7 @@ export default {
 	created: function() {
 		let uid = this.uId
 		// uid = this.$route.query.uid
-		axios.get(url + uid).then((res) => {
+		axios.get(url + uid).then((res) => { 
 			let data = res.data.data
 			this.userdata = data
 		})

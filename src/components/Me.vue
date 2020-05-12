@@ -17,7 +17,7 @@
 		<div class="m-bio">{{userData.bio}}</div>
 
 		<ul class="m-link">
-			<!-- <li class="u-role"><i class="u-icon u-icon-group" title="用户组"></i><span>管理员</span></li>
+			<!-- <li class="u-role"><i class="u-icon u-icon-group" title="用户组"></i><span>管理员</span></li> 
 			<li class="u-email"><i class="u-icon u-icon-email" title="E-mail"></i><span>17229398@qq.com</span></li> -->
 			<li class="u-join">
 				<i class="u-icon u-icon-join"></i><span>加入于 {{ userData.created_at | time }}</span>
