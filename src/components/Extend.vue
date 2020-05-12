@@ -6,6 +6,8 @@
             data-ad-slot="9773281887"
             data-ad-format="auto"
             data-full-width-responsive="true"></ins>
+        <Github_REPO REPO="author"></Github_REPO>
+        <!-- coder="6917" -->
     </div>
 </template>
 
