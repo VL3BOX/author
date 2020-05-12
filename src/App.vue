@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<Header></Header>
-		<Breadcrumb name="频道名称" slug="slug" root="/slug">
+		<Breadcrumb :name="name" slug="author" :root="root">
 			<img slot="logo" svg-inline src="./assets/img/logo.svg" />
 			<Info />
 		</Breadcrumb>
@@ -21,7 +21,6 @@
 <script>
 const { JX3BOX } = require('@jx3box/jx3box-common')
 const axios = require('axios')
-const API = JX3BOX.__helperUrl + 'api/posts/user/'
 const url = JX3BOX.__server + 'user/info' + '?uid='
 
 import Info from '@/components/Info.vue'
@@ -34,17 +33,22 @@ export default {
 	props: [],
 	data: function() {
 		return {
-			uId: 8,
+			uId: 0,
 			userdata: null,
+			name : '作者',
+			root : ''
 		}
 	},
-	computed: {},
+	computed: {
+	},
 	created: function() {
-		let uid = this.uId
-		// uid = this.$route.query.uid
-		axios.get(url + uid).then((res) => { 
+		let params = new URLSearchParams(location.search);
+		this.uid = params.get('uid')
+		axios.get(url + this.uid).then((res) => { 
 			let data = res.data.data
 			this.userdata = data
+			this.name = data.name
+			this.root = '/author?uid=' + data.uid
 		})
 	},
 	components: {

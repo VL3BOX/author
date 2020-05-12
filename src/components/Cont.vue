@@ -1,10 +1,10 @@
 <template>
 	<div class="m-Con">
 		<el-tabs v-model="activeName" @tab-click="handleClick">
-			<el-tab-pane label="概览" name="tab_1">
+			<el-tab-pane label="最新作品" name="tab_1">
 				<mLine :uId="uId" />
 			</el-tab-pane>
-			<el-tab-pane label="最新作品" name="tab_2"></el-tab-pane>
+			<!-- <el-tab-pane label="收藏列表" name="tab_2"></el-tab-pane> -->
 		</el-tabs>
 	</div>
 </template>
@@ -21,7 +21,7 @@ export default {
 	},
 	methods: {
 		handleClick(tab, event) {
-			console.log(tab, event) 
+			// console.log(tab, event) 
 		},
 	},
 	components: {
@@ -32,6 +32,10 @@ export default {
 
 <style lang="less">
 .m-Con {
-	padding: 24px;
+	padding: 20px;
+	
+	.el-tabs__item{
+		.bold;
+	}
 }
 </style>
