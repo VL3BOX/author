@@ -23,6 +23,7 @@
             layout="prev, pager, next"
             :total="total"
             @current-change="changePage"
+            :hide-on-single-page="true"
         >
         </el-pagination>
     </div>
@@ -32,6 +33,7 @@
 const { JX3BOX,Utils } = require('@jx3box/jx3box-common')
 const axios = require("axios");
 const API = JX3BOX.__server + "post/list";
+import getQuery from '../utils/getQuery'
 
 export default {
     name: "mLine",
@@ -47,7 +49,7 @@ export default {
     },
     methods: {
         loadData: function() {
-            let uid = Utils.getQuery('uid')
+            let uid = getQuery('uid')
             axios
                 .get(API, {
                     params: {

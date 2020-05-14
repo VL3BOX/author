@@ -19,9 +19,10 @@
 </template>
 
 <script>
-const { JX3BOX,Utils } = require('@jx3box/jx3box-common')
+const { JX3BOX } = require('@jx3box/jx3box-common')
 const axios = require('axios')
 const url = JX3BOX.__server + 'user/info' + '?uid='
+import getQuery from './utils/getQuery'
 
 import Info from '@/components/Info.vue'
 import Extend from '@/components/Extend.vue'
@@ -43,7 +44,7 @@ export default {
 	},
 	created: function() {
 
-		this.uid = Utils.getQuery('uid')
+		this.uid = getQuery('uid')
 		axios.get(url + this.uid).then((res) => { 
 			let data = res.data.data
 			this.userdata = data
