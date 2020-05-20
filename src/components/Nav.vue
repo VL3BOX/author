@@ -1,16 +1,23 @@
 <template>
-	<nav class="m-nav"></nav>
+	<nav class="m-nav">
+		
+	</nav>
 </template>
 
 <script>
+
 export default {
 	name: 'Nav',
+	props : ['uid'],
 	data: function() {
-		return {}
+		return {
+			
+		}
 	},
 	computed: {},
 	methods: {},
-	mounted: function() {},
+	mounted: function() {
+	},
 }
 </script>
 

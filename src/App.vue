@@ -6,10 +6,10 @@
 			<Info />
 		</Breadcrumb>
 		<LeftSidebar>
-			<Me v-if="userdata !== null" :userData="userdata" />
+			<Me :userdata="userdata"/>
 		</LeftSidebar>
 		<Main :withoutRight="false">
-			<Cont :uId="uId" />
+			<Primary :uid="uid" />
 			<RightSidebar>
 				<Extend />
 			</RightSidebar>
@@ -22,29 +22,30 @@
 const { JX3BOX } = require('@jx3box/jx3box-common')
 const axios = require('axios')
 const url = JX3BOX.__server + 'user/info' + '?uid='
-import getQuery from './utils/getQuery'
+import {getRewrite} from '@jx3box/jx3box-common/js/utils'
 
+import Me from '@/components/Me.vue'
 import Info from '@/components/Info.vue'
 import Extend from '@/components/Extend.vue'
-import Cont from '@/components/Cont.vue'
-import Me from '@/components/Me.vue'
+import Primary from '@/components/Primary.vue'
 
 export default {
 	name: 'App',
 	props: [],
 	data: function() {
 		return {
-			uId: 0,
-			userdata: null,
 			name : '作者',
-			root : ''
+			root : '',
+			uid: 0,
+			userdata : {}
 		}
 	},
 	computed: {
 	},
 	created: function() {
+		this.uid = getRewrite('uid')
 
-		this.uid = getQuery('uid')
+		if(!this.uid) return
 		axios.get(url + this.uid).then((res) => { 
 			let data = res.data.data
 			this.userdata = data
@@ -53,10 +54,10 @@ export default {
 		})
 	},
 	components: {
+		Me,
 		Info,
 		Extend,
-		Me,
-		Cont,
+		Primary,
 	},
 }
 </script>
