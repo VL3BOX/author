@@ -8,7 +8,7 @@
             data-ad-format="auto"
             data-full-width-responsive="true"
         ></ins>
-        <Github_REPO REPO="author" coder="6917,8"></Github_REPO>
+        <!-- <Github_REPO REPO="author" coder="6917,8"></Github_REPO> -->
     </div>
 </template>
 

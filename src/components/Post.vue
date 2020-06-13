@@ -4,11 +4,10 @@
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
-                :timestamp="item.post_modified"
+                :timestamp="item.post.post_modified | dateFormat"
                 placement="top"
             >
-                <el-card>
-                    <h4>{{ item.post_type_name }}</h4>
+                    <h4 class="u-type">{{ item.post_type_name }}</h4>
                     <p>
                         <a
                             :href="JX3BOX.__Root + '?p=' + item.post.ID"
@@ -17,7 +16,6 @@
                             >{{ item.post.post_title }}</a
                         >
                     </p>
-                </el-card>
             </el-timeline-item>
         </el-timeline>
 
@@ -38,7 +36,7 @@ const { JX3BOX, Utils } = require("@jx3box/jx3box-common");
 const axios = require("axios");
 const API = JX3BOX.__server + "post/list";
 import { getRewrite } from "@jx3box/jx3box-common/js/utils";
-
+import dateFormat from '../utils/dateFormat'
 export default {
     name: "mLine",
     props: ["uid"],
@@ -75,6 +73,11 @@ export default {
             window.scrollTo(0, 0);
         },
     },
+    filters : {
+        dateFormat : function (val){
+            return dateFormat(new Date(val))
+        }
+    },
     mounted: function() {
         this.changePage();
     },
@@ -86,6 +89,9 @@ export default {
     padding: 20px 20px 20px 0;
     .el-tabs__item {
         .bold;
+    }
+    .u-type{
+        margin:0;
     }
     .u-title{
         &:hover{

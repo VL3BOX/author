@@ -109,14 +109,14 @@ export default {
         overflow: hidden;
     }
     .u-uid {
-        font-size: 16px;
+        font-size: 14px;
         line-height: 2;
         color: #666;
         display: block;
     }
     .u-join {
         .db;
-        .fz(13px, 20px);
+        .fz(12px, 20px);
         color: #666;
 
         .u-icon-join {
@@ -132,12 +132,13 @@ export default {
     }
 }
 .m-bio {
-    font-size: 13px;
+    .fz(13px,2);
     // border-bottom: 1px solid #e1e4e8;
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
 .m-link {
+    padding-top:10px;
     border-top: 1px dashed #eee;
     // border-bottom: 1px solid #eee;
     a {
@@ -149,7 +150,7 @@ export default {
         }
     }
     svg {
-        .size(20px);
+        .size(16px);
         .mr(10px);
         .fl;
     }
