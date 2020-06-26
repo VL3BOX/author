@@ -22,12 +22,12 @@
         <div class="m-bio">{{ data.bio }}</div>
 
         <div class="m-link" v-if="data.weibo_name || data.github_name">
-            <a v-if="data.weibo_name" class="u-weibo" :href="data.weibo_url"
+            <a v-if="data.weibo_name" class="u-weibo" :href="data.weibo_url" target="_blank"
                 ><img svg-inline src="../assets/img/weibo.svg" />{{
                     data.weibo_name
                 }}</a
             >
-            <a v-if="data.github_name" class="u-github" :href="data.github_url"
+            <a v-if="data.github_name" class="u-github" :href="data.github_url" target="_blank"
                 ><img svg-inline src="../assets/img/github.svg" />{{
                     data.github_name
                 }}</a

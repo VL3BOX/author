@@ -10,7 +10,7 @@
                     <h4 class="u-type">{{ item.post_type_name }}</h4>
                     <p>
                         <a
-                            :href="JX3BOX.__Root + '?p=' + item.post.ID"
+                            :href="postLink(item.post.post_type,item.post.ID)"
                             class="u-title"
                             target="_blank"
                             >{{ item.post.post_title }}</a
@@ -35,7 +35,7 @@
 const { JX3BOX, Utils } = require("@jx3box/jx3box-common");
 const axios = require("axios");
 const API = JX3BOX.__server + "post/list";
-import { getRewrite } from "@jx3box/jx3box-common/js/utils";
+import { getRewrite,postLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from '../utils/dateFormat'
 export default {
     name: "mLine",
@@ -72,11 +72,14 @@ export default {
             this.loadData(i);
             window.scrollTo(0, 0);
         },
+        postLink : function (type,pid){
+            return postLink(type,pid)
+        }
     },
     filters : {
         dateFormat : function (val){
             return dateFormat(new Date(val))
-        }
+        },
     },
     mounted: function() {
         this.changePage();
