@@ -135,7 +135,7 @@ export default {
     .fz(13px,2);
     // border-bottom: 1px solid #e1e4e8;
     padding-bottom: 10px;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
 }
 .m-link {
     padding-top:10px;
@@ -143,7 +143,7 @@ export default {
     // border-bottom: 1px solid #eee;
     a {
         .db;
-        margin: 10px;
+        margin: 10px 0;
         .fz(13px, 20px);
         &:hover {
             color: #f39;

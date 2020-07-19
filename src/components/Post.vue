@@ -1,6 +1,6 @@
 <template>
     <div class="m-post" v-if="list !== null">
-        <el-timeline>
+        <el-timeline class="m-post-list">
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
@@ -101,6 +101,9 @@ export default {
             color:@pink;
         }
     }
+}
+.m-post-list{
+    padding-left:20px;
 }
 .m-author-pages {
     .x;
