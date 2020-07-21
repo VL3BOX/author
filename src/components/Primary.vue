@@ -4,13 +4,16 @@
             <el-tab-pane label="最新作品" name="work">
                 <Post :uid="uid" />
             </el-tab-pane>
-            <!-- <el-tab-pane label="收藏列表" name="tab_2"></el-tab-pane> -->
+            <el-tab-pane label="百科贡献" name="cj">
+                <Cj :uid="uid" />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
 
 <script>
 import Post from "@/components/Post.vue";
+import Cj from "@/components/Cj.vue";
 export default {
     name: "Primary",
     props: ["uid"],
@@ -26,6 +29,7 @@ export default {
     },
     components: {
         Post,
+        Cj
     },
 };
 </script>
@@ -33,5 +37,11 @@ export default {
 <style lang="less">
 .m-tabs {
     padding: 20px;
+    .is-active{
+        .bold;
+    }
+    .el-tabs__nav-wrap{
+        padding:0 20px;
+    }
 }
 </style>

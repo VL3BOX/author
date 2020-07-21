@@ -4,16 +4,16 @@
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
-                :timestamp="item.post.post_modified | dateFormat"
+                :timestamp="item.updated | dateFormat"
                 placement="top"
             >
-                <h4 class="u-type">{{ item.post.post_type | typeFormat }}</h4>
+                <h4 class="u-type">{{ item.type | postType }}</h4>
                 <p>
                     <a
-                        :href="postLink(item.post.post_type, item.post.ID)"
+                        :href="postLink(item.type, item.source_id)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.post.post_title }}</a
+                        >{{ item.title }}</a
                     >
                 </p>
             </el-timeline-item>
@@ -23,26 +23,30 @@
             class="m-author-pages"
             background
             layout="prev, pager, next"
+            :hide-on-single-page="true"
             :total="total"
             @current-change="changePage"
-            :hide-on-single-page="true"
         >
         </el-pagination>
     </div>
 </template>
 
 <script>
-const { JX3BOX, Utils } = require("@jx3box/jx3box-common");
-const axios = require("axios");
-const API = JX3BOX.__server + "post/list";
-import { getRewrite, postLink } from "@jx3box/jx3box-common/js/utils";
+import axios from "axios";
 import dateFormat from "../utils/dateFormat";
+import { __helperUrl, __Root } from "@jx3box/jx3box-common/js/jx3box.json";
+const API = __helperUrl + "api/wiki/posts";
+const typemap = {
+    achievement: "成就百科",
+    item: "物品百科",
+};
+
 export default {
-    name: "mLine",
-    props: ["uid"],
+    name: "Cj",
+    props: ['uid'],
     data: function() {
         return {
-            loading : false,
+            loading: false,
             list: [],
             total: 1,
         };
@@ -53,12 +57,15 @@ export default {
             axios
                 .get(API, {
                     params: {
-                        author: this.uid,
+                        user_id: this.uid,
                         page: i,
+                    },
+                    headers: {
+                        Accept: "application/prs.helper.v2+json",
                     },
                 })
                 .then((res) => {
-                    this.list = res.data.data.list;
+                    this.list = res.data.data.data;
                     this.total = res.data.data.total;
                 })
                 .finally(() => {
@@ -70,16 +77,17 @@ export default {
             window.scrollTo(0, 0);
         },
         postLink: function(type, pid) {
-            return postLink(type, pid);
+            let _type = type == "achievement" ? "cj" : type;
+            return __Root + _type + "/#/view/" + pid;
         },
     },
     filters: {
         dateFormat: function(val) {
-            return dateFormat(new Date(val));
+            return dateFormat(new Date(~~val*1000));
         },
-        typeFormat : function (type){
-            return JX3BOX.__postType[type];
-        }
+        postType: function(type) {
+            return typemap[type];
+        },
     },
     mounted: function() {
         this.changePage();
@@ -87,27 +95,4 @@ export default {
 };
 </script>
 
-<style lang="less">
-.m-post {
-    padding: 20px 20px 20px 0;
-    .el-tabs__item {
-        .bold;
-    }
-    .u-type {
-        margin: 0;
-    }
-    .u-title {
-        &:hover {
-            color: @pink;
-        }
-    }
-}
-.m-post-list {
-    padding-left: 20px;
-}
-.m-author-pages {
-    .x;
-    max-width: 100%;
-    overflow-x: auto;
-}
-</style>
+<style lang="less"></style>
