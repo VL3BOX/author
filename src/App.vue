@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<Header></Header>
-		<Breadcrumb :name="name" slug="author" :root="root">
+		<Breadcrumb :name="name" slug="author" :root="root" :feedbackEnable="true">
 			<img slot="logo" svg-inline src="./assets/img/logo.svg" />
 			<Info />
 		</Breadcrumb>
