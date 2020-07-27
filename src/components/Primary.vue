@@ -7,6 +7,9 @@
             <el-tab-pane label="百科贡献" name="cj">
                 <Cj :uid="uid" />
             </el-tab-pane>
+            <el-tab-pane label="词条贡献" name="wiki">
+                <Wiki :uid="uid" />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -14,6 +17,7 @@
 <script>
 import Post from "@/components/Post.vue";
 import Cj from "@/components/Cj.vue";
+import Wiki from "@/components/Wiki.vue";
 export default {
     name: "Primary",
     props: ["uid"],
@@ -29,7 +33,8 @@ export default {
     },
     components: {
         Post,
-        Cj
+        Cj,
+        Wiki
     },
 };
 </script>
