@@ -22,13 +22,13 @@
 <script>
 import axios from "axios";
 import { __server } from "@jx3box/jx3box-common/js/jx3box.json";
-import User from '@jx3box/jx3box-common/js/utils'
+import User from '@jx3box/jx3box-common/js/user'
 export default {
     name: "Info",
     props: ["uid","userdata"],
     data: function() {
         return {
-            isAdmin : User.group >= 64
+            isAdmin : User.getInfo().group >= 64
         };
     },
     computed: {},
