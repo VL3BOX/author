@@ -1,5 +1,5 @@
 <template>
-    <div class="m-info">
+    <div class="m-info" v-if="isAdmin">
         <el-button
             type="danger"
             size="mini"
@@ -22,11 +22,14 @@
 <script>
 import axios from "axios";
 import { __server } from "@jx3box/jx3box-common/js/jx3box.json";
+import User from '@jx3box/jx3box-common/js/utils'
 export default {
     name: "Info",
     props: ["uid","userdata"],
     data: function() {
-        return {};
+        return {
+            isAdmin : User.group >= 64
+        };
     },
     computed: {},
     methods: {
@@ -83,7 +86,8 @@ export default {
             });
         },
     },
-    mounted: function() {},
+    mounted: function() {
+    },
 };
 </script>
 
