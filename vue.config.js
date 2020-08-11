@@ -5,6 +5,17 @@ const Setting = require("./setting.json");
 
 module.exports = {
 
+    devServer: {
+        proxy: {
+            "/api": {
+                target: "https://next.jx3box.com",
+                onProxyReq: function(request) {
+                    request.setHeader("origin", "");
+                },
+            },
+        },
+    },
+
     //❤️ define path for static files ~
     publicPath:
         //FOR Localhost => development
