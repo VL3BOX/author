@@ -1,6 +1,6 @@
 <template>
     <div class="m-post" v-loading="loading">
-        <el-timeline class="m-post-list" v-if="list.length">
+        <el-timeline class="m-post-list" v-if="list && list.length">
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
@@ -18,6 +18,8 @@
                 </p>
             </el-timeline-item>
         </el-timeline>
+        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
+        </el-alert>
 
         <el-pagination
             class="m-author-pages"
@@ -42,7 +44,7 @@ export default {
     props: ["uid"],
     data: function() {
         return {
-            loading : false,
+            loading: false,
             list: [],
             total: 1,
         };
@@ -77,9 +79,9 @@ export default {
         dateFormat: function(val) {
             return dateFormat(new Date(val));
         },
-        typeFormat : function (type){
+        typeFormat: function(type) {
             return JX3BOX.__postType[type];
-        }
+        },
     },
     mounted: function() {
         this.changePage();

@@ -18,6 +18,8 @@
                 </p>
             </el-timeline-item>
         </el-timeline>
+        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
+        </el-alert>
 
         <el-pagination
             class="m-author-pages"
