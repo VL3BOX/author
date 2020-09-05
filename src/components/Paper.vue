@@ -1,6 +1,6 @@
 <template>
     <div class="m-post" v-loading="loading">
-        <el-timeline class="m-post-list" v-if="list.length">
+        <el-timeline class="m-post-list" v-if="list && list.length">
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
