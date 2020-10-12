@@ -1,5 +1,5 @@
 <template>
-    <div class="m-box">
+    <div class="m-author-body">
         <el-tabs class="m-tabs" v-model="active" @tab-click="changeTab">
             <el-tab-pane label="最新作品" name="work">
                 <Post :uid="uid" />

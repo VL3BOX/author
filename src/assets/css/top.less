@@ -1,0 +1,104 @@
+@avatar : 180px;
+
+.m-author-header{
+    .clearfix;
+    border-bottom: 1px solid #e1e4e8;
+    margin-bottom: 20px;
+    overflow: hidden;
+    .clearfix;
+    padding:20px;
+    .r(4px);
+}
+.m-author-avatar {
+    .u-avatar{
+        .w(@avatar);
+        .db;
+        .r(4px);
+    }
+    .fl;
+}
+
+.m-author-info {
+    .ml(@avatar + 20px);
+    // border-bottom: 1px solid #e1e4e8;
+    // padding-bottom: 10px;
+    // margin-bottom: 10px;
+    .u-name {
+        font-size: 26px;
+        color: #333;
+        font-weight: 700;
+        display: block;
+        white-space: nowrap;
+        word-wrap: normal;
+        word-break: keep-all;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .u-uid {
+        font-size: 14px;
+        line-height: 2;
+        color: #666;
+        display: block;
+    }
+    .u-join {
+        .db;
+        .fz(12px, 20px);
+        color: #666;
+
+        .u-icon-join {
+            .dbi;
+            .y(top);
+            .mr(5px);
+            .h(20px);
+            .mt(2px);
+            svg {
+                fill: #666;
+            }
+        }
+    }
+    .u-bio {
+        .fz(13px, 2);
+        // border-bottom: 1px solid #e1e4e8;
+        padding-bottom: 10px;
+        // margin-bottom: 10px;
+    }
+    .u-links {
+        padding-top: 10px;
+        border-top: 1px dashed #eee;
+        // border-bottom: 1px solid #eee;
+        a {
+            .db;
+            margin: 10px 0;
+            .fz(13px, 20px);
+            &:hover {
+                color: #f39;
+            }
+        }
+        svg {
+            .size(16px);
+            .mr(10px);
+            .fl;
+        }
+    }
+}
+
+@media screen and (max-width:@phone){
+    .m-author-header{
+        border-radius:0;
+    }
+    .m-author-avatar{
+        .u-avatar{
+            .w(80px);
+            .mr(20px);
+        }
+    }
+    .m-author-info{
+        margin-left:0;
+
+        .u-bio{
+            border-top:1px solid @border-hr;
+            padding-top:20px;
+            .mt(20px);
+        }
+    }
+}
