@@ -1,13 +1,13 @@
 <template>
     <div class="m-extend">
-        <ins 
+        <!-- <ins 
             class="adsbygoogle"
             style="display:block;max-width:100%;overflow:hidden;margin:10px;"
             data-ad-client="ca-pub-4388499329141185"
             data-ad-slot="9773281887"
             data-ad-format="auto"
             data-full-width-responsive="true"
-        ></ins>
+        ></ins> -->
         <!-- <Github_REPO REPO="author" coder="6917,8"></Github_REPO> -->
     </div>
 </template>
