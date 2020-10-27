@@ -13,7 +13,7 @@
                         :href="postLink(item.post.post_type, item.post.ID)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.post.post_title }}</a
+                        >{{ item.post.post_title || '无标题' }}</a
                     >
                 </p>
             </el-timeline-item>

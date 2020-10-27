@@ -35,20 +35,20 @@
 </template>
 
 <script>
-import {__bb,__Root} from '@jx3box/jx3box-common/js/jx3box.json'
-import axios from 'axios'
-import {types} from '@jx3box/jx3box-data/data/common/wiki.json'
-const API = __bb + 'api/wiki/user_item/'
+import { __bb, __Root } from "@jx3box/jx3box-common/js/jx3box.json";
+import axios from "axios";
+import types from "@/assets/data/types.json";
+const API = __bb + "api/wiki/user_item/";
 export default {
     name: "Wiki",
     props: ["uid"],
     data: function() {
         return {
-            loading : false,
+            loading: false,
             list: [],
             total: 1,
-            per : 10,
-            types
+            per: 10,
+            types,
         };
     },
     methods: {
@@ -59,9 +59,9 @@ export default {
                     params: {
                         uid: this.uid,
                         page: i,
-                        size:this.per,
-                        status : 1,
-                        anonymous:0
+                        size: this.per,
+                        status: 1,
+                        anonymous: 0,
                     },
                 })
                 .then((res) => {
@@ -77,13 +77,13 @@ export default {
             window.scrollTo(0, 0);
         },
         postLink: function(pid) {
-            return __Root + 'wiki/?pid=' + pid
+            return __Root + "wiki/?pid=" + pid;
         },
     },
     filters: {
-        typeFormat : function (type){
+        typeFormat: function(type) {
             return types[type];
-        }
+        },
     },
     mounted: function() {
         this.changePage();
@@ -91,5 +91,4 @@ export default {
 };
 </script>
 
-<style lang="less">
-</style>
+<style lang="less"></style>
