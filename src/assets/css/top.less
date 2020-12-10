@@ -65,19 +65,22 @@
     .u-links {
         padding-top: 10px;
         border-top: 1px dashed #eee;
-        // border-bottom: 1px solid #eee;
-        a {
+        a,span {
             .db;
-            margin: 10px 0;
-            .fz(13px, 20px);
+            margin: 10px 7px;
+            .fz(12px, 20px);
+            color:#555;
+            
+        }
+        a{
             &:hover {
                 color: #f39;
             }
         }
-        svg {
+        svg,img{
             .size(16px);
-            .mr(10px);
-            .fl;
+            .mr(6px);
+            .y(-3px);
         }
     }
 }
@@ -99,6 +102,14 @@
             border-top:1px solid @border-hr;
             padding-top:20px;
             .mt(20px);
+        }
+        .u-links{
+            .el-col{
+                .w(100%);
+                a,span{
+                    margin:5px 0;
+                }
+            }
         }
     }
 }
