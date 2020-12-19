@@ -18,9 +18,16 @@
                     ><img svg-inline src="../assets/img/join.svg"/></i
                 ><span>加入于 {{ data.created_at | time }}</span></span
             >
+            <div class="u-medals" v-if="medals && medals.length">
+                <span class="u-medal" v-for="(item, i) in medals" :key="i"
+                    ><img
+                        :src="item.medal | showTeamMedal"
+                        :title="medal_map[item.medal]"
+                /></span>
+            </div>
             <div class="u-bio">{{ data.bio }}</div>
 
-            <div class="u-links" v-if="data.weibo_name || data.github_name">
+            <div class="u-links">
                 <el-row :gutter="20">
                     <el-col :span="6"
                         ><div>
@@ -79,8 +86,6 @@
                 </el-row>
             </div>
         </div>
-
-        <!-- TODO:加入的团队，勋章等 -->
     </div>
 </template>
 
@@ -88,12 +93,16 @@
 import { showAvatar, getTVlink } from "@jx3box/jx3box-common/js/utils";
 import { default_avatar, __imgPath } from "@jx3box/jx3box-common/js/jx3box";
 import dateFormat from "../utils/dateFormat";
+import { getUserMedals } from "@/service/author";
+import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
 export default {
     name: "Me",
     props: ["userdata"],
     data: function() {
         return {
-            data: {},
+            // data: {},
+            medals : [],
+            medal_map
         };
     },
     computed: {
@@ -108,19 +117,40 @@ export default {
         tv_img: function() {
             return __imgPath + "image/tv/" + this.data.tv_type + ".png";
         },
+        uid : function (){
+            return this.data.uid
+        },
+        data : function (){
+            return this.userdata
+        }
     },
     filters: {
         time: (val) => {
             return dateFormat(new Date(val));
         },
+        showTeamMedal : function (val){
+            return __imgPath + 'image/medals/team/' + val + '-20.gif'
+        }
     },
-    methods: {},
+    methods: {
+        loadMedals : function (){
+            if(!this.uid) return
+            getUserMedals(this.uid).then((res) => {
+                this.medals = res.data.data
+            })
+        }
+    },
     watch: {
-        userdata: function() {
-            this.data = this.userdata;
-        },
+        // userdata: function() {
+        //     this.data = this.userdata;
+        // },
+        uid : function (){
+            this.loadMedals()
+        }
     },
-    mounted: function() {},
+    mounted: function() {
+        this.loadMedals()
+    },
 };
 </script>
 
