@@ -48,7 +48,7 @@ export default {
             let data = res.data.data;
             this.userdata = data;
             this.name = data.name;
-            this.root = "/author?uid=" + data.uid;
+            this.root = "/author/" + data.uid;
         });
     },
     components: {
