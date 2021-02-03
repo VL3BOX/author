@@ -16,12 +16,12 @@
             <el-tab-pane label="TA的试卷" name="paper">
                 <Paper :uid="uid" />
             </el-tab-pane>
-            <el-tab-pane label="TA的清单" name="plan">
+            <!-- <el-tab-pane label="TA的清单" name="plan">
                 <Plan :uid="uid" />
             </el-tab-pane>
             <el-tab-pane label="TA的小册" name="collection">
                 <Collection :uid="uid" />
-            </el-tab-pane>
+            </el-tab-pane> -->
         </el-tabs>
     </div>
 </template>
