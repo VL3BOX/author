@@ -53,8 +53,8 @@ export default {
         // Wiki,
         Question,
         Paper,
-        Collection,
-        Plan
+        // Collection,
+        // Plan
     },
 };
 </script>
