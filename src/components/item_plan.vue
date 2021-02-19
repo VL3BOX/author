@@ -4,16 +4,16 @@
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
-                :timestamp="item.post.post_modified | dateFormat"
+                :timestamp="item.updated | dateFormat"
                 placement="top"
             >
-                <h4 class="u-type">文集小册</h4>
+                <h4 class="u-type">{{item.type | showTypeLabel}}</h4>
                 <p>
                     <a
-                        :href="postLink(item.post.post_type, item.post.ID)"
+                        :href="postLink(item.id)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.post.post_title || "无标题" }}</a
+                        >{{ item.title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
@@ -24,10 +24,11 @@
         <el-pagination
             class="m-author-pages"
             background
+            :hide-on-single-page="true"
             layout="prev, pager, next"
             :total="total"
-            @current-change="changePage"
-            :hide-on-single-page="true"
+            :current-page.sync="page"
+            :page-size="per"
         >
         </el-pagination>
     </div>
@@ -37,6 +38,10 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getPlans } from "@/service/helper.js";
+const types = {
+    "1" : '物品清单',
+    "2" : "装备清单"
+}
 export default {
     props: ["uid"],
     data: function() {
@@ -44,16 +49,25 @@ export default {
             loading: false,
             list: [],
             total: 1,
+            per : 10,
+            page : 1,
+
+            types
         };
     },
+    computed : {
+        params : function (){
+            return {
+                user_id: this.uid,
+                page: this.page,
+                limit: this.per
+            }
+        }
+    },
     methods: {
-        loadData: function(i = 1) {
+        loadData: function() {
             this.loading = true;
-            getPlans({
-                uid: this.uid,
-                page: i,
-                limit: 10,
-            })
+            getPlans(this.params)
                 .then((res) => {
                     this.list = res.data.data.data;
                     this.total = res.data.data.total;
@@ -62,21 +76,28 @@ export default {
                     this.loading = false;
                 });
         },
-        changePage(i) {
-            this.loadData(i);
-            window.scrollTo(0, 0);
-        },
         postLink: function(id) {
             return getLink("item_plan", id);
         },
     },
     filters: {
         dateFormat: function(val) {
-            return dateFormat(new Date(val));
+            return dateFormat(new Date(~~val*1000));
         },
+        showTypeLabel : function (val){
+            return types[val]
+        }
+    },
+    watch : {
+        params : {
+            deep:true,
+            immediate:true,
+            handler : function (){
+                this.loadData();
+            }
+        }
     },
     mounted: function() {
-        this.changePage();
     },
 };
 </script>

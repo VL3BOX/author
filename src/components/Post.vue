@@ -13,7 +13,7 @@
                         :href="postLink(item.post.post_type, item.post.ID)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.post.post_title || '无标题' }}</a
+                        >{{ item.post.post_title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
@@ -24,41 +24,45 @@
         <el-pagination
             class="m-author-pages"
             background
+            :hide-on-single-page="true"
             layout="prev, pager, next"
             :total="total"
-            @current-change="changePage"
-            :hide-on-single-page="true"
+            :current-page.sync="page"
+            :page-size="per"
         >
         </el-pagination>
     </div>
 </template>
 
 <script>
-const { JX3BOX, Utils } = require("@jx3box/jx3box-common");
-const axios = require("axios");
-const API = JX3BOX.__server + "post/list";
-import { getRewrite, postLink } from "@jx3box/jx3box-common/js/utils";
+import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
+import { getPosts } from "@/service/server.js";
+import { __postType } from "@jx3box/jx3box-common/js/jx3box.json";
 export default {
-    name: "mLine",
     props: ["uid"],
     data: function() {
         return {
             loading: false,
             list: [],
             total: 1,
+            per: 10,
+            page: 1,
         };
+    },
+    computed: {
+        params: function() {
+            return {
+                author: this.uid,
+                page: this.page,
+                per: this.per,
+            };
+        },
     },
     methods: {
         loadData: function(i = 1) {
             this.loading = true;
-            axios
-                .get(API, {
-                    params: {
-                        author: this.uid,
-                        page: i,
-                    },
-                })
+            getPosts(this.params)
                 .then((res) => {
                     this.list = res.data.data.list;
                     this.total = res.data.data.total;
@@ -67,12 +71,8 @@ export default {
                     this.loading = false;
                 });
         },
-        changePage(i) {
-            this.loadData(i);
-            window.scrollTo(0, 0);
-        },
-        postLink: function(type, pid) {
-            return postLink(type, pid);
+        postLink: function(type, id) {
+            return getLink(type, id);
         },
     },
     filters: {
@@ -80,12 +80,19 @@ export default {
             return dateFormat(new Date(val));
         },
         typeFormat: function(type) {
-            return JX3BOX.__postType[type];
+            return __postType[type];
         },
     },
-    mounted: function() {
-        this.changePage();
+    watch: {
+        params: {
+            deep: true,
+            immediate: true,
+            handler: function() {
+                this.loadData();
+            },
+        },
     },
+    mounted: function() {},
 };
 </script>
 

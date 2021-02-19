@@ -4,16 +4,16 @@
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
-                :timestamp="item.post.post_modified | dateFormat"
+                :timestamp="item.updated | dateFormat"
                 placement="top"
             >
                 <h4 class="u-type">文集小册</h4>
                 <p>
                     <a
-                        :href="postLink(item.post.post_type, item.post.ID)"
+                        :href="postLink(item.id)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.post.post_title || "无标题" }}</a
+                        >{{ item.title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
@@ -24,10 +24,11 @@
         <el-pagination
             class="m-author-pages"
             background
+            :hide-on-single-page="true"
             layout="prev, pager, next"
             :total="total"
-            @current-change="changePage"
-            :hide-on-single-page="true"
+            :current-page.sync="page"
+            :page-size="per"
         >
         </el-pagination>
     </div>
@@ -44,16 +45,23 @@ export default {
             loading: false,
             list: [],
             total: 1,
+            per : 10,
+            page : 1
         };
     },
+    computed : {
+        params : function (){
+            return {
+                user_id: this.uid,
+                page: this.page,
+                limit: this.per
+            }
+        }
+    },
     methods: {
-        loadData: function(i = 1) {
+        loadData: function() {
             this.loading = true;
-            getCollections({
-                uid: this.uid,
-                page: i,
-                limit: 10,
-            })
+            getCollections(this.params)
                 .then((res) => {
                     this.list = res.data.data.data;
                     this.total = res.data.data.total;
@@ -62,21 +70,26 @@ export default {
                     this.loading = false;
                 });
         },
-        changePage(i) {
-            this.loadData(i);
-            window.scrollTo(0, 0);
-        },
         postLink: function(id) {
             return getLink("collection", id);
         },
     },
     filters: {
         dateFormat: function(val) {
-            return dateFormat(new Date(val));
+            return dateFormat(new Date(~~val*1000));
         },
     },
+    watch : {
+        params : {
+            deep:true,
+            immediate:true,
+            handler : function (){
+                this.loadData();
+            }
+        }
+    },
     mounted: function() {
-        this.changePage();
+        
     },
 };
 </script>

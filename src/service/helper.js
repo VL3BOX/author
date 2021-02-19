@@ -6,8 +6,9 @@ import {
 } from "@jx3box/jx3box-common/js/axios";
 
 const $http = axios.create({
-    withCredentials: true,
-    baseURL: process.env.NODE_ENV === "production" ? __helperUrl : "/",
+    // withCredentials: true,
+    // baseURL: process.env.NODE_ENV === "production" ? __helperUrl : "/",
+    baseURL: __helperUrl,
 });
 installInterceptors($http);
 
@@ -29,4 +30,15 @@ function getPlans(params){
     });
 }
 
-export { $http, getCollections,getPlans };
+function getWikis(params){
+    return $http({
+        method: "GET",
+        // url: `/api/my/wiki/posts`,
+        url: `/api/wiki/posts`,
+        headers: { Accept: "application/prs.helper.v2+json" },
+        params: params,
+    });
+    
+}
+
+export { $http, getCollections,getPlans,getWikis };

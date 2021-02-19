@@ -13,7 +13,7 @@
                         :href="postLink(item.id)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.title }}</a
+                        >{{ item.title || '无标题' }}</a
                     >
                 </p>
             </el-timeline-item>
@@ -24,45 +24,46 @@
         <el-pagination
             class="m-author-pages"
             background
-            layout="prev, pager, next"
             :hide-on-single-page="true"
+            layout="prev, pager, next"
             :total="total"
+            :current-page.sync="page"
             :page-size="per"
-            @current-change="changePage"
         >
         </el-pagination>
     </div>
 </template>
 
 <script>
-import axios from "axios";
+import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
-import { __next,__Root } from "@jx3box/jx3box-common/js/jx3box.json";
-const API = __next + "api/question/public-list";
-// const API = "/api/question/public-list";
+import { getQuestions } from "@/service/next.js";
 
 export default {
     name: "Question",
-    props: ['uid'],
+    props: ["uid"],
     data: function() {
         return {
             loading: false,
             list: [],
             total: 1,
-            per : 10,
+            per: 10,
+            page: 1,
         };
     },
+    computed: {
+        params: function() {
+            return {
+                uid: this.uid,
+                pageIndex: this.page,
+                pageSize: this.per,
+            };
+        },
+    },
     methods: {
-        loadData: function(i = 1) {
+        loadData: function() {
             this.loading = true;
-            axios
-                .get(API, {
-                    params: {
-                        uid: this.uid,
-                        pageIndex: i,
-                        pageSize : this.per
-                    },
-                })
+            getQuestions(this.params)
                 .then((res) => {
                     this.list = res.data.data;
                     this.total = res.data.page.total;
@@ -71,22 +72,25 @@ export default {
                     this.loading = false;
                 });
         },
-        changePage(i) {
-            this.loadData(i);
-            window.scrollTo(0, 0);
-        },
-        postLink: function(pid) {
-            return __Root + 'exam' + "/#/question/" + pid;
+        postLink: function(id) {
+            return getLink("question", id);
         },
     },
     filters: {
         dateFormat: function(val) {
-            return dateFormat(new Date(~~val*1000));
+            return dateFormat(new Date(~~val * 1000));
         },
     },
-    mounted: function() {
-        this.loadData(1);
+    watch: {
+        params: {
+            deep: true,
+            immediate: true,
+            handler: function() {
+                this.loadData();
+            },
+        },
     },
+    mounted: function() {},
 };
 </script>
 

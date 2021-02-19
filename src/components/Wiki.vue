@@ -4,16 +4,16 @@
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
-                :timestamp="item.created_at"
+                :timestamp="item.updated | dateFormat"
                 placement="top"
             >
-                <h4 class="u-type">{{ item.type | typeFormat }}</h4>
+                <h4 class="u-type">{{ item.type | showType}}百科</h4>
                 <p>
                     <a
-                        :href="postLink(item.wiki_id)"
+                        :href="postLink(item.type, item.source_id)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.title }}</a
+                        >{{ item.title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
@@ -24,47 +24,46 @@
         <el-pagination
             class="m-author-pages"
             background
+            :hide-on-single-page="true"
             layout="prev, pager, next"
             :total="total"
+            :current-page.sync="page"
             :page-size="per"
-            @current-change="changePage"
-            :hide-on-single-page="true"
         >
         </el-pagination>
     </div>
 </template>
 
 <script>
-import { __bb, __Root } from "@jx3box/jx3box-common/js/jx3box.json";
-import axios from "axios";
-import types from "@/assets/data/types.json";
-const API = __bb + "api/wiki/user_item/";
+import { getLink } from "@jx3box/jx3box-common/js/utils";
+import dateFormat from "../utils/dateFormat";
+import { getWikis } from "@/service/helper.js";
+import {__wikiType} from "@jx3box/jx3box-common/js/jx3box.json"
 export default {
-    name: "Wiki",
-    props: ["uid"],
+    name: "Cj",
+    props: ['uid'],
     data: function() {
         return {
             loading: false,
             list: [],
             total: 1,
-            per: 10,
-            types,
+            per : 10,
+            page : 1,
         };
     },
+    computed : {
+        params : function (){
+            return {
+                user_id: this.uid,
+                page: this.page,
+                limit: this.per
+            }
+        }
+    },
     methods: {
-        loadData: function(i = 1) {
+        loadData: function() {
             this.loading = true;
-            axios
-                .get(API, {
-                    params: {
-                        uid: this.uid,
-                        page: i,
-                        size: this.per,
-                        status: 1,
-                        anonymous: 0,
-                    },
-                })
-                .then((res) => {
+            getWikis(this.params).then((res) => {
                     this.list = res.data.data.data;
                     this.total = res.data.data.total;
                 })
@@ -72,21 +71,28 @@ export default {
                     this.loading = false;
                 });
         },
-        changePage(i) {
-            this.loadData(i);
-            window.scrollTo(0, 0);
-        },
-        postLink: function(pid) {
-            return __Root + "wiki/?pid=" + pid;
+        postLink: function(type, id) {
+            return getLink(type, id);
         },
     },
     filters: {
-        typeFormat: function(type) {
-            return types[type];
+        dateFormat: function(val) {
+            return dateFormat(new Date(~~val*1000));
+        },
+        showType: function(type) {
+            return __wikiType[type];
         },
     },
+    watch : {
+        params : {
+            deep:true,
+            immediate:true,
+            handler : function (){
+                this.loadData();
+            }
+        }
+    },
     mounted: function() {
-        this.changePage();
     },
 };
 </script>
