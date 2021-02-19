@@ -19,6 +19,9 @@ module.exports = {
                     request.setHeader("origin", "");
                 },
             },
+            "/api/user":{
+                target: "https://helper.jx3box.com",
+            }
         },
     },
 

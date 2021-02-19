@@ -12,6 +12,12 @@ const $http = axios.create({
 });
 installInterceptors($http);
 
+const $helper = axios.create({
+    withCredentials: true,
+    baseURL: process.env.NODE_ENV === "production" ? __helperUrl : "/",
+});
+installInterceptors($http);
+
 function getCollections(params) {
     return $http({
         method: "GET",
@@ -21,7 +27,7 @@ function getCollections(params) {
     });
 }
 
-function getPlans(params){
+function getPlans(params) {
     return $http({
         method: "GET",
         url: `/api/item_plans`,
@@ -30,7 +36,7 @@ function getPlans(params){
     });
 }
 
-function getWikis(params){
+function getWikis(params) {
     return $http({
         method: "GET",
         // url: `/api/my/wiki/posts`,
@@ -38,7 +44,15 @@ function getWikis(params){
         headers: { Accept: "application/prs.helper.v2+json" },
         params: params,
     });
-    
 }
 
-export { $http, getCollections,getPlans,getWikis };
+function muteUser(uid, remark) {
+    return $helper.put(`/api/user/${uid}/mute`, {
+        params: {
+            remark: remark,
+        },
+        headers: { Accept: "application/prs.helper.v2+json" },
+    });
+}
+
+export { $http,$helper, getCollections, getPlans, getWikis, muteUser };

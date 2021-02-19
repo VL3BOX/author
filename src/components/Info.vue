@@ -21,8 +21,9 @@
 
 <script>
 import axios from "axios";
-import { __server } from "@jx3box/jx3box-common/js/jx3box.json";
+// import { __server } from "@jx3box/jx3box-common/js/jx3box.json";
 import User from '@jx3box/jx3box-common/js/user'
+import {muteUser} from '@/service/helper.js'
 export default {
     name: "Info",
     props: ["uid","userdata"],
