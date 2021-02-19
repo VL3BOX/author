@@ -21,6 +21,9 @@ module.exports = {
             },
             "/api/user":{
                 target: "https://helper.jx3box.com",
+            },
+            "/user/admin":{
+                target: "https://server.jx3box.com",
             }
         },
     },

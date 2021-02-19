@@ -12,10 +12,22 @@ const $http = axios.create({
 });
 installInterceptors($http);
 
+const $server = axios.create({
+    withCredentials: true,
+    baseURL: process.env.NODE_ENV === "production" ? __server : "/",
+});
+
 function getPosts(params) {
     return $http.get("post/list", {
         params: params,
     });
 }
 
-export { getPosts };
+function checkUser(uid, status) {
+    return $server.post("user/admin", {
+        ID: uid,
+        user_status: status,
+    });
+}
+
+export { getPosts, checkUser };
