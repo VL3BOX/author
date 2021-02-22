@@ -7,19 +7,19 @@ module.exports = {
 
     devServer: {
         proxy: {
-            "/api": {
-                target: "https://next.jx3box.com",
-                onProxyReq: function(request) {
-                    request.setHeader("origin", "");
-                },
-            },
+            // "/api": {
+            //     target: "https://next.jx3box.com",
+            //     onProxyReq: function(request) {
+            //         request.setHeader("origin", "");
+            //     },
+            // },
             "/team": {
                 target: "https://next.jx3box.com",
                 onProxyReq: function(request) {
                     request.setHeader("origin", "");
                 },
             },
-            "/api/user":{
+            "/api":{
                 target: "https://helper.jx3box.com",
             },
             "/user/admin":{

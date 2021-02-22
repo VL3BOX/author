@@ -46,11 +46,9 @@ function getWikis(params) {
     });
 }
 
-function muteUser(uid, remark) {
-    return $helper.put(`/api/user/${uid}/mute`, {
-        params: {
-            remark: remark,
-        },
+function muteUser(uid, params) {
+    return $helper.put(`/api/user/${uid}/mute`, params,{
+        // params: params,
         headers: { Accept: "application/prs.helper.v2+json" },
     });
 }
