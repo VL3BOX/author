@@ -12,7 +12,7 @@
         </Breadcrumb>
         <div class="m-author">
             <Me :userdata="userdata" />
-            <Primary :uid="uid" />
+            <Primary :uid="uid" v-if="uid" />
             <Footer></Footer>
         </div>
     </div>
