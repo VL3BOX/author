@@ -1,4 +1,6 @@
 import { $next } from "@jx3box/jx3box-common/js/axios";
+import { __imgPath } from "@jx3box/jx3box-common/js/jx3box.json";
+import axios from 'axios'
 
 function getDouyu(ids) {
     return $next.get("/team/douyu", {
@@ -12,4 +14,8 @@ function getUserMedals(uid) {
     return $next.get("/api/user/" + uid + "/medals");
 }
 
-export { getDouyu, getUserMedals };
+function getFrames() {
+    return axios.get(__imgPath + "data/user_avatar_frame.json");
+}
+
+export { getDouyu, getUserMedals, getFrames };

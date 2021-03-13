@@ -6,7 +6,11 @@
                 id="m-setting-avatar-img"
                 :src="avatar"
                 :alt="data.name || '匿名'"
+                :class="{ isCircle }"
             />
+            <i class="u-avatar-frame" v-if="frameName"
+                ><img :src="frameUrl"
+            /></i>
         </div>
 
         <div class="m-author-info">
@@ -93,16 +97,18 @@
 import { showAvatar, getTVlink } from "@jx3box/jx3box-common/js/utils";
 import { default_avatar, __imgPath } from "@jx3box/jx3box-common/js/jx3box";
 import dateFormat from "../utils/dateFormat";
-import { getUserMedals } from "@/service/author";
+import { getUserMedals,getFrames } from "@/service/author";
 import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
+import frames from "@jx3box/jx3box-common/data/user_avatar_frame.json";
 export default {
     name: "Me",
     props: ["userdata"],
     data: function() {
         return {
             // data: {},
-            medals : [],
-            medal_map
+            medals: [],
+            medal_map,
+            frames
         };
     },
     computed: {
@@ -111,45 +117,67 @@ export default {
                 ? showAvatar(this.data.avatar, "l")
                 : default_avatar;
         },
+        avatar_frame : function (){
+            return this.data.avatar_frame || ''
+        },
         tv_link: function() {
             return getTVlink(this.data.tv_type, this.data.tv_id) || "";
         },
         tv_img: function() {
             return __imgPath + "image/tv/" + this.data.tv_type + ".png";
         },
-        uid : function (){
-            return this.data.uid
+        uid: function() {
+            return this.data.uid;
         },
-        data : function (){
-            return this.userdata
-        }
+        data: function() {
+            return this.userdata;
+        },
+        frameName : function (){
+            console.log(this.frames)
+            return (this.avatar_frame && this.frames[this.avatar_frame]) ? this.avatar_frame : ''
+        },
+        frameUrl : function (){
+            if(this.frameName){
+                let fileName = this.frames[this.frameName].files.l.file
+                return __imgPath + `image/avatar/${this.frameName}/${fileName}`
+            }
+            return ''
+        },
+        isCircle: function() {
+            return this.frameName && this.frames[this.frameName].style == "circle";
+        },
     },
     filters: {
         time: (val) => {
             return dateFormat(new Date(val));
         },
-        showTeamMedal : function (val){
-            return __imgPath + 'image/medals/team/' + val + '-20.gif'
-        }
+        showTeamMedal: function(val) {
+            return __imgPath + "image/medals/team/" + val + "-20.gif";
+        },
     },
     methods: {
-        loadMedals : function (){
-            if(!this.uid) return
+        loadMedals: function() {
+            if (!this.uid) return;
             getUserMedals(this.uid).then((res) => {
-                this.medals = res.data.data
-            })
-        }
+                this.medals = res.data.data;
+            });
+        },
+        loadFrames: function() {
+            getFrames().then((res) => {
+                if (res.data) {
+                    this.frames = res.data || [];
+                }
+            });
+        },
     },
     watch: {
-        // userdata: function() {
-        //     this.data = this.userdata;
-        // },
-        uid : function (){
-            this.loadMedals()
-        }
+        uid: function() {
+            this.loadMedals();
+        },
     },
     mounted: function() {
-        this.loadMedals()
+        this.loadMedals();
+        this.loadFrames()
     },
 };
 </script>
