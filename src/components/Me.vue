@@ -4,7 +4,7 @@
             <img
                 class="u-avatar"
                 id="m-setting-avatar-img"
-                :src="avatar"
+                :src="avatar | showAvatar"
                 :alt="data.name || '匿名'"
                 :class="{ isCircle }"
             />
@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { showAvatar, getTVlink } from "@jx3box/jx3box-common/js/utils";
+import { getThumbnail, getTVlink } from "@jx3box/jx3box-common/js/utils";
 import { default_avatar, __imgPath } from "@jx3box/jx3box-common/js/jx3box";
 import dateFormat from "../utils/dateFormat";
 import { getUserMedals,getFrames } from "@/service/author";
@@ -113,9 +113,7 @@ export default {
     },
     computed: {
         avatar: function() {
-            return this.data.avatar
-                ? showAvatar(this.data.avatar, "l")
-                : default_avatar;
+            return this.data.avatar || default_avatar;
         },
         avatar_frame : function (){
             return this.data.avatar_frame || ''
@@ -133,7 +131,6 @@ export default {
             return this.userdata;
         },
         frameName : function (){
-            console.log(this.frames)
             return (this.avatar_frame && this.frames[this.avatar_frame]) ? this.avatar_frame : ''
         },
         frameUrl : function (){
@@ -154,6 +151,9 @@ export default {
         showTeamMedal: function(val) {
             return __imgPath + "image/medals/team/" + val + "-20.gif";
         },
+        showAvatar : function (val){
+            return getThumbnail(val,180,true)
+        }
     },
     methods: {
         loadMedals: function() {
