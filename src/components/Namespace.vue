@@ -2,9 +2,9 @@
   <div class="m-post" v-loading="loading">
     <el-timeline class="m-post-list" v-if="list && list.length">
       <el-timeline-item v-for="(item, i) in list" :key="i" :timestamp="item.checked_at | dateFormat" placement="top">
-        <h4 class="u-type">铭牌名称</h4>
+        <h4 class="u-type">铭牌关键词</h4>
         <p>
-          <a :href="item.link || links" class="u-title" target="_blank">{{ item.key || '未知' }}</a>
+          <a :href="item.link || defult_link" class="u-title" target="_blank">{{ item.key || '未知' }}</a>
         </p>
       </el-timeline-item>
     </el-timeline>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { getLink } from '@jx3box/jx3box-common/js/utils'
 import dateFormat from '../utils/dateFormat'
 import { getNamespace } from '@/service/helper.js'
 export default {
@@ -27,7 +26,7 @@ export default {
       total: 1,
       per: 10,
       page: 1,
-      links: 'https://www.jx3box.com',
+      defult_link: 'https://www.jx3box.com',
     }
   },
   computed: {

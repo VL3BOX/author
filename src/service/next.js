@@ -1,4 +1,4 @@
-import { $next } from "@jx3box/jx3box-common/js/axios";
+import { $next } from "./axios";
 
 function getPapers(params) {
     return $next.get("api/question/user-exam-paper",{
