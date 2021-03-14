@@ -1,24 +1,7 @@
-import axios from "axios";
-import { __server } from "@jx3box/jx3box-common/js/jx3box.json";
-import {
-    installInterceptors,
-    installNextInterceptors,
-} from "@jx3box/jx3box-common/js/axios";
-
-const $http = axios.create({
-    // withCredentials: true,
-    // baseURL: process.env.NODE_ENV === "production" ? __server : "/",
-    baseURL: __server,
-});
-installInterceptors($http);
-
-const $server = axios.create({
-    withCredentials: true,
-    baseURL: process.env.NODE_ENV === "production" ? __server : "/",
-});
+import { $server }  from "./axios";
 
 function getPosts(params) {
-    return $http.get("post/list", {
+    return $server.get("post/list", {
         params: params,
     });
 }

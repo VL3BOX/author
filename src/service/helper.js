@@ -1,73 +1,44 @@
-import axios from "axios";
-import { __helperUrl } from "@jx3box/jx3box-common/js/jx3box.json";
-import {
-    installInterceptors,
-    installNextInterceptors,
-} from "@jx3box/jx3box-common/js/axios";
-
-const $http = axios.create({
-    // withCredentials: true,
-    // baseURL: process.env.NODE_ENV === "production" ? __helperUrl : "/",
-    baseURL: __helperUrl,
-});
-installInterceptors($http);
-
-const $helper = axios.create({
-    withCredentials: true,
-    baseURL: process.env.NODE_ENV === "production" ? __helperUrl : "/",
-});
-installInterceptors($http);
+import { $helper} from './axios'
 
 function getCollections(params) {
-    return $http({
+    return $helper({
         method: "GET",
         url: `/api/post/collections`,
-        headers: { Accept: "application/prs.helper.v2+json" },
         params: params,
     });
 }
 
+<<<<<<< HEAD
 function getNamespaces(params) {
     return $http({
+=======
+function getNamespace(params) {
+    return $helper({
+>>>>>>> 476568ea95cb104c3fb2f72bf60f0974c1e6f6b2
         method: "GET",
         url: `/api/namespaces`,
-        headers: { Accept: "application/prs.helper.v2+json" },
         params: params,
     });
 }
 
 function getPlans(params) {
-    return $http({
+    return $helper({
         method: "GET",
         url: `/api/item_plans`,
-        headers: { Accept: "application/prs.helper.v2+json" },
         params: params,
     });
 }
 
 function getWikis(params) {
-    return $http({
+    return $helper({
         method: "GET",
-        // url: `/api/my/wiki/posts`,
         url: `/api/wiki/posts`,
-        headers: { Accept: "application/prs.helper.v2+json" },
         params: params,
     });
 }
 
 function muteUser(uid, params) {
-    return $helper.put(`/api/user/${uid}/mute`, params, {
-        // params: params,
-        headers: { Accept: "application/prs.helper.v2+json" },
-    });
+    return $helper.put(`/api/user/${uid}/mute`, params);
 }
 
-export {
-    $http,
-    $helper,
-    getCollections,
-    getNamespaces,
-    getPlans,
-    getWikis,
-    muteUser,
-};
+export { $helper, getCollections, getNamespace, getPlans, getWikis, muteUser };

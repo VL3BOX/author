@@ -1,25 +1,14 @@
 <template>
-    <div class="m-post" v-loading="loading">
-        <el-timeline class="m-post-list" v-if="list && list.length">
-            <el-timeline-item
-                v-for="(item, i) in list"
-                :key="i"
-                :timestamp="item.checked_at | dateFormat"
-                placement="top"
-            >
-                <h4 class="u-type">铭牌名称</h4>
-                <p>
-                    <a
-                        :href="item.link || name"
-                        class="u-title"
-                        target="_blank"
-                        >{{ item.key || "未知" }}</a
-                    >
-                </p>
-            </el-timeline-item>
-        </el-timeline>
-        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
-        </el-alert>
+  <div class="m-post" v-loading="loading">
+    <el-timeline class="m-post-list" v-if="list && list.length">
+      <el-timeline-item v-for="(item, i) in list" :key="i" :timestamp="item.checked_at | dateFormat" placement="top">
+        <h4 class="u-type">铭牌关键词</h4>
+        <p>
+          <a :href="item.link || defult_link" class="u-title" target="_blank">{{ item.key || '未知' }}</a>
+        </p>
+      </el-timeline-item>
+    </el-timeline>
+    <el-alert v-else title="没有找到相关条目" type="info" show-icon> </el-alert>
 
         <el-pagination
             class="m-author-pages"
@@ -35,20 +24,27 @@
 </template>
 
 <script>
-import { getLink,showMinibanner } from "@jx3box/jx3box-common/js/utils";
-import dateFormat from "../utils/dateFormat";
-import { getNamespaces } from "@/service/helper.js";
+import dateFormat from '../utils/dateFormat'
+import { getNamespace } from '@/service/helper.js'
 export default {
-    props: ["uid"],
-    data: function() {
-        return {
-            loading: false,
-            list: [],
-            total: 1,
-            per: 10,
-            page: 1,
-            links: "https://www.jx3box.com",
-        };
+  props: ['uid'],
+  data: function() {
+    return {
+      loading: false,
+      list: [],
+      total: 1,
+      per: 10,
+      page: 1,
+      defult_link: 'https://www.jx3box.com',
+    }
+  },
+  computed: {
+    params: function() {
+      return {
+        user_id: this.uid,
+        page: this.page,
+        limit: this.per,
+      }
     },
     computed: {
         params: function() {

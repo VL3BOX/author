@@ -44,10 +44,9 @@
 </template>
 
 <script>
-import axios from "axios";
 import User from "@jx3box/jx3box-common/js/user";
 import { muteUser } from "@/service/helper.js";
-import { checkUser } from "@/service/server.js";
+// import { checkUser } from "@/service/server.js";
 export default {
     name: "Info",
     props: ["uid", "userdata"],

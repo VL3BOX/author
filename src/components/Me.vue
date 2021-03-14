@@ -94,8 +94,8 @@
 </template>
 
 <script>
-import { getThumbnail, getTVlink } from "@jx3box/jx3box-common/js/utils";
-import { default_avatar, __imgPath } from "@jx3box/jx3box-common/js/jx3box";
+import { showAvatar, tvLink } from "@jx3box/jx3box-common/js/utils";
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import dateFormat from "../utils/dateFormat";
 import { getUserMedals,getFrames } from "@/service/author";
 import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
@@ -113,13 +113,13 @@ export default {
     },
     computed: {
         avatar: function() {
-            return this.data.avatar || default_avatar;
+            return this.data.avatar || '';
         },
         avatar_frame : function (){
             return this.data.avatar_frame || ''
         },
         tv_link: function() {
-            return getTVlink(this.data.tv_type, this.data.tv_id) || "";
+            return tvLink(this.data.tv_type, this.data.tv_id) || "";
         },
         tv_img: function() {
             return __imgPath + "image/tv/" + this.data.tv_type + ".png";
@@ -152,7 +152,7 @@ export default {
             return __imgPath + "image/medals/team/" + val + "-20.gif";
         },
         showAvatar : function (val){
-            return getThumbnail(val,180,true)
+            return showAvatar(val,180)
         }
     },
     methods: {
