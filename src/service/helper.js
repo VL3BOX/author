@@ -27,7 +27,7 @@ function getCollections(params) {
     });
 }
 
-function getNamespace(params) {
+function getNamespaces(params) {
     return $http({
         method: "GET",
         url: `/api/namespaces`,
@@ -56,10 +56,18 @@ function getWikis(params) {
 }
 
 function muteUser(uid, params) {
-    return $helper.put(`/api/user/${uid}/mute`, params,{
+    return $helper.put(`/api/user/${uid}/mute`, params, {
         // params: params,
         headers: { Accept: "application/prs.helper.v2+json" },
     });
 }
 
-export { $http,$helper, getCollections, getNamespace, getPlans, getWikis, muteUser };
+export {
+    $http,
+    $helper,
+    getCollections,
+    getNamespaces,
+    getPlans,
+    getWikis,
+    muteUser,
+};

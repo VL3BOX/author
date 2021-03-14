@@ -1,6 +1,6 @@
 <template>
   <div class="m-author-body">
-    <el-tabs class="m-tabs" v-model="active" @tab-click="changeTab">
+    <el-tabs class="m-tabs" v-model="active">
       <el-tab-pane label="最新作品" name="post">
         <Post :uid="uid" />
       </el-tab-pane>
@@ -43,9 +43,6 @@ export default {
     }
   },
   methods: {
-    changeTab(tab, event) {
-      // console.log(tab, event)
-    },
   },
   components: {
     Post,
