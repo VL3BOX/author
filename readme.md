@@ -1,11 +1,6 @@
 # Author
 
-
-## Todo
-- [ ] 个人动态
-- [ ] 个人铭牌
-
-## Usage
+## Dev
 ```
 $ npm i
 $ npm run serve
