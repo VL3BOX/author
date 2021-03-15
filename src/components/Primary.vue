@@ -11,7 +11,7 @@
         </el-tabs>
 
         <div class="m-primary">
-            <Post :uid="uid" />
+            <Post :uid="uid" v-if="active == 'post'"/>
             <Wiki :uid="uid" v-if="active == 'wiki'" />
             <Question :uid="uid" v-if="active == 'question'" />
             <Paper :uid="uid" v-if="active == 'paper'" />
@@ -39,7 +39,7 @@ export default {
             types: [
                 { label: "最新作品", value: "post" },
                 { label: "百科贡献", value: "wiki" },
-                { label: "TA的题目品", value: "question" },
+                { label: "TA的题目", value: "question" },
                 { label: "TA的试卷", value: "paper" },
                 { label: "TA的清单", value: "plan" },
                 { label: "TA的小册", value: "collection" },
