@@ -1,6 +1,5 @@
 <template>
 	<nav class="m-nav">
-		
 	</nav>
 </template>
 

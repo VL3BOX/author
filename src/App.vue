@@ -6,6 +6,7 @@
             slug="author"
             :root="root"
             :feedbackEnable="true"
+            :withoutLeft="true"
         >
             <img slot="logo" svg-inline src="./assets/img/logo.svg" />
             <Info :uid="uid" :userdata="userdata" />
@@ -65,5 +66,10 @@ export default {
     max-width: 1080px;
 	.auto(x);
 	padding:20px 0;
+}
+.m-post-list{
+    p,p a{
+        word-break: break-all;
+    }
 }
 </style>
