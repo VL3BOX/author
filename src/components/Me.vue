@@ -102,7 +102,7 @@ import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
 import frames from "@jx3box/jx3box-common/data/user_avatar_frame.json";
 export default {
     name: "Me",
-    props: ["userdata"],
+    props: [],
     data: function() {
         return {
             // data: {},
@@ -112,6 +112,12 @@ export default {
         };
     },
     computed: {
+        uid: function() {
+            return this.$store.state.uid;
+        },
+        data: function() {
+            return this.$store.state.userdata;
+        },
         avatar: function() {
             return this.data.avatar || '';
         },
@@ -123,12 +129,6 @@ export default {
         },
         tv_img: function() {
             return __imgPath + "image/tv/" + this.data.tv_type + ".png";
-        },
-        uid: function() {
-            return this.data.uid;
-        },
-        data: function() {
-            return this.userdata;
         },
         frameName : function (){
             return (this.avatar_frame && this.frames[this.avatar_frame]) ? this.avatar_frame : ''

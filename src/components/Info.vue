@@ -49,7 +49,7 @@ import { muteUser } from "@/service/helper.js";
 // import { checkUser } from "@/service/server.js";
 export default {
     name: "Info",
-    props: ["uid", "userdata"],
+    props: [],
     data: function() {
         return {
             isAdmin: User.getInfo().group >= 128,
@@ -64,6 +64,12 @@ export default {
         },
         name: function() {
             return this.userdata.name;
+        },
+        uid : function (){
+            return this.$store.state.uid
+        },
+        userdata: function() {
+            return this.$store.state.userdata;
         },
     },
     methods: {

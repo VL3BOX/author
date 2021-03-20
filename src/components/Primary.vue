@@ -11,13 +11,13 @@
         </el-tabs>
 
         <div class="m-primary">
-            <Post :uid="uid" v-if="active == 'post'"/>
-            <Wiki :uid="uid" v-if="active == 'wiki'" />
-            <Question :uid="uid" v-if="active == 'question'" />
-            <Paper :uid="uid" v-if="active == 'paper'" />
-            <Plan :uid="uid" v-if="active == 'plan'" />
-            <Collection :uid="uid" v-if="active == 'collection'" />
-            <Namespace :uid="uid" v-if="active == 'namespace'" />
+            <Post v-if="active == 'post'"/>
+            <Wiki v-if="active == 'wiki'" />
+            <Question v-if="active == 'question'" />
+            <Paper v-if="active == 'paper'" />
+            <Plan v-if="active == 'plan'" />
+            <Collection v-if="active == 'collection'" />
+            <Namespace v-if="active == 'namespace'" />
         </div>
     </div>
 </template>
@@ -32,7 +32,7 @@ import Namespace from "@/components/Namespace.vue";
 import Plan from "@/components/item_plan.vue";
 export default {
     name: "Primary",
-    props: ["uid"],
+    props: [],
     data: function() {
         return {
             active: "post",
@@ -61,13 +61,4 @@ export default {
 </script>
 
 <style lang="less">
-.m-tabs {
-    padding: 20px;
-    .is-active {
-        .bold;
-    }
-    .el-tabs__nav-wrap {
-        padding: 0 20px;
-    }
-}
 </style>

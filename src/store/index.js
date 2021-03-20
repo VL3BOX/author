@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 let store = {
     state: {
+        userdata : ''
     },
     mutations: {
     },

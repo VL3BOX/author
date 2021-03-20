@@ -39,7 +39,7 @@ import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getCollections } from "@/service/helper.js";
 export default {
-    props: ["uid"],
+    props: [],
     data: function() {
         return {
             loading: false,
@@ -56,6 +56,9 @@ export default {
                 page: this.page,
                 limit: this.per
             }
+        },
+        uid : function (){
+            return this.$store.state.uid
         }
     },
     methods: {

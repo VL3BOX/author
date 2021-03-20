@@ -41,7 +41,7 @@ import { getQuestions } from "@/service/next.js";
 
 export default {
     name: "Question",
-    props: ["uid"],
+    props: [],
     data: function() {
         return {
             loading: false,
@@ -58,6 +58,12 @@ export default {
                 pageIndex: this.page,
                 pageSize: this.per,
             };
+        },
+        uid : function (){
+            return this.$store.state.uid
+        },
+        userdata: function() {
+            return this.$store.state.userdata;
         },
     },
     methods: {

@@ -41,7 +41,7 @@ import { getPapers } from "@/service/next.js";
 
 export default {
     name: "Paper",
-    props: ["uid"],
+    props: [],
     data: function() {
         return {
             loading: false,
@@ -58,6 +58,12 @@ export default {
                 pageIndex: this.page,
                 pageSize: this.per,
             };
+        },
+        uid : function (){
+            return this.$store.state.uid
+        },
+        userdata: function() {
+            return this.$store.state.userdata;
         },
     },
     methods: {

@@ -7,7 +7,7 @@
                 :timestamp="item.updated | dateFormat"
                 placement="top"
             >
-                <h4 class="u-type">{{ item.type | showType}}百科</h4>
+                <h4 class="u-type">{{ item.type | showType }}百科</h4>
                 <p>
                     <a
                         :href="postLink(item.type, item.source_id)"
@@ -38,32 +38,39 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getWikis } from "@/service/helper.js";
-import {__wikiType} from "@jx3box/jx3box-common/data/jx3box.json"
+import { __wikiType } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "Cj",
-    props: ['uid'],
+    props: [],
     data: function() {
         return {
             loading: false,
             list: [],
             total: 1,
-            per : 10,
-            page : 1,
+            per: 10,
+            page: 1,
         };
     },
-    computed : {
-        params : function (){
+    computed: {
+        params: function() {
             return {
                 user_id: this.uid,
                 page: this.page,
-                limit: this.per
-            }
-        }
+                limit: this.per,
+            };
+        },
+        uid: function() {
+            return this.$store.state.uid;
+        },
+        userdata: function() {
+            return this.$store.state.userdata;
+        },
     },
     methods: {
         loadData: function() {
             this.loading = true;
-            getWikis(this.params).then((res) => {
+            getWikis(this.params)
+                .then((res) => {
                     this.list = res.data.data.data;
                     this.total = res.data.data.total;
                 })
@@ -77,23 +84,22 @@ export default {
     },
     filters: {
         dateFormat: function(val) {
-            return dateFormat(new Date(~~val*1000));
+            return dateFormat(new Date(~~val * 1000));
         },
         showType: function(type) {
             return __wikiType[type];
         },
     },
-    watch : {
-        params : {
-            deep:true,
-            immediate:true,
-            handler : function (){
+    watch: {
+        params: {
+            deep: true,
+            immediate: true,
+            handler: function() {
                 this.loadData();
-            }
-        }
+            },
+        },
     },
-    mounted: function() {
-    },
+    mounted: function() {},
 };
 </script>
 

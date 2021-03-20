@@ -43,7 +43,7 @@ const types = {
     "2" : "装备清单"
 }
 export default {
-    props: ["uid"],
+    props: [],
     data: function() {
         return {
             loading: false,
@@ -62,7 +62,13 @@ export default {
                 page: this.page,
                 limit: this.per
             }
-        }
+        },
+        uid : function (){
+            return this.$store.state.uid
+        },
+        userdata: function() {
+            return this.$store.state.userdata;
+        },
     },
     methods: {
         loadData: function() {

@@ -40,7 +40,7 @@ import dateFormat from "../utils/dateFormat";
 import { getPosts } from "@/service/server.js";
 import { __postType } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
-    props: ["uid"],
+    props: [],
     data: function() {
         return {
             loading: false,
@@ -57,6 +57,12 @@ export default {
                 page: this.page,
                 per: this.per,
             };
+        },
+        uid : function (){
+            return this.$store.state.uid
+        },
+        userdata: function() {
+            return this.$store.state.userdata;
         },
     },
     methods: {
