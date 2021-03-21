@@ -4,7 +4,7 @@
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
-                :timestamp="item.checked_at | dateFormat"
+                :timestamp="item.created | dateFormat"
                 placement="top"
             >
                 <h4 class="u-type">铭牌关键词</h4>
