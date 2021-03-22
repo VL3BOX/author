@@ -11,7 +11,7 @@
             <img slot="logo" svg-inline src="./assets/img/logo.svg" />
             <Info :uid="uid" :userdata="userdata" />
         </Breadcrumb>
-        <router-view></router-view>
+        <router-view v-if="uid"></router-view>
     </div>
 </template>
 
