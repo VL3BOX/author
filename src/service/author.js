@@ -3,7 +3,7 @@ import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import axios from 'axios'
 
 function getDouyu(ids) {
-    return $next.get("/team/douyu", {
+    return $next().get("/team/douyu", {
         params: {
             tv_id: ids,
         },
@@ -11,7 +11,7 @@ function getDouyu(ids) {
 }
 
 function getUserMedals(uid) {
-    return $next.get("/api/user/" + uid + "/medals");
+    return $next().get("/api/user/" + uid + "/medals");
 }
 
 function getFrames() {
