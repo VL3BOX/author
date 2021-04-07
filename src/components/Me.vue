@@ -205,8 +205,8 @@ export default {
             });
         },
         loadTeams: function () {
-            getUserPublicTeams(this.uid).then((res) => {
-                this.teams = res.data.data || [];
+            getUserPublicTeams(this.uid).then((data) => {
+                this.teams = data || [];
             });
         },
     },

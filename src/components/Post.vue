@@ -104,7 +104,7 @@ export default {
 
 <style lang="less">
 .m-post {
-    padding: 20px 20px 20px 0;
+    padding: 20px;
     .el-tabs__item {
         .bold;
     }
