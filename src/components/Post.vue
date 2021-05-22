@@ -4,16 +4,16 @@
             <el-timeline-item
                 v-for="(item, i) in list"
                 :key="i"
-                :timestamp="item.post.post_modified | dateFormat"
+                :timestamp="item.post_modified | dateFormat"
                 placement="top"
             >
-                <h4 class="u-type">{{ item.post.post_type | typeFormat }}</h4>
+                <h4 class="u-type">{{ item.post_type | typeFormat }}</h4>
                 <p>
                     <a
-                        :href="postLink(item.post.post_type, item.post.ID)"
+                        :href="postLink(item.post_type, item.ID)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.post.post_title || "无标题" }}</a
+                        >{{ item.post_title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
@@ -37,7 +37,7 @@
 <script>
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
-import { getPosts } from "@/service/server.js";
+import { getPosts } from "@/service/cms.js";
 import { __postType } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     props: [],
@@ -70,7 +70,7 @@ export default {
             this.loading = true;
             getPosts(this.params)
                 .then((res) => {
-                    this.list = res.data.data.list;
+                    this.list = res.data.data.list || [];
                     this.total = res.data.data.total;
                 })
                 .finally(() => {
