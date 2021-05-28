@@ -18,35 +18,34 @@
 <script>
 import Info from "@/components/Info.vue";
 import { getRewrite } from "@jx3box/jx3box-common/js/utils";
-import axios from "axios";
-import { __server } from "@jx3box/jx3box-common/data/jx3box.json";
+import { getUserInfo } from "@/service/cms";
 export default {
     name: "App",
     props: [],
-    data: function() {
-        return {
-        };
+    data: function () {
+        return {};
     },
     computed: {
-        userdata: function() {
+        userdata: function () {
             return this.$store.state.userdata;
         },
-        uid: function() {
+        uid: function () {
             return this.$store.state.uid;
         },
-        root : function (){
-            return "/author/" + this.uid
+        root: function () {
+            return "/author/" + this.uid;
         },
-        name : function (){
-            return this.$store.state.userdata.name || '魔盒'
-        }
+        name: function () {
+            return this.$store.state.userdata.name || "魔盒";
+        },
     },
-    created: function() {
+    created: function () {
         this.$store.state.uid = getRewrite("uid");
-        if (!this.uid) return;
-        axios.get(__server + "user/info?uid=" + this.uid).then((res) => {
-            this.$store.state.userdata = res.data.data;
-        });
+        if (this.uid) {
+            getUserInfo(this.uid).then((res) => {
+                this.$store.state.userdata = res.data.data;
+            });
+        }
     },
     components: {
         Info,

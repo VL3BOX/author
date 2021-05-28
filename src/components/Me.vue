@@ -15,20 +15,20 @@
 
         <div class="m-author-info">
             <!-- TODO:等级 -->
-            <span class="u-name">{{ data.name || "匿名" }}</span>
-            <span class="u-uid">UID : {{ data.uid || 0 }}</span>
-            <span class="u-join" v-if="data.created_at">
+            <span class="u-name">{{ data.display_name || "匿名" }}</span>
+            <span class="u-uid">UID : {{ data.ID || 0 }}</span>
+            <span class="u-join" v-if="data.user_registered">
                 <i class="u-icon u-icon-join">
                     <img svg-inline src="../assets/img/join.svg" />
                 </i>
-                <span>加入于 {{ data.created_at | time }}</span>
+                <span>加入于 {{ data.user_registered | time }}</span>
             </span>
             <div class="u-medals" v-if="medals && medals.length">
                 <span class="u-medal" v-for="(item, i) in medals" :key="i">
                     <img :src="item.medal | showTeamMedal" :title="medal_map[item.medal]" />
                 </span>
             </div>
-            <div class="u-bio">{{ data.bio }}</div>
+            <div class="u-bio">{{ data.user_bio }}</div>
 
             <div class="u-links">
                 <el-row :gutter="20">
@@ -37,7 +37,7 @@
                             <a
                                 v-if="data.weibo_name"
                                 class="u-weibo"
-                                :href="data.weibo_url"
+                                :href="data.weibo_id | getWeiboLink"
                                 target="_blank"
                             >
                                 <img svg-inline src="../assets/img/weibo.svg" />
@@ -50,7 +50,7 @@
                             <a
                                 v-if="data.github_name"
                                 class="u-github"
-                                :href="data.github_url"
+                                :href="data.github_name | getGithubLink"
                                 target="_blank"
                             >
                                 <img svg-inline src="../assets/img/github.svg" />
@@ -144,10 +144,10 @@ export default {
             return this.$store.state.userdata;
         },
         avatar: function () {
-            return this.data.avatar || "";
+            return this.data.user_avatar || "";
         },
         avatar_frame: function () {
-            return this.data.avatar_frame || "";
+            return this.data.user_avatar_frame || "";
         },
         tv_link: function () {
             return tvLink(this.data.tv_type, this.data.tv_id) || "";
@@ -189,6 +189,12 @@ export default {
         showTeamLogo: function (val) {
             return showAvatar(val, 16);
         },
+        getWeiboLink : function (val){
+            return 'https://weibo.com/' + val
+        },
+        getGithubLink : function (val){
+            return 'https://github.com/' + val
+        }
     },
     methods: {
         loadMedals: function () {
