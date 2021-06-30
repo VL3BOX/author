@@ -10,8 +10,8 @@
     "dev": "env DEV_SERVER=true vue-cli-service serve"
   },
   "dependencies": {
-    "@jx3box/jx3box-common": "^6.4.2",
-    "@jx3box/jx3box-common-ui": "^4.6.2",
+    "@jx3box/jx3box-common": "^6.4.8",
+    "@jx3box/jx3box-common-ui": "^4.6.7",
     "axios": "^0.21.1",
     "core-js": "^3.4.3",
     "element-ui": "^2.13.1",
@@ -22,13 +22,14 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "csslab": "^4.0.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.14.5",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "@vue/cli-plugin-router": "^4.0.0",
     "@vue/cli-plugin-vuex": "^4.0.0",
     "@vue/cli-service": "^4.1.2",
     "babel-eslint": "^10.0.3",
+    "csslab": "^4.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "glob": "^7.1.6",
