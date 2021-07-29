@@ -1,7 +1,7 @@
 <template>
     <div class="m-birthday">
         <div class="m-birthday-video">
-            <video class="u-video" autoplay src="../assets/img/birthday/birthbg.mp4"></video>
+            <video class="u-video" src="../assets/img/birthday/birthbg.mp4" type="video/mp4" autoplay loop></video>
             <i class="u-mask"></i>
         </div>
         <div class="m-letter">
