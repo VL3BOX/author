@@ -1,12 +1,36 @@
-.m-birthday {
-    background: url("@{birthday}preview.png") no-repeat center top;
-    padding: 162px;
+.v-birthday{
+    background-color:@bg-black;
 }
+.v-birthday .c-breadcrumb{
+    .none;
+}
+.m-birthday {
+    // background: url("@{birthday}preview.png") no-repeat center top;
+    // padding: 162px;
+    .mt(@header-height);
+}
+.m-birthday-video{
+    width: 100%;
+    height: calc(100vh - @header-height);
+    .pr;
+    .u-video{
+        .size(100%);
+    }
+    .u-mask{
+        background-color:rgba(0,0,0,.62);
+        .pa;.lt(0);
+        .size(100%);
+    }
+}
+
 .m-letter {
+    .pa;.lt(50%,50%);
+    transform: translate(-50%,-50%);
     background: url("@{birthday}letter.png") no-repeat center top;
     width: 1544px;
     height: 869px;
     margin: 0 auto;
+
     .u-head {
         height: 300px;
         .u-atv,
@@ -19,6 +43,7 @@
             margin-right: 183px;
             margin-top: 104px;
             position: relative;
+            text-align: center;
             .i-stamp {
                 position: absolute;
                 background: url("@{birthday}stamp.png") no-repeat;
@@ -28,18 +53,18 @@
                 height: 146px;
             }
         }
-        .u-font {
-            color: #24292e;
-            font-size: 40px;
-            letter-spacing: 33px;
-            float: left;
-            span {
-                margin-left: 172px;
-                margin-top: 100px;
-                display: inline-block;
-            }
-        }
+        
     }
+
+    .u-zip {
+        color: #24292e;
+        font-size: 40px;
+        letter-spacing: 33px;
+        float: left;
+        margin-left: 172px;
+        margin-top: 100px;
+    }
+
     .u-cont {
         .u-title {
             color: #24292e;
@@ -62,10 +87,18 @@
                 line-height: 96px;
                 padding-right: 580px;
                 display: inline-block;
+                text-shadow: 0 0 5px  #c1664c;
             }
         }
     }
+
+    .u-circle{
+        .pa;.rt(-80px,65px);
+        .size(1830px,945px);
+        max-width: none;
+    }
+    .u-light{
+        .pa;.rt(0,322px);
+    }
 }
-.u-atv {
-    text-align: center;
-}
+

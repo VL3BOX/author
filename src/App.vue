@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" :class="'v-' + viewname">
         <Header></Header>
         <Breadcrumb
             :name="name"
@@ -38,6 +38,9 @@ export default {
         name: function () {
             return this.$store.state.userdata.display_name || "魔盒";
         },
+        viewname : function (){
+            return this.$route.name
+        }
     },
     created: function () {
         this.$store.state.uid = getRewrite("uid");

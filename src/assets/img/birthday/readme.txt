@@ -20,3 +20,7 @@
 
 
 详细尺寸见蓝湖：https://lanhuapp.com/url/dvQio-gqFG6
+
+最终处理：
+1.背景视频
+2.生日870512

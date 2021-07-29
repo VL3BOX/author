@@ -7,12 +7,12 @@ import Birthday from "../views/Birthday.vue";
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/', component: Index },
-    { path: '/birthday', component: Birthday },
-]
+    { path: "/", name: "index", component: Index },
+    { path: "/birthday", name: "birthday", component: Birthday },
+];
 
 const router = new VueRouter({
-    routes
+    routes,
 });
 
 export default router;
