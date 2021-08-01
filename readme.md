@@ -4,5 +4,5 @@
 ```
 $ npm i
 $ npm run serve
-$ open http://localhost:xx/?uid=8
+$ open http://localhost:xx/author/xx
 ```

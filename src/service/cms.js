@@ -10,4 +10,17 @@ function getUserInfo(uid) {
     return $cms().get(`/api/cms/user/${uid}/info`);
 }
 
-export { getPosts, getUserInfo };
+function getSuperAuthor(uid) {
+    return $cms().get('/api/cms/user/is_super_author/' + uid)
+}
+
+function getIdentity(uid) {
+    return $cms().get(`/api/cms/user/${uid}/identity`)
+}
+
+export {
+    getPosts,
+    getUserInfo,
+    getSuperAuthor,
+    getIdentity
+};
