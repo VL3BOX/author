@@ -15,7 +15,16 @@
 
         <div class="m-author-info">
             <!-- TODO:等级 -->
-            <span class="u-name">{{ data.display_name || "匿名" }}</span>
+            <span class="u-name">
+                {{ data.display_name || "匿名" }}
+
+                <span class="u-superauthor" title="签约作者" v-if="isSuperAuthor">
+                    <img :src="super_author_icon" alt="superauthor">
+                </span>
+                 <span class="u-vip" v-if="isPRO || isVIP" :title="vipTypeTitle">
+                    <i class="i-icon-vip on">{{ vipType }}</i>
+                </span>
+            </span>
             <span class="u-uid">UID : {{ data.ID || 0 }}</span>
             <span class="u-join" v-if="data.user_registered">
                 <i class="u-icon u-icon-join">
@@ -107,8 +116,10 @@ import { showAvatar, tvLink, getLink } from "@jx3box/jx3box-common/js/utils";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import dateFormat from "../utils/dateFormat";
 import { getUserMedals, getFrames, getUserPublicTeams } from "@/service/author";
+import { getSuperAuthor, getIdentity } from "@/service/cms"
 import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
 import frames from "@jx3box/jx3box-common/data/user_avatar_frame.json";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "Me",
     props: [],
@@ -134,6 +145,9 @@ export default {
                 //     team_server: "蝶恋花",
                 // },
             ],
+            isSuperAuthor: false,
+            isPRO: false,
+            isVIP: false
         };
     },
     computed: {
@@ -172,6 +186,15 @@ export default {
                 this.frameName && this.frames[this.frameName].style == "circle"
             );
         },
+        vipType: function () {
+            return this.isPRO ? "PRO" : "PRE";
+        },
+        vipTypeTitle: function () {
+            return this.isPRO ? "专业版会员用户" : "高级版会员用户";
+        },
+        super_author_icon: function() {
+            return __imgPath + 'image/user/' + 'superauthor.svg';
+        },
     },
     filters: {
         time: (val) => {
@@ -197,6 +220,13 @@ export default {
         }
     },
     methods: {
+        init: function() {
+            this.loadFrames();
+            this.loadMedals();
+            this.loadTeams();
+            this.checkSuperAuthor();
+            this.loadIdentity();
+        },
         loadMedals: function () {
             if (!this.uid) return;
             getUserMedals(this.uid).then((res) => {
@@ -215,12 +245,22 @@ export default {
                 this.teams = data || [];
             });
         },
+        checkSuperAuthor: function() {
+            getSuperAuthor(this.uid).then(res => {
+                this.isSuperAuthor = res.data.data
+            })
+        },
+        loadIdentity: function() {
+            getIdentity(this.uid).then(res => {
+                console.log(res)
+                this.isPRO = res.data.data.isPRO;
+                this.isVIP = res.data.data.isPRE;
+            })
+        }
     },
     mounted: function () {
         if (this.uid) {
-            this.loadFrames();
-            this.loadMedals();
-            this.loadTeams();
+            this.init()
         }
     },
 };
