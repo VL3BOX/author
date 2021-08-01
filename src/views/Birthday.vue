@@ -35,8 +35,8 @@ export default {
     props: [],
     data: function () {
         return {
-            zip: "123456",
-            age: 26,
+            zip: "190929",
+            age: 2,
         };
     },
     computed: {
@@ -52,12 +52,10 @@ export default {
     },
     methods: {},
     mounted: function () {
-        // let test = Base64.encode('1987-05-12@34')   //MTk4Ny0wNS0xMkAzNA==
-        let code = this.$route.query.code && Base64.decode(this.$route.query.code) || Base64.decode('MTk4Ny0wNS0xMkAzNA==')
-        let birth = code.split('@')[0]
-        let [year,month,date] = birth.split('-')
-        this.age = code.split('@')[1] || 1
-        this.zip = year.slice(-2,) + month + date
+        // let test = Base64.encode('2019092902')   //MjAxOTA5MjkwMg==
+        let code = this.$route.query.code && Base64.decode(this.$route.query.code) || Base64.decode('MjAxOTA5MjkwMg==')
+        this.age = code.slice(-2) || 1
+        this.zip = code.slice(2,8)
     },
     components: {},
 };
