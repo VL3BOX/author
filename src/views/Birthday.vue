@@ -54,7 +54,7 @@ export default {
     mounted: function () {
         // let test = Base64.encode('2019092902')   //MjAxOTA5MjkwMg==
         let code = this.$route.query.code && Base64.decode(this.$route.query.code) || Base64.decode('MjAxOTA5MjkwMg==')
-        this.age = code.slice(-2) || 1
+        this.age = ~~code.slice(8) || 1
         this.zip = code.slice(2,8)
     },
     components: {},

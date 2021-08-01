@@ -252,7 +252,6 @@ export default {
         },
         loadIdentity: function() {
             getIdentity(this.uid).then(res => {
-                console.log(res)
                 this.isPRO = res.data.data.isPRO;
                 this.isVIP = res.data.data.isPRE;
             })
