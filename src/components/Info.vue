@@ -60,10 +60,10 @@ export default {
     },
     computed: {
         status: function() {
-            return this.userdata.status;
+            return this.userdata.user_status;
         },
         name: function() {
-            return this.userdata.name;
+            return this.userdata.display_name;
         },
         uid : function (){
             return this.$store.state.uid

@@ -7,7 +7,11 @@ function getPosts(params) {
 }
 
 function getUserInfo(uid) {
-    return $cms().get(`/api/cms/user/${uid}/info`);
+    return $cms().get(`/api/cms/user/${uid}/info`,{
+        params : {
+            nocache : 1
+        }
+    });
 }
 
 function getSuperAuthor(uid) {
