@@ -13,25 +13,25 @@ module.exports = {
                 },
             },
             "/api/summary": {
-                target: "https://next.jx3box.com",
+                target: "https://next2.jx3box.com",
                 onProxyReq: function(request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/comment": {
-                target: "https://next.jx3box.com",
+                target: "https://next2.jx3box.com",
                 onProxyReq: function(request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/question": {
-                target: "https://next.jx3box.com",
+                target: "https://next2.jx3box.com",
                 onProxyReq: function(request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/user": {
-                target: "https://next.jx3box.com",
+                target: "https://next2.jx3box.com",
                 onProxyReq: function(request) {
                     request.setHeader("origin", "");
                 },

@@ -10,8 +10,8 @@
     "dev": "env DEV_SERVER=true vue-cli-service serve"
   },
   "dependencies": {
-    "@jx3box/jx3box-common": "^6.5.1",
-    "@jx3box/jx3box-common-ui": "^4.8.2",
+    "@jx3box/jx3box-common": "^6.5.8",
+    "@jx3box/jx3box-common-ui": "^4.9.9",
     "axios": "^0.21.1",
     "core-js": "^3.4.3",
     "element-ui": "^2.13.1",
