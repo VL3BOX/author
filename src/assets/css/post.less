@@ -9,6 +9,23 @@
     p a {
         word-break: break-all;
     }
+
+    @origin: #0eb7ce;
+    @std: #f0b400;
+    .u-client {
+        font-style: normal;
+        .fz(12px);
+        padding: 0px 5px;
+        .r(3px);
+        .mr(5px);
+        border: 1px solid @std;
+        color: @std;
+
+        &.origin {
+            border: 1px solid @origin;
+            color: @origin;
+        }
+    }
 }
 .m-tabs {
     padding: 20px;

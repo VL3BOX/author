@@ -13,7 +13,7 @@
                         :href="postLink(item.post_type, item.ID)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.post_title || "无标题" }}</a
+                        ><i class="u-client" :class="item.client">{{item.client == 'origin' ? '怀旧服' : '正式服'}}</i>{{ item.post_title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
