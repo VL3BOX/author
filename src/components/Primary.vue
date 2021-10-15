@@ -6,18 +6,16 @@
                 :key="item.value"
                 :label="item.label"
                 :name="item.value"
-            >
-            </el-tab-pane>
+            ></el-tab-pane>
         </el-tabs>
 
         <div class="m-primary">
-            <Post v-if="active == 'post'"/>
-            <Wiki v-if="active == 'wiki'" />
-            <Question v-if="active == 'question'" />
-            <Paper v-if="active == 'paper'" />
-            <Plan v-if="active == 'plan'" />
-            <Collection v-if="active == 'collection'" />
-            <Namespace v-if="active == 'namespace'" />
+            <component
+                :is="item.component"
+                v-for="item in types"
+                :key="item.value"
+                v-show="item.value == active"
+            />
         </div>
     </div>
 </template>
@@ -29,21 +27,27 @@ import Question from "@/components/Question.vue";
 import Paper from "@/components/Paper.vue";
 import Collection from "@/components/Collection.vue";
 import Namespace from "@/components/Namespace.vue";
-import Plan from "@/components/item_plan.vue";
+// import Plan from "@/components/item_plan.vue";
+import Pz from "@/components/Pz.vue";
 export default {
     name: "Primary",
     props: [],
-    data: function() {
+    data: function () {
         return {
-            active: "post",
+            active: "Post",
             types: [
-                { label: "最新作品", value: "post" },
-                { label: "百科贡献", value: "wiki" },
-                { label: "TA的题目", value: "question" },
-                { label: "TA的试卷", value: "paper" },
-                { label: "TA的清单", value: "plan" },
-                { label: "TA的小册", value: "collection" },
-                { label: "TA的铭牌", value: "namespace" },
+                { label: "最新作品", value: "Post", component: Post },
+                { label: "百科贡献", value: "Wiki", component: Wiki },
+                { label: "配装方案", value: "Pz", component: Pz },
+                {
+                    label: "文集小册",
+                    value: "Collection",
+                    component: Collection,
+                },
+                { label: "TA的题目", value: "Question", component: Question },
+                { label: "TA的试卷", value: "Paper", component: Paper },
+                // { label: "TA的清单", value: "Plan", component: Plan },
+                { label: "TA的铭牌", value: "Namespace", component: Namespace },
             ],
         };
     },
@@ -55,7 +59,8 @@ export default {
         Paper,
         Collection,
         Namespace,
-        Plan,
+        // Plan,
+        Pz,
     },
 };
 </script>

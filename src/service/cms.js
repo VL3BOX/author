@@ -22,9 +22,16 @@ function getIdentity(uid) {
     return $cms().get(`/api/cms/user/${uid}/identity`)
 }
 
+function getUserPz(params){
+    return $cms().get(`/api/cms/app/pz`,{
+        params : params
+    })
+}
+
 export {
     getPosts,
     getUserInfo,
     getSuperAuthor,
-    getIdentity
+    getIdentity,
+    getUserPz
 };
