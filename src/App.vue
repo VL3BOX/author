@@ -1,5 +1,5 @@
 <template>
-    <div id="app" :class="'v-' + viewname">
+    <div id="app">
         <Header></Header>
         <Breadcrumb
             :name="name"
@@ -11,11 +11,17 @@
             <img slot="logo" svg-inline src="./assets/img/logo.svg" />
             <Info :uid="uid" :userdata="userdata" />
         </Breadcrumb>
-        <router-view v-if="uid"></router-view>
+        <div class="m-author" v-if="uid">
+            <Me />
+            <Primary />
+            <Footer></Footer>
+        </div>
     </div>
 </template>
 
 <script>
+import Me from "@/components/Me.vue";
+import Primary from "@/components/Primary.vue";
 import Info from "@/components/Info.vue";
 import { getRewrite } from "@jx3box/jx3box-common/js/utils";
 import { getUserInfo } from "@/service/cms";
@@ -38,9 +44,6 @@ export default {
         name: function () {
             return this.$store.state.userdata.display_name || "魔盒";
         },
-        viewname : function (){
-            return this.$route.name
-        }
     },
     created: function () {
         this.$store.state.uid = getRewrite("uid");
@@ -52,10 +55,13 @@ export default {
     },
     components: {
         Info,
+        Me,
+        Primary,
     },
 };
 </script>
 
 <style lang="less">
 @import "./assets/css/app.less";
+@import './assets/css/post.less';
 </style>

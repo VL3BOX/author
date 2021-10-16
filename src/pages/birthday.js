@@ -12,9 +12,9 @@ Vue.use(JX3BOX_UI);
 
 // 数据与路由
 // import router from "./router";
-import store from "./store";
+import store from "../store";
 
-import App from "./App.vue";
+import App from "./Birthday.vue";
 new Vue({
     // router,
     store,
