@@ -1,3 +1,6 @@
+body{
+    min-width: 1544px;
+}
 .v-birthday{
     background-color:@bg-black;
 }
@@ -9,13 +12,18 @@
     // padding: 162px;
     .mt(@header-height);
     min-width: 1520px;
+    min-height: 839px;
+    .pr;
+    overflow: hidden;
 }
 .m-birthday-video{
     width: 100%;
-    height: calc(100vh - @header-height);
+    height: calc(100vh + 40px);
+    
     .pr;
     .u-video{
         .size(100%);
+        object-fit: cover;
     }
     .u-mask{
         background-color:rgba(0,0,0,.62);
@@ -29,7 +37,7 @@
     transform: translate(-50%,-50%);
     background: url("@{birthday}letter.png") no-repeat center top;
     width: 1544px;
-    height: 869px;
+    height: 839px;
     margin: 0 auto;
 
     .u-head {
@@ -103,3 +111,9 @@
     }
 }
 
+.c-footer{
+    background-color:@bg-black;
+    margin:0;
+    padding:20px 10px;
+    .r(0);
+}
