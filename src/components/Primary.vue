@@ -8,7 +8,7 @@
                 :name="item.value"
             >
                 <span slot="label">
-                    <i :class="item.icon"></i>
+                    <i class="u-icon" :class="item.icon"></i>
                     {{item.label}}
                 </span>
             </el-tab-pane>
@@ -91,5 +91,8 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+.u-icon{
+    .fz(16px);
+}
 </style>
