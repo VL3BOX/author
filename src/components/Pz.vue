@@ -13,7 +13,7 @@
                         :href="postLink(item.id)"
                         class="u-title"
                         target="_blank"
-                        ><i class="u-client" :class="item.client">{{item.client == 'origin' ? '怀旧服' : '正式服'}}</i>{{ item.title || "无标题" }}</a
+                        ><i class="u-client" :class="item.client">{{item.client | clientLabel}}</i>{{ item.title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
@@ -38,6 +38,7 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getUserPz } from "@/service/cms.js";
+import clients from '@/assets/data/clients.json'
 export default {
     props: [],
     data: function() {
@@ -81,6 +82,10 @@ export default {
         dateFormat: function(val) {
             return dateFormat(new Date(val));
         },
+        clientLabel : function (val){
+            val = val || 'std'
+            return clients[val]
+        }
     },
     watch: {
         params: {
