@@ -17,11 +17,14 @@
             <!-- TODO:等级 -->
             <span class="u-name">
                 {{ data.display_name || "匿名" }}
-
-                <span class="u-superauthor" title="签约作者" v-if="isSuperAuthor">
-                    <img :src="super_author_icon" alt="superauthor">
+                <span
+                    class="u-superauthor"
+                    title="签约作者"
+                    v-if="isSuperAuthor"
+                >
+                    <img :src="super_author_icon" alt="superauthor" />
                 </span>
-                 <span class="u-vip" v-if="isPRO || isVIP" :title="vipTypeTitle">
+                <span class="u-vip" v-if="isPRO || isVIP" :title="vipTypeTitle">
                     <i class="i-icon-vip on">{{ vipType }}</i>
                 </span>
             </span>
@@ -34,7 +37,7 @@
             </span>
             <div class="u-medals" v-if="medals && medals.length">
                 <span class="u-medal" v-for="(item, i) in medals" :key="i">
-                    <img :src="item.medal | showTeamMedal" :title="medal_map[item.medal]" />
+                    <img :src="item.medal | showMedalIcon" :title="item | showMedalDesc" />
                 </span>
             </div>
             <div class="u-bio">{{ data.user_bio }}</div>
@@ -71,9 +74,7 @@
                         <div>
                             <span v-if="data.tuilan_id" class="u-tuilan" title="推栏ID">
                                 <img src="../assets/img/tuilan.png" />
-                                推栏ID：{{
-                                data.tuilan_id
-                                }}
+                                推栏ID：{{data.tuilan_id}}
                             </span>
                         </div>
                     </el-col>
@@ -86,9 +87,7 @@
                                 target="_blank"
                             >
                                 <img :src="tv_img" />
-                                直播间：{{
-                                data.tv_id
-                                }}
+                                直播间：{{data.tv_id}}
                             </a>
                         </div>
                     </el-col>
@@ -116,7 +115,7 @@ import { showAvatar, tvLink, getLink } from "@jx3box/jx3box-common/js/utils";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import dateFormat from "../utils/dateFormat";
 import { getUserMedals, getFrames, getUserPublicTeams } from "@/service/author";
-import { getSuperAuthor, getIdentity } from "@/service/cms"
+import { getSuperAuthor, getIdentity } from "@/service/cms";
 import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
 import frames from "@jx3box/jx3box-common/data/user_avatar_frame.json";
 import User from "@jx3box/jx3box-common/js/user";
@@ -147,7 +146,7 @@ export default {
             ],
             isSuperAuthor: false,
             isPRO: false,
-            isVIP: false
+            isVIP: false,
         };
     },
     computed: {
@@ -192,16 +191,19 @@ export default {
         vipTypeTitle: function () {
             return this.isPRO ? "专业版会员用户" : "高级版会员用户";
         },
-        super_author_icon: function() {
-            return __imgPath + 'image/user/' + 'superauthor.svg';
+        super_author_icon: function () {
+            return __imgPath + "image/user/" + "superauthor.svg";
         },
     },
     filters: {
         time: (val) => {
             return dateFormat(new Date(val));
         },
-        showTeamMedal: function (val) {
-            return __imgPath + "image/medals/team/" + val + "-20.gif";
+        showMedalIcon: function (val) {
+            return __imgPath + "image/medals/user/" + val + ".gif";
+        },
+        showMedalDesc : function (item){
+            return item.medal_desc || medal_map[item.medal]  
         },
         showAvatar: function (val) {
             return showAvatar(val, 180);
@@ -212,15 +214,15 @@ export default {
         showTeamLogo: function (val) {
             return showAvatar(val, 16);
         },
-        getWeiboLink : function (val){
-            return 'https://weibo.com/' + val
+        getWeiboLink: function (val) {
+            return "https://weibo.com/" + val;
         },
-        getGithubLink : function (val){
-            return 'https://github.com/' + val
-        }
+        getGithubLink: function (val) {
+            return "https://github.com/" + val;
+        },
     },
     methods: {
-        init: function() {
+        init: function () {
             this.loadFrames();
             this.loadMedals();
             this.loadTeams();
@@ -245,21 +247,21 @@ export default {
                 this.teams = data || [];
             });
         },
-        checkSuperAuthor: function() {
-            getSuperAuthor(this.uid).then(res => {
-                this.isSuperAuthor = res.data.data
-            })
+        checkSuperAuthor: function () {
+            getSuperAuthor(this.uid).then((res) => {
+                this.isSuperAuthor = res.data.data;
+            });
         },
-        loadIdentity: function() {
-            getIdentity(this.uid).then(res => {
+        loadIdentity: function () {
+            getIdentity(this.uid).then((res) => {
                 this.isPRO = res.data.data.isPRO;
                 this.isVIP = res.data.data.isPRE;
-            })
-        }
+            });
+        },
     },
     mounted: function () {
         if (this.uid) {
-            this.init()
+            this.init();
         }
     },
 };
