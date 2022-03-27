@@ -29,7 +29,9 @@
             </span>
             <div>
                 <span class="u-uid">UID : {{ data.ID || 0 }}</span>
-                <span class="u-level">Lv.{{ level }}</span>
+                <el-tooltip :content="`当前经验 ${data.experience}`">
+                    <span class="u-level">Lv.{{ level }}</span>
+                </el-tooltip>
             </div>
             <span class="u-join" v-if="data.user_registered">
                 <i class="u-icon u-icon-join">
@@ -202,7 +204,7 @@ export default {
             return __imgPath + "image/user/" + "superauthor.svg";
         },
         level: function (){
-            return User.getLevel(this.data?.isSuperAuthor || 0)
+            return User.getLevel(this.data?.experience || 0)
         }
     },
     filters: {
