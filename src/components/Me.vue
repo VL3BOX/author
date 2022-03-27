@@ -29,7 +29,7 @@
             </span>
             <div>
                 <span class="u-uid">UID : {{ data.ID || 0 }}</span>
-                <el-tooltip :content="`当前经验 ${data.experience}`">
+                <el-tooltip :content="`当前经验 ${data.experience || 0}`">
                     <span class="u-level">Lv.{{ level }}</span>
                 </el-tooltip>
             </div>
@@ -215,7 +215,7 @@ export default {
             return __imgPath + "image/medals/user/" + val + ".gif";
         },
         showMedalDesc : function (item){
-            return item.medal_desc || medal_map[item.medal]  
+            return item.medal_desc || medal_map[item.medal]
         },
         showAvatar: function (val) {
             return showAvatar(val, 180);
