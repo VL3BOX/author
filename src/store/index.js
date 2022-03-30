@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 let store = {
     state: {
-        userdata : ''
+        userdata : '',
+        client : location.href.includes('origin') ? 'origin' : 'std'
     },
     mutations: {
     },

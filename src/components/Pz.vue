@@ -56,11 +56,15 @@ export default {
                 user_id: this.uid,
                 page: this.page,
                 per: this.per,
+                client : this.client
             };
         },
         uid : function (){
             return this.$store.state.uid
         },
+        client : function (){
+            return this.$store.state.client
+        }
     },
     methods: {
         loadData: function(i = 1) {
