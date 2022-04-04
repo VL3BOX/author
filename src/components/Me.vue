@@ -25,7 +25,7 @@
             <div>
                 <span class="u-uid">UID : {{ data.ID || 0 }}</span>
                 <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
-                    <span class="u-level">Lv.{{ level }}</span>
+                    <span class="u-level" :class="'lv-' + level">Lv.{{ level }}</span>
                 </el-tooltip>
                 <el-tooltip :content="vipTypeTitle" v-if="isPRO || isVIP" placement="top">
                     <a class="u-vip" href="/vip/premium?from=user_homepage" target="_blank">
