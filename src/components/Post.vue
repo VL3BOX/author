@@ -9,17 +9,14 @@
             >
                 <h4 class="u-type">{{ item.post_type | typeFormat }}</h4>
                 <p>
-                    <a
-                        :href="postLink(item.post_type, item.ID)"
-                        class="u-title"
-                        target="_blank"
-                        ><i class="u-client" :class="item.client">{{item.client | clientLabel}}</i>{{ item.post_title || "无标题" }}</a
+                    <a :href="postLink(item.post_type, item.ID)" class="u-title" target="_blank"
+                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i
+                        >{{ item.post_title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
         </el-timeline>
-        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
-        </el-alert>
+        <el-alert v-else title="没有找到相关条目" type="info" show-icon> </el-alert>
 
         <el-pagination
             class="m-author-pages"
@@ -38,8 +35,7 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getPosts } from "@/service/cms.js";
-import { __postType } from "@jx3box/jx3box-common/data/jx3box.json";
-import clients from '@/assets/data/clients.json'
+import { __postType, __clients } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     props: [],
     data: function() {
@@ -59,8 +55,8 @@ export default {
                 per: this.per,
             };
         },
-        uid : function (){
-            return this.$store.state.uid
+        uid: function() {
+            return this.$store.state.uid;
         },
         userdata: function() {
             return this.$store.state.userdata;
@@ -89,10 +85,10 @@ export default {
         typeFormat: function(type) {
             return __postType[type];
         },
-        clientLabel : function (val){
-            val = val || 'std'
-            return clients[val]
-        }
+        clientLabel: function(val) {
+            val = val || "std";
+            return __clients[val];
+        },
     },
     watch: {
         params: {

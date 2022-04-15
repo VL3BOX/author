@@ -9,17 +9,14 @@
             >
                 <h4 class="u-type">配装方案</h4>
                 <p>
-                    <a
-                        :href="postLink(item.id)"
-                        class="u-title"
-                        target="_blank"
-                        ><i class="u-client" :class="item.client">{{item.client | clientLabel}}</i>{{ item.title || "无标题" }}</a
+                    <a :href="postLink(item.id)" class="u-title" target="_blank"
+                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i
+                        >{{ item.title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
         </el-timeline>
-        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
-        </el-alert>
+        <el-alert v-else title="没有找到相关条目" type="info" show-icon> </el-alert>
 
         <el-pagination
             class="m-author-pages"
@@ -38,7 +35,7 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getUserPz } from "@/service/cms.js";
-import clients from '@/assets/data/clients.json'
+import { __postType, __clients } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     props: [],
     data: function() {
@@ -56,15 +53,15 @@ export default {
                 user_id: this.uid,
                 page: this.page,
                 per: this.per,
-                client : this.client
+                client: this.client,
             };
         },
-        uid : function (){
-            return this.$store.state.uid
+        uid: function() {
+            return this.$store.state.uid;
         },
-        client : function (){
-            return this.$store.state.client
-        }
+        client: function() {
+            return this.$store.state.client;
+        },
     },
     methods: {
         loadData: function(i = 1) {
@@ -79,17 +76,17 @@ export default {
                 });
         },
         postLink: function(id) {
-            return getLink('pz', id);
+            return getLink("pz", id);
         },
     },
     filters: {
         dateFormat: function(val) {
             return dateFormat(new Date(val));
         },
-        clientLabel : function (val){
-            val = val || 'std'
-            return clients[val]
-        }
+        clientLabel: function(val) {
+            val = val || "std";
+            return __clients[val];
+        },
     },
     watch: {
         params: {
@@ -103,4 +100,3 @@ export default {
     mounted: function() {},
 };
 </script>
-
