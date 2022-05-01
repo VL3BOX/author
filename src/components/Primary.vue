@@ -6,22 +6,20 @@
                 :key="item.value"
                 :label="item.label"
                 :name="item.value"
+                :lazy="true"
             >
                 <span slot="label">
                     <i class="u-icon" :class="item.icon"></i>
                     {{item.label}}
                 </span>
+                <div class="m-primary">
+                    <component
+                        :is="currentComponent"
+                        v-if="item.value === active"
+                    />
+                </div>
             </el-tab-pane>
         </el-tabs>
-
-        <div class="m-primary">
-            <component
-                :is="item.component"
-                v-for="item in types"
-                :key="item.value"
-                v-show="item.value == active"
-            />
-        </div>
     </div>
 </template>
 
@@ -77,7 +75,11 @@ export default {
             ],
         };
     },
-    methods: {},
+    computed: {
+        currentComponent: function () {
+            return this.types.find(item => item.value === this.active).component;
+        },
+    },
     components: {
         Post,
         Wiki,
