@@ -209,13 +209,13 @@ export default {
             return item.medal_desc || medal_map[item.medal];
         },
         showAvatar: function(val) {
-            return showAvatar(val, 180);
+            return showAvatar(val, 360);
         },
         teamLink: function(val) {
             return getLink("org", val);
         },
         showTeamLogo: function(val) {
-            return showAvatar(val, 16);
+            return showAvatar(val, 32);
         },
         getWeiboLink: function(val) {
             return "https://weibo.com/" + val;
