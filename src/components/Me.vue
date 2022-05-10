@@ -25,7 +25,7 @@
             <div>
                 <span class="u-uid">UID : {{ data.ID || 0 }}</span>
                 <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
-                    <span class="u-level" :class="'lv-' + level">Lv.{{ level }}</span>
+                    <span class="u-level" :class="'lv-' + level" :style="{backgroundColor:showLevelColor(level)}">Lv.{{ level }}</span>
                 </el-tooltip>
                 <el-tooltip :content="vipTypeTitle" v-if="isPRO || isVIP" placement="top">
                     <a class="u-vip" href="/vip/premium?from=user_homepage" target="_blank">
@@ -111,7 +111,7 @@
 
 <script>
 import { showAvatar, tvLink, getLink } from "@jx3box/jx3box-common/js/utils";
-import { __imgPath } from "@jx3box/jx3box-common/data/jx3box";
+import { __imgPath,__userLevelColor } from "@jx3box/jx3box-common/data/jx3box";
 import dateFormat from "../utils/dateFormat";
 import { getUserMedals, getFrames, getUserPublicTeams } from "@/service/author";
 import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
@@ -248,6 +248,9 @@ export default {
                 this.teams = data || [];
             });
         },
+        showLevelColor : function (level){
+            return __userLevelColor[level]
+        }
     },
     mounted: function () {
         if (this.uid) {
