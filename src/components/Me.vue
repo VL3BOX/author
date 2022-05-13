@@ -1,18 +1,6 @@
 <template>
     <div class="m-author-header">
-        <div class="m-author-avatar">
-            <img
-                class="u-avatar"
-                id="m-setting-avatar-img"
-                :src="avatar | showAvatar"
-                :alt="data.name || '匿名'"
-                :class="{ isCircle }"
-            />
-            <i class="u-avatar-frame" v-if="frameName">
-                <img :src="frameUrl" />
-            </i>
-        </div>
-
+        <Avatar class="m-author-avatar" :uid="uid" :url="avatar" :size="180" :frame="avatar_frame" />
         <div class="m-author-info">
             <span class="u-name">
                 {{ data.display_name || "匿名" }}
@@ -166,18 +154,8 @@ export default {
         tv_img: function () {
             return __imgPath + "image/tv/" + this.data.tv_type + ".png";
         },
-        frameName: function () {
-            return this.avatar_frame && this.frames[this.avatar_frame] ? this.avatar_frame : "";
-        },
         frameUrl: function () {
-            if (this.frameName) {
-                let fileName = this.frames[this.frameName].files.l.file;
-                return __imgPath + `image/avatar/${this.frameName}/${fileName}`;
-            }
-            return "";
-        },
-        isCircle: function () {
-            return this.frameName && this.frames[this.frameName].style == "circle";
+            return __imgPath + `image/avatar/${this.avatar_frame}/${this.avatar_frame}.svg`;
         },
         isPRO: function () {
             return this.data?.is_pro;
