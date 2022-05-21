@@ -28,9 +28,7 @@
                 <span>加入于 {{ data.user_registered | time }}</span>
             </span>
             <div class="u-medals" v-if="medals && medals.length">
-                <span class="u-medal" v-for="(item, i) in medals" :key="i">
-                    <img :src="item.medal | showMedalIcon" :title="item | showMedalDesc" />
-                </span>
+                <medal :medals="medals" :showIcon="showMedalIcon"></medal>
             </div>
             <div class="u-bio">{{ data.user_bio }}</div>
 
@@ -105,9 +103,13 @@ import { getUserMedals, getFrames, getUserPublicTeams } from "@/service/author";
 import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
 import frames from "@jx3box/jx3box-common/data/user_avatar_frame.json";
 import User from "@jx3box/jx3box-common/js/user";
+import Medal from '@jx3box/jx3box-common-ui/src/medal/medal.vue'
 export default {
     name: "Me",
     props: [],
+    components: {
+        Medal
+    },
     data: function () {
         return {
             // data: {},
@@ -180,9 +182,6 @@ export default {
         time: (val) => {
             return dateFormat(new Date(val));
         },
-        showMedalIcon: function (val) {
-            return __imgPath + "image/medals/user/" + val + ".gif";
-        },
         showMedalDesc: function (item) {
             return item.medal_desc || medal_map[item.medal];
         },
@@ -228,7 +227,10 @@ export default {
         },
         showLevelColor : function (level){
             return __userLevelColor[level]
-        }
+        },
+        showMedalIcon: function (val) {
+            return __imgPath + "image/medals/user/" + val + ".gif";
+        },
     },
     mounted: function () {
         if (this.uid) {
