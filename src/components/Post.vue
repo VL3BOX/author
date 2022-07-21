@@ -48,6 +48,7 @@ export default {
             root: {
                 std: __Root.slice(0,-1),
                 origin: __OriginRoot.slice(0,-1),
+                all : ''
             },
         };
     },
