@@ -1,25 +1,23 @@
+<!--
+ * @Author: iRuxu
+ * @Date: 2022-05-02 10:53:27
+ * @LastEditTime: 2022-07-21 22:18:54
+ * @Description:
+-->
 <template>
     <div class="m-post" v-loading="loading">
         <el-timeline class="m-post-list" v-if="list && list.length">
-            <el-timeline-item
-                v-for="(item, i) in list"
-                :key="i"
-                :timestamp="item.updated | dateFormat"
-                placement="top"
-            >
+            <el-timeline-item v-for="(item, i) in list" :key="i" :timestamp="item.updated | dateFormat" placement="top">
                 <h4 class="u-type">{{ item.type | showType }}百科</h4>
                 <p>
-                    <a
-                        :href="postLink(item.type, item.source_id)"
-                        class="u-title"
-                        target="_blank"
+                    <a :href="postLink(item.type, item.source_id)" class="u-title" target="_blank"
+                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i
                         >{{ item.title || "无标题" }}</a
                     >
                 </p>
             </el-timeline-item>
         </el-timeline>
-        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
-        </el-alert>
+        <el-alert v-else title="没有找到相关条目" type="info" show-icon> </el-alert>
 
         <el-pagination
             class="m-author-pages"
@@ -38,11 +36,11 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getWikis } from "@/service/helper.js";
-import { __wikiType } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __wikiType, __clients } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "Cj",
     props: [],
-    data: function() {
+    data: function () {
         return {
             loading: false,
             list: [],
@@ -52,22 +50,23 @@ export default {
         };
     },
     computed: {
-        params: function() {
+        params: function () {
             return {
                 user_id: this.uid,
                 page: this.page,
                 limit: this.per,
+                clear_client: 1,
             };
         },
-        uid: function() {
+        uid: function () {
             return this.$store.state.uid;
         },
-        userdata: function() {
+        userdata: function () {
             return this.$store.state.userdata;
         },
     },
     methods: {
-        loadData: function() {
+        loadData: function () {
             this.loading = true;
             getWikis(this.params)
                 .then((res) => {
@@ -78,28 +77,32 @@ export default {
                     this.loading = false;
                 });
         },
-        postLink: function(type, id) {
+        postLink: function (type, id) {
             return getLink(type, id);
         },
     },
     filters: {
-        dateFormat: function(val) {
+        dateFormat: function (val) {
             return dateFormat(new Date(~~val * 1000));
         },
-        showType: function(type) {
+        showType: function (type) {
             return __wikiType[type];
+        },
+        clientLabel: function (val) {
+            val = val || "std";
+            return __clients[val];
         },
     },
     watch: {
         params: {
             deep: true,
             immediate: true,
-            handler: function() {
+            handler: function () {
                 this.loadData();
             },
         },
     },
-    mounted: function() {},
+    mounted: function () {},
 };
 </script>
 
