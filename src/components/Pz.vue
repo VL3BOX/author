@@ -53,7 +53,7 @@ export default {
                 user_id: this.uid,
                 page: this.page,
                 per: this.per,
-                client: this.client,
+                // client: this.client,
             };
         },
         uid: function() {

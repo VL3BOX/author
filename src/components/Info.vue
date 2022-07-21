@@ -1,5 +1,12 @@
 <template>
     <div class="m-info" v-if="isAdmin">
+    <el-button
+            type="warning"
+            size="mini"
+            icon="el-icon-warning-outline"
+            @click="report"
+            >举报</el-button
+        >
         <el-button
             type="danger"
             size="mini"
@@ -106,6 +113,9 @@ export default {
             this.reason = "";
             location.reload();
         },
+        report : function (){
+            location.href = `/feedback?refer=${encodeURIComponent(location.href)}`;
+        }
     },
     mounted: function() {},
 };
