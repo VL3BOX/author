@@ -9,7 +9,7 @@
             >
                 <h4 class="u-type">配装方案</h4>
                 <p>
-                    <a :href="postLink(item.id)" class="u-title" target="_blank"
+                    <a :href="postLink(item.id, item.client)" class="u-title" target="_blank"
                         ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i
                         >{{ item.title || "无标题" }}</a
                     >
@@ -35,7 +35,7 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getUserPz } from "@/service/cms.js";
-import { __postType, __clients } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __postType, __clients, __Root, __OriginRoot } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     props: [],
     data: function() {
@@ -45,6 +45,10 @@ export default {
             total: 1,
             per: 10,
             page: 1,
+            root: {
+                std: __Root.slice(0,-1),
+                origin: __OriginRoot.slice(0,-1),
+            },
         };
     },
     computed: {
@@ -75,8 +79,8 @@ export default {
                     this.loading = false;
                 });
         },
-        postLink: function(id) {
-            return getLink("pz", id);
+        postLink: function (id, client) {
+            return this.root[client] + getLink('pz', id);
         },
     },
     filters: {

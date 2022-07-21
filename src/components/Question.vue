@@ -10,9 +10,10 @@
                 <h4 class="u-type">题库题目</h4>
                 <p>
                     <a
-                        :href="postLink(item.id)"
+                        :href="postLink(item.id,item.client)"
                         class="u-title"
                         target="_blank"
+                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i
                         >{{ item.title || '无标题' }}</a
                     >
                 </p>
@@ -38,7 +39,7 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getQuestions } from "@/service/next.js";
-
+import {  __clients , __Root, __OriginRoot} from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "Question",
     props: [],
@@ -49,6 +50,10 @@ export default {
             total: 1,
             per: 10,
             page: 1,
+            root: {
+                std: __Root.slice(0,-1),
+                origin: __OriginRoot.slice(0,-1),
+            },
         };
     },
     computed: {
@@ -78,13 +83,17 @@ export default {
                     this.loading = false;
                 });
         },
-        postLink: function(id) {
-            return getLink("question", id);
+        postLink: function(id,client) {
+            return this.root[client] + getLink('question', id);
         },
     },
     filters: {
         dateFormat: function(val) {
             return dateFormat(new Date(~~val * 1000));
+        },
+        clientLabel: function(val) {
+            val = val || "std";
+            return __clients[val];
         },
     },
     watch: {

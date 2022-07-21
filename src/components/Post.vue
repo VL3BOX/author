@@ -9,7 +9,7 @@
             >
                 <h4 class="u-type">{{ item.post_type | typeFormat }}</h4>
                 <p>
-                    <a :href="postLink(item.post_type, item.ID)" class="u-title" target="_blank"
+                    <a :href="postLink(item.post_type, item.ID, item.client)" class="u-title" target="_blank"
                         ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i
                         >{{ item.post_title || "无标题" }}</a
                     >
@@ -35,7 +35,7 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getPosts } from "@/service/cms.js";
-import { __postType, __clients } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __postType, __clients , __Root, __OriginRoot} from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     props: [],
     data: function() {
@@ -45,6 +45,10 @@ export default {
             total: 1,
             per: 10,
             page: 1,
+            root: {
+                std: __Root.slice(0,-1),
+                origin: __OriginRoot.slice(0,-1),
+            },
         };
     },
     computed: {
@@ -74,8 +78,8 @@ export default {
                     this.loading = false;
                 });
         },
-        postLink: function(type, id) {
-            return getLink(type, id);
+        postLink: function (type, id, client) {
+            return this.root[client] + getLink(type, id);
         },
     },
     filters: {

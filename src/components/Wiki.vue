@@ -1,7 +1,7 @@
 <!--
  * @Author: iRuxu
  * @Date: 2022-05-02 10:53:27
- * @LastEditTime: 2022-07-21 22:18:54
+ * @LastEditTime: 2022-07-21 22:35:52
  * @Description:
 -->
 <template>
@@ -10,7 +10,7 @@
             <el-timeline-item v-for="(item, i) in list" :key="i" :timestamp="item.updated | dateFormat" placement="top">
                 <h4 class="u-type">{{ item.type | showType }}百科</h4>
                 <p>
-                    <a :href="postLink(item.type, item.source_id)" class="u-title" target="_blank"
+                    <a :href="postLink(item.type, item.source_id, item.client)" class="u-title" target="_blank"
                         ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i
                         >{{ item.title || "无标题" }}</a
                     >
@@ -36,7 +36,7 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getWikis } from "@/service/helper.js";
-import { __wikiType, __clients } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __wikiType, __clients, __Root, __OriginRoot } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "Cj",
     props: [],
@@ -47,6 +47,10 @@ export default {
             total: 1,
             per: 10,
             page: 1,
+            root: {
+                std: __Root.slice(0,-1),
+                origin: __OriginRoot.slice(0,-1),
+            },
         };
     },
     computed: {
@@ -77,8 +81,8 @@ export default {
                     this.loading = false;
                 });
         },
-        postLink: function (type, id) {
-            return getLink(type, id);
+        postLink: function (type, id, client) {
+            return this.root[client] + getLink(type, id);
         },
     },
     filters: {

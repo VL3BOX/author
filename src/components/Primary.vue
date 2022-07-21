@@ -1,22 +1,19 @@
+<!--
+ * @Author: iRuxu
+ * @Date: 2022-05-02 10:53:27
+ * @LastEditTime: 2022-07-21 22:41:27
+ * @Description:
+-->
 <template>
     <div class="m-author-body">
         <el-tabs class="m-tabs" v-model="active">
-            <el-tab-pane
-                v-for="item in types"
-                :key="item.value"
-                :label="item.label"
-                :name="item.value"
-                :lazy="true"
-            >
+            <el-tab-pane v-for="item in types" :key="item.value" :label="item.label" :name="item.value" :lazy="true">
                 <span slot="label">
                     <i class="u-icon" :class="item.icon"></i>
-                    {{item.label}}
+                    {{ item.label }}
                 </span>
                 <div class="m-primary">
-                    <component
-                        :is="currentComponent"
-                        v-if="item.value === active"
-                    />
+                    <component :is="currentComponent" v-if="item.value === active" />
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -26,8 +23,8 @@
 <script>
 import Post from "@/components/Post.vue";
 import Wiki from "@/components/Wiki.vue";
-// import Question from "@/components/Question.vue";
-// import Paper from "@/components/Paper.vue";
+import Question from "@/components/Question.vue";
+import Paper from "@/components/Paper.vue";
 import Collection from "@/components/Collection.vue";
 import Namespace from "@/components/Namespace.vue";
 // import Plan from "@/components/item_plan.vue";
@@ -63,9 +60,9 @@ export default {
                     component: Collection,
                     icon: "el-icon-notebook-1",
                 },
-                // { label: "TA的题目", value: "Question", component: Question },
-                // { label: "TA的试卷", value: "Paper", component: Paper },
-                // { label: "TA的清单", value: "Plan", component: Plan },
+
+                { label: "剑三题目", value: "Question", component: Question, icon: "el-icon-document-checked" },
+                { label: "剑三试卷", value: "Paper", component: Paper, icon: "el-icon-document-checked" },
                 {
                     label: "TA的铭牌",
                     value: "Namespace",
@@ -77,14 +74,14 @@ export default {
     },
     computed: {
         currentComponent: function () {
-            return this.types.find(item => item.value === this.active).component;
+            return this.types.find((item) => item.value === this.active).component;
         },
     },
     components: {
         Post,
         Wiki,
-        // Question,
-        // Paper,
+        Question,
+        Paper,
         Collection,
         Namespace,
         // Plan,
@@ -94,7 +91,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.u-icon{
+.u-icon {
     .fz(16px);
 }
 </style>
