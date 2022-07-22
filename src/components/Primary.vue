@@ -27,12 +27,14 @@ import Question from "@/components/Question.vue";
 import Paper from "@/components/Paper.vue";
 import Collection from "@/components/Collection.vue";
 import Namespace from "@/components/Namespace.vue";
+import Jokes from "@/components/Jokes.vue";
+import Emotions from "@/components/Emotions.vue";
 // import Plan from "@/components/item_plan.vue";
 import Pz from "@/components/Pz.vue";
 export default {
     name: "Primary",
     props: [],
-    data: function () {
+    data: function() {
         return {
             active: "Post",
             types: [
@@ -69,11 +71,24 @@ export default {
                     component: Namespace,
                     icon: "el-icon-postcard",
                 },
+                {
+                    label: "TA的趣图",
+                    value: "Emotions",
+                    component: Emotions,
+                    icon: "el-icon-sugar",
+                },
+                {
+                    label: "TA的骚话",
+                    value: "Jokes",
+                    component: Jokes,
+                    icon: "el-icon-cold-drink",
+
+                }
             ],
         };
     },
     computed: {
-        currentComponent: function () {
+        currentComponent: function() {
             return this.types.find((item) => item.value === this.active).component;
         },
     },
@@ -86,6 +101,8 @@ export default {
         Namespace,
         // Plan,
         Pz,
+        Jokes,
+        Emotions,
     },
 };
 </script>

@@ -28,10 +28,26 @@ function getUserPz(params){
     })
 }
 
+// 获取用户的骚话
+function getUserJokes(params) {
+    return $cms().get(`/api/cms/post/jokes`, {
+        params
+    })
+}
+
+// 获取用户的趣图
+function getUserEmotions(params) {
+    return $cms().get(`/api/cms/post/emotions`, {
+        params
+    })
+}
+
 export {
     getPosts,
     getUserInfo,
     getSuperAuthor,
     getIdentity,
-    getUserPz
+    getUserPz,
+    getUserJokes,
+    getUserEmotions
 };
