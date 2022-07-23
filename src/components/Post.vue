@@ -80,6 +80,7 @@ export default {
                 });
         },
         postLink: function (type, id, client) {
+            client = client || "all"
             return this.root[client] + getLink(type, id);
         },
     },
