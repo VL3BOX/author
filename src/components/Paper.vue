@@ -1,24 +1,48 @@
 <template>
     <div class="m-post" v-loading="loading">
-        <el-timeline class="m-post-list" v-if="list && list.length">
-            <el-timeline-item
-                v-for="(item, i) in list"
-                :key="i"
-                :timestamp="item.createTime | dateFormat"
-                placement="top"
-            >
-                <h4 class="u-type">题库试卷</h4>
-                <p>
-                    <a
-                        :href="postLink(item.id,item.client)"
-                        class="u-title"
-                        target="_blank"
-                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i
-                        >{{ item.title || '无标题' }}</a
-                    >
-                </p>
-            </el-timeline-item>
-        </el-timeline>
+<!--        <el-timeline class="m-post-list" v-if="list && list.length">-->
+<!--            <el-timeline-item-->
+<!--                v-for="(item, i) in list"-->
+<!--                :key="i"-->
+<!--                :timestamp="item.createTime | dateFormat"-->
+<!--                placement="top"-->
+<!--            >-->
+<!--                <h4 class="u-type">题库试卷</h4>-->
+<!--                <p>-->
+<!--                    <a-->
+<!--                        :href="postLink(item.id,item.client)"-->
+<!--                        class="u-title"-->
+<!--                        target="_blank"-->
+<!--                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i-->
+<!--                        >{{ item.title || '无标题' }}</a-->
+<!--                    >-->
+<!--                </p>-->
+<!--            </el-timeline-item>-->
+<!--        </el-timeline>-->
+        <!-- 列表 -->
+        <div v-if="list && list.length" class="m-archive-list">
+            <ul class="u-list">
+                <li v-for="(item, i) in list"  :key="i + item" class="u-item">
+                    <!-- 标题 -->
+                    <h2 class="u-post">
+                        <!-- 标题文字 -->
+                        <a :href="postLink(item.id,item.client)" class="u-title" target="_blank">{{ item.title || "无标题" }}</a>
+                    </h2>
+                    <!-- 字段 -->
+                    <div class="u-content u-desc">
+                        <el-tag v-for="(tag,index) in JSON.parse(item.tags||[])" :key="'t'+index" size="small"  class="u-tag">{{ tag }}</el-tag>
+                    </div>
+
+                    <!-- 作者 -->
+                    <div class="u-misc">
+                        <span class="u-date">
+                            Created on
+                            <time >{{ item.createTime | dateFormat }}</time>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <el-alert v-else title="没有找到相关条目" type="info" show-icon>
         </el-alert>
 
@@ -48,7 +72,7 @@ export default {
             loading: false,
             list: [],
             total: 1,
-            per: 10,
+            per: 6,
             page: 1,
             root: {
                 std: __Root.slice(0,-1),

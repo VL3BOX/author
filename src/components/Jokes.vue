@@ -1,23 +1,43 @@
 <template>
     <div class="m-post" v-loading="loading">
-        <el-timeline class="m-post-list" v-if="list && list.length">
-            <el-timeline-item
-                v-for="(item, i) in list"
-                :key="i"
-                :timestamp="item.created_at | dateFormat"
-                placement="top"
-            >
-                <h4 class="u-type">骚话</h4>
-                <p>
-                    <a
-                        :href="postLink(item.id)"
-                        class="u-title"
-                        target="_blank"
-                        >{{ item.content || "无标题" }}</a
-                    >
-                </p>
-            </el-timeline-item>
-        </el-timeline>
+<!--        <el-timeline class="m-post-list" v-if="list && list.length">-->
+<!--            <el-timeline-item-->
+<!--                v-for="(item, i) in list"-->
+<!--                :key="i"-->
+<!--                :timestamp="item.created_at | dateFormat"-->
+<!--                placement="top"-->
+<!--            >-->
+<!--                <h4 class="u-type">骚话</h4>-->
+<!--                <p>-->
+<!--                    <a-->
+<!--                        :href="postLink(item.id)"-->
+<!--                        class="u-title"-->
+<!--                        target="_blank"-->
+<!--                        >{{ item.content || "无标题" }}</a-->
+<!--                    >-->
+<!--                </p>-->
+<!--            </el-timeline-item>-->
+<!--        </el-timeline>-->
+        <!-- 列表 -->
+        <div v-if="list && list.length" class="m-archive-list">
+            <ul class="u-list">
+                <li v-for="(item, i) in list"  :key="i + item" class="u-item">
+
+                    <!-- 标题 -->
+                    <h2 class="u-jokes">
+                        <!-- 标题文字 -->
+                        <a :href="postLink(item.id)" class="u-title" target="_blank">{{ item.content || "无标题" }}</a>
+                    </h2>
+                    <!-- 作者 -->
+<!--                    <div class="u-misc">-->
+<!--                        <span class="u-date">-->
+<!--                            Updated on-->
+<!--                            <time >{{ item.created_at | dateFormat }}</time>-->
+<!--                        </span>-->
+<!--                    </div>-->
+                </li>
+            </ul>
+        </div>
         <el-alert v-else title="没有找到相关条目" type="info" show-icon>
         </el-alert>
 
@@ -45,7 +65,7 @@ export default {
             loading: false,
             list: [],
             total: 1,
-            per : 10,
+            per : 6,
             page : 1
         };
     },

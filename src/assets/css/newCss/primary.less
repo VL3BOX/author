@@ -1,0 +1,51 @@
+.m-author-primary{
+    .flex;
+    .m-common-box{
+        border: 1px solid rgba(63, 68, 72, 0.2);
+        border-radius: 5px;
+        background: #ffffff;
+        padding: 10px 30px;
+    }
+    .m-left{
+        //.w(67.5%);
+        .w(730px);
+        .u-content{
+            padding: 20px;
+        }
+    }
+    .m-right{
+        .w(350px);
+        .ml(20px);
+        text-align: center;
+        .m-join-box{
+            .flex;
+            .grid(x, space-between);
+        }
+        .u-join,.u-fans {
+            //.dbi;
+            .fz(14px, 22px);
+            //color: #666;
+            .u-icon-join,.u-icon-fans {
+                .dbi;
+                .y(top);
+                .mr(5px);
+                .h(20px);
+                .mt(2px);
+                svg {
+                    fill: #666;
+                }
+            }
+        }
+        .u-fans{
+            .ml(20px);
+        }
+        //
+        .m-fans,.m-medals,.m-teams,.m-links{
+            .mt(20px);
+            padding:0 14px 20px 14px;
+            text-align: left;
+
+        }
+
+    }
+}

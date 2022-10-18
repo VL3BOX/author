@@ -51,6 +51,18 @@ module.exports = {
                     request.setHeader("origin", "");
                 },
             },
+            "/api/my-userlist": {
+                target: "https://next2.jx3box.com",
+                onProxyReq: function(request) {
+                    request.setHeader("origin", "");
+                },
+            },
+            "/api/followers": {
+                target: "https://next2.jx3box.com",
+                onProxyReq: function(request) {
+                    request.setHeader("origin", "");
+                },
+            },
             "/api/team": {
                 target: "https://team.api.jx3box.com",
                 onProxyReq: function(request) {
@@ -59,6 +71,12 @@ module.exports = {
             },
             "/api/cms": {
                 target: process.env["DEV_SERVER"] == "true" ? "http://localhost:5120" : "https://cms.jx3box.com"
+            },
+            "/api/cny":{
+                target: "https://pay.jx3box.com",
+                onProxyReq: function(request) {
+                    request.setHeader("origin", "");
+                },
             },
             "/api": {
                 target: "https://helper.jx3box.com",

@@ -1,9 +1,3 @@
-<!--
- * @Author: iRuxu
- * @Date: 2022-05-02 10:53:27
- * @LastEditTime: 2022-07-21 21:38:30
- * @Description:
--->
 <template>
     <div id="app">
         <Header></Header>
@@ -19,15 +13,13 @@
         </Breadcrumb>
         <div class="m-author" v-if="uid">
             <Me />
-            <Primary />
             <Footer></Footer>
         </div>
     </div>
 </template>
 
 <script>
-import Me from "@/components/Me.vue";
-import Primary from "@/components/Primary.vue";
+import Me from "@/components/newComponents/Me.vue";
 import Info from "@/components/Info.vue";
 import { getRewrite } from "@jx3box/jx3box-common/js/utils";
 import { getUserInfo } from "@/service/cms";
@@ -61,13 +53,13 @@ export default {
     },
     components: {
         Info,
-        Me,
-        Primary,
+        Me
     },
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import "./assets/css/app.less";
 @import './assets/css/post.less';
+
 </style>

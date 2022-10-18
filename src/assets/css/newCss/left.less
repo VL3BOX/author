@@ -1,0 +1,39 @@
+.m-author-info{
+    .m-top{
+        .h(40px);
+        .u-title{
+            .fl;
+            width: 112px;
+            .fz(26px,40px);
+            font-weight: 400;
+            .mr(20px);
+        }
+        .m-tabs{
+            .w(calc(100% - 134px));
+            .fl;
+            /deep/.el-tabs__active-bar{
+                background-color:#FF7CAB ;
+            }
+            /deep/.el-tabs__item{
+                padding: 0 14px;
+                &.is-active{
+                    color: #FF7CAB;
+                    .fz(20px);
+                    .bold(700);
+                }
+            }
+            /deep/.el-tabs__header{
+                margin: 0;
+            }
+        }
+    }
+    .m-primary{
+        /deep/.el-loading-mask{
+            z-index: 1;
+        }
+        .m-post{
+            padding: 0;
+        }
+    }
+}
+
