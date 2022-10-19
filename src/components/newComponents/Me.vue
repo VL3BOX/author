@@ -22,10 +22,13 @@
                             </span>
                         </el-tooltip>
                     </div>
+                    <div class="u-info" :title="autherInfo.user_bio||'这个人太懒了~没有写签名。'">
+                        {{ autherInfo.user_bio||'这个人太懒了~没有写签名。' }}
+                    </div>
                 </div>
             </div>
             <div class="m-focus">
-                <el-button icon="el-icon-plus" class="u-btn u-btn-attention" v-if="!isFollow" @click="follow">关注</el-button>
+                <el-button icon="el-icon-plus" class="u-btn u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
                 <el-button class="u-btn u-already-attention" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" v-else @click="unfollow">{{ attentionText }}</el-button>
                 <div class="u-more">
                     <svg width="6" height="20" viewBox="0 0 6 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,13 +60,8 @@
                         </i>粉丝数 {{fansNum}}
                     </div>
                 </div>
-<!--                &lt;!&ndash;        粉丝团&ndash;&gt;-->
-<!--                <AuhorFans :uid="Number(uid)" class="m-common-box m-fans"></AuhorFans>-->
-<!--                &lt;!&ndash;        他的荣誉&ndash;&gt;-->
-<!--                <AuthorMedals :uid="uid" class="m-common-box m-medals"></AuthorMedals>-->
-<!--                &lt;!&ndash;        他的团队&ndash;&gt;-->
-<!--                <AuthorTeams :uid="uid" class="m-common-box m-teams"></AuthorTeams>-->
-                <Primary></Primary>
+
+                <Primary @autherInfo="getAutherInfo"></Primary>
             </div>
         </div>
     </div>
@@ -95,6 +93,7 @@ export default {
             isFollow:false,
             attentionText:'已关注',
             fansNum:0,
+            autherInfo:{}
         };
     },
     computed: {
@@ -194,6 +193,9 @@ export default {
                 this.fansNum = res.data.data.follower_count || 0;
                 this.isFollow = res.data.data.is_followed;
             })
+        },
+        getAutherInfo(v){
+            this.autherInfo=v
         }
     },
     mounted: function () {

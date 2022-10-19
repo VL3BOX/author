@@ -26,23 +26,27 @@
 <!--            </el-timeline-item>-->
 <!--        </el-timeline>-->
         <!-- 列表 -->
-        <div v-if="list && list.length" class="m-archive-list">
-            <ul class="u-list">
-                <li v-for="(item, i) in list"  :key="i + item" class="u-item">
-                    <!-- pic -->
-                    <a class="u-pic" :href="postLink(item.id)" target="_blank">
-                        <img :src="showEmotion(item.url)" :alt="item.desc" :key="item.url"/>
-                    </a>
-
-                    <!-- 作者 -->
-                    <div class="u-misc">
-                        <span class="u-date">
-                            Updated on
-                            <time >{{ item.updated_at | dateFormat }}</time>
-                        </span>
+        <div v-if="list && list.length" class="m-emotions-list">
+<!--            <ul class="u-list">-->
+<!--                <li v-for="(item, i) in list"  :key="i + item" class="u-item">-->
+<!--                    &lt;!&ndash; pic &ndash;&gt;-->
+<!--                    <a class="u-pic" :href="postLink(item.id)" target="_blank">-->
+<!--                        <img :src="showEmotion(item.url)" :alt="item.desc" :key="item.url"/>-->
+<!--                        <span class="u-date">-->
+<!--                            Updated on-->
+<!--                            <time >{{ item.updated_at | dateFormat }}</time>-->
+<!--                        </span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+            <div v-for="(item, i) in list"  :key="i + item" class="u-list">
+                <a class="u-pic" :href="postLink(item.id)" target="_blank">
+                    <img :src="showEmotion(item.url)" :alt="item.desc" :key="item.url" class="u-img"/>
+                    <div class="u-date">
+                        <time >{{ timeago(item.updated_at) }}</time>
                     </div>
-                </li>
-            </ul>
+                </a>
+            </div>
         </div>
         <el-alert v-else title="没有找到相关条目" type="info" show-icon>
         </el-alert>
@@ -71,7 +75,7 @@ export default {
             loading: false,
             list: [],
             total: 1,
-            per : 6,
+            per : 25,
             page : 1
         };
     },
@@ -123,6 +127,50 @@ export default {
                 }
             }
         },
+        timeago(date){
+            let result="";
+            let minute = 1000 * 60;      //把分，时，天，周，半个月，一个月用毫秒表示
+            let hour = minute * 60;
+            let day = hour * 24;
+            let week = day * 7;
+            let halfamonth = day * 15;
+            let month = day * 30;
+            let now = new Date().getTime();   //获取当前时间毫秒
+            let diffValue = now - new Date(date).getTime();//时间差
+
+            if(diffValue < 0){
+                return;
+            }
+            var minC = diffValue/minute;  //计算时间差的分，时，天，周，月
+            var hourC = diffValue/hour;
+            var dayC = diffValue/day;
+            var weekC = diffValue/week;
+            var monthC = diffValue/month;
+            if(monthC >= 1 && monthC <= 12){
+                result = " " + parseInt(monthC) + "月前"
+            }else if(weekC >= 1 && weekC <= 3){
+                result = " " + parseInt(weekC) + "周前"
+            }else if(dayC >= 1 && dayC <= 6){
+                result = " " + parseInt(dayC) + "天前"
+            }else if(hourC >= 1 && hourC <= 23){
+                result = " " + parseInt(hourC) + "小时前"
+            }else if(minC >= 1 && minC <= 59){
+                result =" " + parseInt(minC) + "分钟前"
+            }else if(diffValue >= 0 && diffValue <= minute){
+                result = "刚刚"
+            }else {
+                let datetime = new Date();
+                datetime.setTime(new Date(date));
+                let Nyear = datetime.getFullYear();
+                let Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+                let Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+                let Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+                let Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+                let Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+                result = Nyear + "-" + Nmonth + "-" + Ndate
+            }
+            return result;
+        }
     },
     filters: {
         dateFormat: function(val) {
@@ -141,5 +189,6 @@ export default {
     mounted: function() {
 
     },
+
 };
 </script>

@@ -1,8 +1,16 @@
 <template>
 <div class="c-author">
+
 <!--        粉丝团-->
         <AuthorFans :uid="Number(uid)" class="m-common-box m-fans"></AuthorFans>
-        <div class="m-common-box m-links">
+    <div class="m-common-box m-user-bio">
+        <div class="u-label"><i class="el-icon-edit"></i><span>TA的签名</span></div>
+        <div class="u-userBio">
+            {{data.user_bio||'这个人太懒了~没有写签名。'}}
+        </div>
+    </div>
+        <div class="m-common-box m-links" v-if="data!=''&& (data.weibo_id || data.github_id||data.tv_id)">
+<!--            ||data.tuilan_id-->
             <div class="u-label"><i class="el-icon-user"></i><span>TA的信息</span></div>
             <AuthorLink class="u-links" :uid="uid" :data="data" />
         </div>
@@ -46,6 +54,8 @@ export default {
             getUserInfo(this.uid).then((data) => {
                 if (data) {
                     this.data = data;
+                    console.log(data)
+                    this.$emit('autherInfo',data)
                 }
             });
         },

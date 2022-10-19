@@ -68,7 +68,7 @@ export default {
             loading: false,
             list: [],
             total: 1,
-            per: 10,
+            per: 8,
             page: 1,
             defult_link: "https://www.jx3box.com",
         };

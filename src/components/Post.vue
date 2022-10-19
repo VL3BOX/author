@@ -83,7 +83,7 @@ export default {
                 origin: __OriginRoot.slice(0,-1),
                 all : ''
             },
-            postTypeArr:['macro']
+            postTypeArr:[]
         };
     },
     computed: {

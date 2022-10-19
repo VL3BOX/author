@@ -2,10 +2,41 @@
 .m-author-pages {
     text-align: right;
 }
+//趣图瀑布流
+.m-emotions-list{
+    .w(100%);
+    .auto(x);
+    .mt(10px);
+    columns: 5; // 默认列数
+    column-gap: 10px; // 列间距
+
+    .u-list{
+        break-inside: avoid;
+        margin-bottom: 10px;
+        background-color: #f6f8fa;
+        padding: 5px;
+        &:hover{
+            background-color: rgb(175,226,250,0.8);
+        }
+        .u-pic{
+            color:#000000;
+        }
+        .u-img{
+            //.h(200px);
+            width: 100%;
+        }
+        .u-date{
+            text-align: right;
+            .fz(12px);
+            padding: 8px 0 0 0;
+        }
+    }
+
+}
 
 // 普通列表
 .m-archive-list {
-    .mt(20px);
+    //.mt(20px);
     .u-list {
         padding: 0;
         margin: 0;
@@ -20,13 +51,7 @@
         .pr;
         //.min-height(60px);
     }
-    //趣图
-    .u-pic{
-        .size(180px);
-        img{
-            max-width: 100%;
-        }
-    }
+
     // 海报
     .u-banner {
         .fl;
@@ -92,6 +117,7 @@
         .u-title {
             font-weight: 400;
             text-decoration:none;
+            .break(2);
             &:hover {
                 box-shadow: 0 1px 0 @primary;
                 color: @primary;
@@ -185,6 +211,9 @@
     }
 }
 @media screen and (max-width: @ipad) {
+    .m-emotions-list{
+        columns:3
+    }
     .m-archive-list {
         .u-banner {
             .w(100px);
@@ -221,6 +250,9 @@
     }
 }
 @media screen and (max-width:@phone){
+    .m-emotions-list{
+        columns:2
+    }
     .m-archive-list{
         .u-desc{
             .none;

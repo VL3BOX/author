@@ -70,7 +70,7 @@ export default {
             loading: false,
             list: [],
             total: 1,
-            per: 6,
+            per: 8,
             page: 1,
             root: {
                 std: __Root.slice(0,-1),
