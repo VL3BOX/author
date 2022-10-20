@@ -54,7 +54,6 @@ export default {
             getUserInfo(this.uid).then((data) => {
                 if (data) {
                     this.data = data;
-                    console.log(data)
                     this.$emit('autherInfo',data)
                 }
             });
