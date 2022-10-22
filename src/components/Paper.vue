@@ -30,7 +30,7 @@
                     </h2>
                     <!-- 字段 -->
                     <div class="u-content u-desc">
-                        <el-tag v-for="(tag,index) in JSON.parse(item.tags||[])" :key="'t'+index" size="small"  class="u-tag">{{ tag }}</el-tag>
+                        <el-tag type="primary" size="mini" v-for="(tag,index) in JSON.parse(item.tags||[])" :key="'t'+index"  class="u-tag">{{ tag }}</el-tag>
                     </div>
 
                     <!-- 作者 -->

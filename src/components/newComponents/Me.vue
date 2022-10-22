@@ -22,20 +22,17 @@
                             </span>
                         </el-tooltip>
                     </div>
-                    <div class="u-info" :title="autherInfo.user_bio||'这个人太懒了~没有写签名。'">
-                        {{ autherInfo.user_bio||'这个人太懒了~没有写签名。' }}
+                    <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
+                        {{ authorInfo.user_bio||'这个人太懒了~没有写签名。' }}
                     </div>
                 </div>
             </div>
             <div class="m-focus">
                 <el-button icon="el-icon-plus" class="u-btn u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
                 <el-button class="u-btn u-already-attention" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" v-else @click="unfollow">{{ attentionText }}</el-button>
-                <div class="u-more">
-                    <svg width="6" height="20" viewBox="0 0 6 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 20C2.33696 20 1.70107 19.7366 1.23223 19.2678C0.763393 18.7989 0.5 18.163 0.5 17.5C0.5 16.837 0.763393 16.2011 1.23223 15.7322C1.70107 15.2634 2.33696 15 3 15C3.66304 15 4.29893 15.2634 4.76777 15.7322C5.23661 16.2011 5.5 16.837 5.5 17.5C5.5 18.163 5.23661 18.7989 4.76777 19.2678C4.29893 19.7366 3.66304 20 3 20ZM3 12.5C2.33696 12.5 1.70107 12.2366 1.23223 11.7678C0.763393 11.2989 0.5 10.663 0.5 10C0.5 9.33696 0.763393 8.70107 1.23223 8.23223C1.70107 7.76339 2.33696 7.5 3 7.5C3.66304 7.5 4.29893 7.76339 4.76777 8.23223C5.23661 8.70107 5.5 9.33696 5.5 10C5.5 10.663 5.23661 11.2989 4.76777 11.7678C4.29893 12.2366 3.66304 12.5 3 12.5ZM3 5C2.33696 5 1.70107 4.73661 1.23223 4.26777C0.763393 3.79893 0.5 3.16304 0.5 2.5C0.5 1.83696 0.763393 1.20107 1.23223 0.732233C1.70107 0.263392 2.33696 0 3 0C3.66304 0 4.29893 0.263392 4.76777 0.732233C5.23661 1.20107 5.5 1.83696 5.5 2.5C5.5 3.16304 5.23661 3.79893 4.76777 4.26777C4.29893 4.73661 3.66304 5 3 5Z" fill="white" fill-opacity="1"/>
-                    </svg>
-
-                </div>
+                <!-- <div class="u-more">
+                    <img src="@/assets/img/more.svg" svg-inline />
+                </div> -->
             </div>
 
         </div>
@@ -57,11 +54,11 @@
                     <div class="u-fans">
                         <i class="u-icon u-icon-fans">
                             <img svg-inline src="../../assets/img/fans.svg" />
-                        </i>粉丝数 {{fansNum}}
+                        </i>粉丝数 <b>{{fansNum}}</b>
                     </div>
                 </div>
 
-                <Primary @autherInfo="getAutherInfo"></Primary>
+                <Primary @authorInfo="getAuthorInfo"></Primary>
             </div>
         </div>
     </div>
@@ -93,7 +90,7 @@ export default {
             isFollow:false,
             attentionText:'已关注',
             fansNum:0,
-            autherInfo:{}
+            authorInfo:{}
         };
     },
     computed: {
@@ -194,8 +191,8 @@ export default {
                 this.isFollow = res.data.data.is_followed;
             })
         },
-        getAutherInfo(v){
-            this.autherInfo=v
+        getAuthorInfo(v){
+            this.authorInfo=v
         }
     },
     mounted: function () {

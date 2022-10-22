@@ -28,7 +28,7 @@
                     <!-- 字段 -->
                     <div class="u-content u-desc">
                         <i :class="item.client" class="u-client">{{ item.client | clientLabel }}</i>
-                        {{ item.desc || "这个作者很懒,什么都没有留下" }}
+                        {{ item.desc || "这个配装没有任何描述" }}
                     </div>
 
                     <!-- 作者 -->

@@ -29,7 +29,7 @@
                     </h2>
                     <!-- 字段 -->
                     <div class="u-content u-desc">
-                        {{ item.desc || "这个作者很懒,什么都没有留下" }}
+                        {{ item.desc || "这个词条没有任何描述" }}
                     </div>
 
                     <!-- 作者 -->
