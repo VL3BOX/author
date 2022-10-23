@@ -20,7 +20,7 @@
             <ul class="u-list">
                 <li class="u-item" v-for="(item, i) in list"  :key="i + item">
                     <!-- Banner -->
-                    <a class="u-banner" :href="postLink(item.post_type, item.ID, item.client)" target="_blank" v-if="!postTypeArr.includes(item.post_type)">
+                    <a class="u-banner" :href="postLink(item.post_type, item.ID, item.client)" target="_blank">
                         <img :src="getBanner(item, item.post_subtype,item.post_type)" :key="item.ID" />
                     </a>
 
@@ -83,7 +83,6 @@ export default {
                 origin: __OriginRoot.slice(0,-1),
                 all : ''
             },
-            postTypeArr:[]
         };
     },
     computed: {
@@ -121,10 +120,10 @@ export default {
             if (item.post_banner) {
                 return showBanner(item.post_banner);
             } else {
-                if(post_type==='bps'){
+                if(post_type=='bps' || post_type=='macro'){
                     let img_name = (subtype && xfmap[subtype]?.['id']) || 0;
                     return __imgPath + "image/bps_thumbnail/" + img_name + ".png";
-                }else if(post_type==='fb'){
+                }else if(post_type=='fb'){
                     let zlp = item.post_meta?.fb_zlp || item.zlp || this.$store.state.default_zlp;
                     let fb = item.post_subtype || this.$store.state.default_fb;
                     let img = this.$store.state.map?.[zlp]?.dungeon?.[fb].icon;
@@ -133,7 +132,7 @@ export default {
                     } else {
                         return __imgPath + "image/fb_map_thumbnail/null.png";
                     }
-                }else if(post_type==='share'){
+                }else if(post_type=='share'){
                     let url = _.get(item.post_meta, "pics[0]['url']");
                     if (url) {
                         return showBanner(url, "face");

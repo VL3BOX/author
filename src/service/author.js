@@ -29,5 +29,33 @@ function getUserPublicTeams(uid) {
             return res.data.data;
         });
 }
+/**
+ * 拉黑用户
+ * @param {*} userId 用户id
+ */
+function deny(userId) {
+    return $next().post(`/api/my-userlist/deny/${userId}`)
+}
 
-export { getDouyu, getUserMedals, getFrames, getUserPublicTeams };
+/**
+ * 取消拉黑用户
+ * @param {*} userId 用户id
+ */
+function undeny(userId) {
+    return $next().delete(`/api/my-userlist/deny/${userId}`)
+}
+/**
+ * 获取黑名单列表
+ * @param {*} params 查询参数
+ * @param {*} params.pageIndex 分页参数
+ * @param {*} params.pageSize 分页参数
+ * @param {*} params.user_id 用户id
+ * @param {*} params.display_name 用户昵称
+ * @returns
+ */
+function getBlackList(params) {
+    return $next().get("/api/my-userlist/deny", {
+        params
+    });
+}
+export { getDouyu, getUserMedals, getFrames, getUserPublicTeams,deny,undeny,getBlackList };

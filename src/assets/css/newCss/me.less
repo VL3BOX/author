@@ -1,3 +1,13 @@
+.u-more-btn{
+    //.db;
+    .w(100%);
+    &:first-of-type{
+        .mb(10px);
+    }
+}
+.u-more-img{
+    cursor: pointer;
+}
 .m-author-header{
     max-height:190px;
     padding:50px 0 20px 0;
@@ -7,6 +17,7 @@
     border: 1px solid #e3e3e3;
     border-radius: 5px;
     box-sizing: border-box;
+    .pr;
     .mb(20px);
     .flex;
     //.flex(lr);
@@ -99,45 +110,67 @@
         }
     }
     .m-focus{
-        .mr(12.5px);
-        .u-btn{
-            .pr;
-            top: 86px;
-            border: 2px solid #ffffff;
-            border-radius: 6px;
-            color: #ffffff;
-        }
-        .u-btn-attention{
-            .w(180px);
-            background: #FF7CAB;
+        .flex;
+        .pa;
+        .rb(0,20px);
+        .m-btn-box{
 
-        }
-        .u-already-attention{
-            .w(120px);
-            background:rgba(0,0,0,0.3);
-
-        }
-        .u-more{
-            .dbi;
-            .pr;
-            top:91px;
-            .ml(18.5px);
-            cursor: pointer;
-            &:hover{
-                box-shadow:
-                    0px 1.2px 3.6px rgba(255, 124, 171, 0.179),
-                    0px 2.5px 10px rgba(255, 124, 171, 0.232),
-                    0px 4.8px 24.1px rgba(255, 124, 171, 0.288),
-                    0px 14px 80px rgba(255, 124, 171, 0.4);
-
+            //.pr;
+            //top: 86px;
+            .m-btn{
+                color: #ffffff;
+                .w(180px);
             }
+            .u-btn-attention{
+                border: 2px solid #ffffff;
+                border-radius: 6px;
+                background: #FF7CAB;
+                &:hover{
+                    -moz-box-shadow:0 0 14px rgba(255,124, 171, 0.4);
+                    -webkit-box-shadow:0 0 14px rgba(255,124, 171, 0.4);
+                    box-shadow:0 0 14px rgba(255,124, 171, 0.4);
+                }
+            }
+            .u-already-attention{
+                .flex;
+                //.flex(lr);
+                .grid(x, space-between);
+                .u-btn{
+                    .w(80px);
+                    //.h(30px);
+                    color: #ffffff;
+                    background:rgba(0,0,0,0.3);
+                    outline: none;
+                    border: 2px solid rgba(255,255,255,0.6);
+                    border-radius: 6px;
+                }
+                .u-btn-disabled{
+                    color: #c0c4cc;
+                }
+            }
+        }
+
+        .u-more{
+            .pr;
+            .size(30px);
+            .flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            //&:hover{
+            //    box-shadow:
+            //        0px 1.2px 3.6px rgba(255, 124, 171, 0.179),
+            //        0px 2.5px 10px rgba(255, 124, 171, 0.232),
+            //        0px 4.8px 24.1px rgba(255, 124, 171, 0.288),
+            //        0px 14px 80px rgba(255, 124, 171, 0.4);
+            //
+            //}
         }
     }
 }
 @media screen and (max-width: @notebook) {
     .m-author-header {
-        //display: block;
-        //padding: 10px 0;
         background-size: cover;
         box-sizing: border-box;
         .w(95vw);
@@ -145,10 +178,6 @@
         .m-box{
             .h(auto);
             .mb(10px);
-            .u-author-avatar{
-                //.size(80px);
-
-            }
             .u-author-info{
                 .mt(20px);
                 .u-name{
@@ -168,7 +197,6 @@
             .h(auto);
             text-align: right;
             .u-btn{
-                //top:80px;
                 padding: 8px;
             }
             .u-btn-attention{
@@ -207,9 +235,10 @@
             }
         }
         .m-focus{
+            .ps;
             margin: 15px 10px 5px 10px;
             .h(auto);
-            text-align: right;
+            justify-content: center;
             .u-btn{
                 top:0;
                 padding: 8px;
@@ -249,7 +278,7 @@
                     .fz(14px);
                 }
                 .u-tips{
-                    .mt(5px);
+                    .mt(0);
                 }
                 .u-level,.u-icon{
                     .fz(10px,1.5);
@@ -257,7 +286,9 @@
             }
         }
         .m-focus{
+            .ps;
             margin: 15px 10px 5px 10px;
+            justify-content: center;
             .h(auto);
             .u-btn{
                 padding: 6px;

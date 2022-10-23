@@ -28,11 +28,28 @@
                 </div>
             </div>
             <div class="m-focus">
-                <el-button icon="el-icon-plus" class="u-btn u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
-                <el-button class="u-btn u-already-attention" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" v-else @click="unfollow">{{ attentionText }}</el-button>
-                <!-- <div class="u-more">
-                    <img src="@/assets/img/more.svg" svg-inline />
-                </div> -->
+                <div class="m-btn-box">
+                    <el-button icon="el-icon-plus" class="m-btn u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
+                    <div class="m-btn u-already-attention" v-else >
+                        <el-button class="u-btn" size="mini" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" @click="unfollow">{{ attentionText }}</el-button>
+                        <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
+                    </div>
+                </div>
+
+                <div class="u-more">
+                    <el-popover
+                        placement="bottom-start"
+                        trigger="click"
+                        width="90"
+                        v-model="moreOperate"
+                    >
+                        <a href="/feedback" target="_blank">
+                            <el-button size="mini" class="u-more-btn">举报</el-button>
+                        </a><br>
+                        <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
+                        <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img"/>
+                    </el-popover>
+                </div>
             </div>
 
         </div>
@@ -53,7 +70,7 @@
                     </div>
                     <div class="u-fans">
                         <i class="u-icon u-icon-fans">
-                            <img svg-inline src="../../assets/img/fans.svg" />
+                            <img svg-inline src="../../assets/img/fans.svg"/>
                         </i>粉丝数 <b>{{fansNum}}</b>
                     </div>
                 </div>
@@ -73,6 +90,7 @@ import User from "@jx3box/jx3box-common/js/user";
 import { getFansCount } from "@jx3box/jx3box-common-ui/service/follow";
 import {tvLink} from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "@/utils/dateFormat";
+import {deny,undeny} from "@/service/author";
 import Left from "./Left"
 import  Primary from './Primary';
 export default {
@@ -89,6 +107,7 @@ export default {
             isVIP: false,
             isFollow:false,
             attentionText:'已关注',
+            moreOperate:false,
             fansNum:0,
             authorInfo:{}
         };
@@ -172,7 +191,7 @@ export default {
                     .catch((err) => {
                         console.log(err);
                     });
-            });
+            }).catch(_ => {});;
         },
         showLevelColor : function (level){
             return __userLevelColor[level]
@@ -193,6 +212,21 @@ export default {
         },
         getAuthorInfo(v){
             this.authorInfo=v
+        },
+        //拉黑
+        joinBlacklist(){
+            this.$confirm("确定要拉黑此人？", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning",
+            }).then(() => {
+                deny(this.uid).then(() => {
+                    this.$message.success("拉黑成功");
+                }) .catch((err) => {
+                    console.log(err);
+                });
+            }).catch(_ => {});;
+
         }
     },
     mounted: function () {
