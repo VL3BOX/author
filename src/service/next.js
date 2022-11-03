@@ -12,4 +12,10 @@ function getQuestions(params) {
     });
 }
 
-export { getPapers, getQuestions };
+function getFaceList(params){
+    return $next().get("api/face", {
+        params: params,
+    });
+}
+
+export { getPapers, getQuestions,getFaceList };

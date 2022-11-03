@@ -1,44 +1,7 @@
 <template>
     <div class="m-post" v-loading="loading">
-<!--        <el-timeline class="m-post-list" v-if="list && list.length">-->
-<!--            <el-timeline-item-->
-<!--                v-for="(item, i) in list"-->
-<!--                :key="i"-->
-<!--                :timestamp="item.created_at | dateFormat"-->
-<!--                placement="top"-->
-<!--            >-->
-<!--                &lt;!&ndash; <h4 class="u-type">{{ item.desc || '无标题' }}</h4> &ndash;&gt;-->
-<!--                <p>-->
-<!--                    <a-->
-<!--                        :href="postLink(item.id)"-->
-<!--                        class="u-title"-->
-<!--                        target="_blank"-->
-<!--                        >-->
-<!--                            <img-->
-<!--                                class="u-pic u-emotion-pic waterfall-img"-->
-<!--                                :src="showEmotion(item.url)"-->
-<!--                                :alt="item.desc"-->
-<!--                                :key="item.url"-->
-<!--                                width="180"-->
-<!--                        />-->
-<!--                    </a>-->
-<!--                </p>-->
-<!--            </el-timeline-item>-->
-<!--        </el-timeline>-->
         <!-- 列表 -->
         <div v-if="list && list.length" class="m-emotions-list">
-<!--            <ul class="u-list">-->
-<!--                <li v-for="(item, i) in list"  :key="i + item" class="u-item">-->
-<!--                    &lt;!&ndash; pic &ndash;&gt;-->
-<!--                    <a class="u-pic" :href="postLink(item.id)" target="_blank">-->
-<!--                        <img :src="showEmotion(item.url)" :alt="item.desc" :key="item.url"/>-->
-<!--                        <span class="u-date">-->
-<!--                            Updated on-->
-<!--                            <time >{{ item.updated_at | dateFormat }}</time>-->
-<!--                        </span>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--            </ul>-->
             <div v-for="(item, i) in list"  :key="i + item" class="u-list">
                 <a class="u-pic" :href="postLink(item.id)" target="_blank">
                     <img :src="showEmotion(item.url)" :alt="item.desc" :key="item.url" class="u-img"/>

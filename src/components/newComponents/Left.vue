@@ -22,33 +22,32 @@
 <script>
 import Post from "@/components/Post.vue";
 import Wiki from "@/components/Wiki.vue";
-import Question from "@/components/Question.vue";
-import Paper from "@/components/Paper.vue";
+import Exam from "@/components/newComponents/Exam";
 import Collection from "@/components/Collection.vue";
 import Namespace from "@/components/Namespace.vue";
 import Jokes from "@/components/Jokes.vue";
 import Emotions from "@/components/Emotions.vue";
 import Pz from "@/components/Pz.vue";
-
+import Fallow from "@/components/newComponents/Fallow"
 export default {
     name: "Left",
     components: {
         Post,
         Wiki,
-        Question,
-        Paper,
+        Exam,
         Collection,
         Namespace,
         Pz,
         Jokes,
         Emotions,
+        Fallow
     },
     data: function () {
         return {
             active: "Post",
             types: [
                 {
-                    label: "最新",
+                    label: "作品",
                     value: "Post",
                     component: Post,
                 },
@@ -69,29 +68,15 @@ export default {
                 },
 
                 {
-                    label: "题目",
-                    value: "Question",
-                    component: Question
+                    label: "考试",
+                    value: "Exam",
+                    component: Exam
                 },
+
                 {
-                    label: "试卷",
-                    value: "Paper",
-                    component: Paper
-                },
-                {
-                    label: "铭牌",
-                    value: "Namespace",
-                    component: Namespace,
-                },
-                {
-                    label: "趣图",
-                    value: "Emotions",
-                    component: Emotions,
-                },
-                {
-                    label: "骚话",
-                    value: "Jokes",
-                    component: Jokes,
+                    label: "休闲",
+                    value: "Fallow",
+                    component: Fallow,
                 }
             ],
         };

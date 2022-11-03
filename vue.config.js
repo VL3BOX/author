@@ -78,12 +78,18 @@ module.exports = {
                     request.setHeader("origin", "");
                 },
             },
+            "/api/face":{
+                target: "https://next2.jx3box.com",
+                onProxyReq: function(request) {
+                    request.setHeader("origin", "");
+                },
+            },
             "/api": {
                 target: "https://helper.jx3box.com",
             },
             "/user/admin": {
                 target: "https://server.jx3box.com",
-            },
+            }
         },
     },
 
