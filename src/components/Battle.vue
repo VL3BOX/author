@@ -12,7 +12,7 @@
                     <div class="u-misc">
                         <span class="u-date">
                             Updated on
-                            <time >{{ item.updated | dateFormat }}</time>
+                            <time >{{ item.updated_at | dateFormat}}</time>
                         </span>
                     </div>
                 </li>
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import dateFormat from "../utils/dateFormat";
 import { getBattleList } from "@/service/author.js";
 export default {
     props: [],
@@ -76,8 +75,34 @@ export default {
         },
     },
     filters: {
-        dateFormat: function(val) {
-            return dateFormat(new Date(~~val*1000));
+        dateFormat: function(date) {
+            if (!date) return;
+            let format = "yyyy-MM-dd";
+            switch (typeof date) {
+                case "string":
+                    date = new Date(date.replace(/-/g, "/"));
+                    break;
+                case "number":
+                    date = new Date(date);
+                    break;
+            }
+            if (!(date instanceof Date)) return;
+            var dict = {
+                "yyyy": date.getFullYear(),
+                "M": date.getMonth() + 1,
+                "d": date.getDate(),
+                "H": date.getHours(),
+                "m": date.getMinutes(),
+                "s": date.getSeconds(),
+                "MM": ("" + (date.getMonth() + 101)).substr(1),
+                "dd": ("" + (date.getDate() + 100)).substr(1),
+                "HH": ("" + (date.getHours() + 100)).substr(1),
+                "mm": ("" + (date.getMinutes() + 100)).substr(1),
+                "ss": ("" + (date.getSeconds() + 100)).substr(1)
+            };
+            return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function() {
+                return dict[arguments[0]];
+            });
         },
     },
     watch : {
@@ -90,7 +115,6 @@ export default {
         }
     },
     mounted: function() {
-
     },
 };
 </script>
