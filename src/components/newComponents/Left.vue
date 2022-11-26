@@ -27,7 +27,7 @@ import Collection from "@/components/Collection.vue";
 import Namespace from "@/components/Namespace.vue";
 import Jokes from "@/components/Jokes.vue";
 import Emotions from "@/components/Emotions.vue";
-import Pz from "@/components/Pz.vue";
+import Data from "@/components/newComponents/Data.vue";
 import Fallow from "@/components/newComponents/Fallow"
 export default {
     name: "Left",
@@ -37,7 +37,7 @@ export default {
         Exam,
         Collection,
         Namespace,
-        Pz,
+        Data,
         Jokes,
         Emotions,
         Fallow
@@ -57,9 +57,9 @@ export default {
                     component: Wiki,
                 },
                 {
-                    label: "配装",
-                    value: "Pz",
-                    component: Pz,
+                    label: "数据",
+                    value: "Data",
+                    component: Data,
                 },
                 {
                     label: "文集",
