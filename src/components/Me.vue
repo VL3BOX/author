@@ -1,6 +1,6 @@
 <template>
     <div class="m-author-header">
-        <Avatar class="m-author-avatar" :uid="uid" :url="avatar" :size="160" :frame="avatar_frame" />
+        <Avatar class="m-author-avatar" :uid="uid" :url="avatar" size="l" :frame="avatar_frame" />
         <div class="m-author-info">
             <span class="u-name">
                 {{ data.display_name || "匿名" }}

@@ -2,7 +2,7 @@
     <div>
         <div class="m-author-header">
             <div class="m-box">
-                <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="160" :frame="avatar_frame" />
+                <Avatar class="u-author-avatar" :uid="uid" :url="avatar" size="l" :frame="avatar_frame" />
                 <div class="u-author-info">
                     <span class="u-name">
                         {{ data.display_name || "匿名" }}&nbsp;<span class="u-uid">(UID : {{ data.ID || 0 }})</span>
