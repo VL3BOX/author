@@ -2,7 +2,7 @@
     <div>
         <div class="m-author-header">
             <div class="m-box">
-                <Avatar class="u-author-avatar" :uid="uid" :url="avatar" size="l" :frame="avatar_frame" />
+                <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
                 <div class="u-author-info">
                     <span class="u-name">
                         {{ data.display_name || "匿名" }}&nbsp;<span class="u-uid">(UID : {{ data.ID || 0 }})</span>
@@ -109,7 +109,8 @@ export default {
             attentionText:'已关注',
             moreOperate:false,
             fansNum:0,
-            authorInfo:{}
+            authorInfo:{},
+            avatarSize:'m'
         };
     },
     computed: {
@@ -227,11 +228,26 @@ export default {
                 });
             }).catch(_ => {});;
 
+        },
+        avatarSizeChange(){
+            let w=document.body.clientWidth || document.documentElement.clientWidth
+            if(w>500){
+                this.avatarSize='l'
+            }else{
+                this.avatarSize='m'
+            }
         }
+    },
+    created() {
+        this.avatarSizeChange()
     },
     mounted: function () {
         if (this.uid) {
             this.loadFans();
+        }
+        let _this=this
+        window.onresize = function () {
+            _this.avatarSizeChange();
         }
     },
 }
