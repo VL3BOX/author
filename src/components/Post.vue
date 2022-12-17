@@ -27,7 +27,7 @@
                     <!-- 标题 -->
                     <h2 class="u-post">
                         <!-- 图标 -->
-                        <img class="u-icon" svg-inline src="../assets/img/post.svg" />
+                        <!-- <img class="u-icon" svg-inline src="../assets/img/post.svg" /> -->
 
                         <!-- 标题文字 -->
                         <a class="u-title" :href="postLink(item.post_type, item.ID, item.client)" target="_blank">{{ item.post_title || "无标题" }}</a>

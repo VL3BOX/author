@@ -22,12 +22,12 @@
                             </span>
                         </el-tooltip>
                     </div>
-                    <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
+                    <!-- <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
                         {{ authorInfo.user_bio||'这个人太懒了~没有写签名。' }}
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <div class="m-focus">
+            <div class="m-focus" v-if="!isSelf">
                 <div class="m-btn-box">
                     <el-button icon="el-icon-plus" class="m-btn u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
                     <div class="m-btn u-already-attention" v-else >
@@ -38,7 +38,7 @@
 
                 <div class="u-more">
                     <el-popover
-                        placement="bottom-start"
+                        placement="bottom-end"
                         trigger="click"
                         width="90"
                         v-model="moreOperate"
@@ -68,7 +68,7 @@
                         </i>
                         <span>加入于 {{ data.user_registered | time }}</span>
                     </div>
-                    <div class="u-fans">
+                    <div class="u-fans" @click="toFans" :class="isSelf?'self':''">
                         <i class="u-icon u-icon-fans">
                             <img svg-inline src="../../assets/img/fans.svg"/>
                         </i>粉丝数 <b>{{fansNum}}</b>
@@ -110,7 +110,8 @@ export default {
             moreOperate:false,
             fansNum:0,
             authorInfo:{},
-            avatarSize:'m'
+            avatarSize:'m',
+            fansLink:'/dashboard/privacy?tab=myfans'
         };
     },
     computed: {
@@ -153,6 +154,9 @@ export default {
         isLogin: function () {
             return User.isLogin();
         },
+        isSelf:function(){
+            return User.getInfo().uid == this.uid
+        }
     },
     filters:{
         time: (val) => {
@@ -236,12 +240,20 @@ export default {
             }else{
                 this.avatarSize='m'
             }
+        },
+        // 跳转粉丝界面
+        toFans(){
+            if(this.isSelf){
+                window.open(this.fansLink,'_blank')
+            }
         }
     },
     created() {
         this.avatarSizeChange()
     },
     mounted: function () {
+        console.log(this.uid)
+        console.log(User.getInfo())
         if (this.uid) {
             this.loadFans();
         }
