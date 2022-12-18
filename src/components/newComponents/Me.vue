@@ -1,31 +1,29 @@
 <template>
     <div>
         <div class="m-author-header">
-            <div class="m-box">
-                <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
-                <div class="u-author-info">
-                    <span class="u-name">
-                        {{ data.display_name || "匿名" }}&nbsp;<span class="u-uid">(UID : {{ data.ID || 0 }})</span>
-                    </span>
-                    <div class="u-tips">
-                        <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
-                            <span class="u-level" :class="'lv-' + level" :style="{backgroundColor:showLevelColor(level)}">Lv.{{ level }}</span>
-                        </el-tooltip>
-                        <el-tooltip :content="vipTypeTitle" v-if="isPRO || isVIP" placement="top">
-                            <a class="u-vip" href="/vip/premium?from=user_homepage" target="_blank">
-                                <i class="u-icon vip">{{ vipType }}</i>
-                            </a>
-                        </el-tooltip>
-                        <el-tooltip content="签约作者" v-if="isSuperAuthor" placement="top">
-                            <span class="u-superauthor">
-                                <i class="u-icon superauthor">签约作者</i>
-                            </span>
-                        </el-tooltip>
-                    </div>
-                    <!-- <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
-                        {{ authorInfo.user_bio||'这个人太懒了~没有写签名。' }}
-                    </div> -->
+            <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
+            <div class="u-author-info">
+                <span class="u-name">
+                    {{ data.display_name || "匿名" }}&nbsp;<span class="u-uid">(UID : {{ data.ID || 0 }})</span>
+                </span>
+                <div class="u-tips">
+                    <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
+                        <span class="u-level" :class="'lv-' + level" :style="{backgroundColor:showLevelColor(level)}">Lv.{{ level }}</span>
+                    </el-tooltip>
+                    <el-tooltip :content="vipTypeTitle" v-if="isPRO || isVIP" placement="top">
+                        <a class="u-vip" href="/vip/premium?from=user_homepage" target="_blank">
+                            <i class="u-icon vip">{{ vipType }}</i>
+                        </a>
+                    </el-tooltip>
+                    <el-tooltip content="签约作者" v-if="isSuperAuthor" placement="top">
+                        <span class="u-superauthor">
+                            <i class="u-icon superauthor">签约作者</i>
+                        </span>
+                    </el-tooltip>
                 </div>
+                <!-- <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
+                    {{ authorInfo.user_bio||'这个人太懒了~没有写签名。' }}
+                </div> -->
             </div>
             <div class="m-focus" v-if="!isSelf">
                 <div class="m-btn-box">
@@ -35,7 +33,6 @@
                         <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
                     </div>
                 </div>
-
                 <div class="u-more">
                     <el-popover
                         placement="bottom-end"
@@ -53,7 +50,26 @@
             </div>
 
         </div>
-
+        <div class=" m-join-phone">
+            <div class="m-author-primary">
+                <div class="m-right">
+                    <!--        加入时间-->
+                    <div class="m-common-box m-join-box">
+                        <div class="u-join">
+                            <i class="u-icon u-icon-join">
+                                <img svg-inline src="../../assets/img/join.svg" />
+                            </i>
+                            <span>加入于 {{ data.user_registered | time }}</span>
+                        </div>
+                        <div class="u-fans" @click="toFans" :class="isSelf?'self':''">
+                            <i class="u-icon u-icon-fans">
+                                <img svg-inline src="../../assets/img/fans.svg"/>
+                            </i>粉丝数 <b>{{fansNum}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="m-author-primary">
             <!--    左右分栏模式，左侧作品，右侧相关信息-->
             <div class="m-left">
@@ -61,7 +77,7 @@
             </div>
             <div class="m-right">
                 <!--        加入时间-->
-                <div class="m-common-box m-join-box">
+                <div class="m-common-box m-join-box u-in-phone">
                     <div class="u-join">
                         <i class="u-icon u-icon-join">
                             <img svg-inline src="../../assets/img/join.svg" />
@@ -110,7 +126,7 @@ export default {
             moreOperate:false,
             fansNum:0,
             authorInfo:{},
-            avatarSize:'m',
+            avatarSize:'l',
             fansLink:'/dashboard/privacy?tab=myfans'
         };
     },
@@ -235,10 +251,12 @@ export default {
         },
         avatarSizeChange(){
             let w=document.body.clientWidth || document.documentElement.clientWidth
-            if(w>500){
+            if(w>720){
                 this.avatarSize='l'
-            }else{
+            }else if(w>500){
                 this.avatarSize='m'
+            }else{
+                this.avatarSize='s'
             }
         },
         // 跳转粉丝界面
@@ -252,8 +270,6 @@ export default {
         this.avatarSizeChange()
     },
     mounted: function () {
-        console.log(this.uid)
-        console.log(User.getInfo())
         if (this.uid) {
             this.loadFans();
         }
