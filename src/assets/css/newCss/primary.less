@@ -34,6 +34,48 @@
         .w(350px);
         .ml(20px);
         text-align: center;
+        // 关注
+        .m-focus{
+            .mb(20px);
+            .flex;
+            .u-btn-box{
+                .w(310px);
+                .mr(10px);
+                .u-btn-attention{
+                    .w(100%);
+                    color: #ffffff;
+                    // border: 2px solid #ffffff;
+                    border-radius: 6px;
+                    background: #FF7CAB;
+                    &:hover{
+                            -moz-box-shadow:0 0 14px rgba(255,124, 171, 0.4);
+                            -webkit-box-shadow:0 0 14px rgba(255,124, 171, 0.4);
+                            box-shadow:0 0 14px rgba(255,124, 171, 0.4);
+                        }
+                }
+                .u-already-attention{
+                    .flex;
+                    .flex(x, space-between);
+                    .u-btn{
+                        .w(145px);
+                        color: #ffffff;
+                        background:rgba(0,0,0,0.3);
+                        outline: none;
+                        border: 2px solid rgba(255,255,255,0.6);
+                        border-radius: 6px;
+                    }
+                    .u-btn-disabled{
+                        color: #c0c4cc;
+                    }
+                }
+            }
+            .u-more{
+                background: #ffffff;
+                transform: rotate(-90deg);
+                .size(30px);
+                border-radius: 6px;
+            }
+        }
         .m-join-box{
             .flex;
             .grid(x, space-between);
@@ -84,6 +126,10 @@
         }
         .u-in-phone{
             .mt(20px);
+            display: none !important;
+        }
+        .m-focus{
+           justify-content: center;
         }
     }
 }
@@ -98,6 +144,9 @@
         .u-in-phone{
             display: none !important;
         }
+        .m-focus{
+            justify-content: center;
+         }
 
     }
 

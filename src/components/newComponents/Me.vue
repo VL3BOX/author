@@ -25,7 +25,7 @@
                     {{ authorInfo.user_bio||'这个人太懒了~没有写签名。' }}
                 </div> -->
             </div>
-            <div class="m-focus" v-if="!isSelf">
+            <!-- <div class="m-focus" v-if="!isSelf">
                 <div class="m-btn-box">
                     <el-button icon="el-icon-plus" class="m-btn u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
                     <div class="m-btn u-already-attention" v-else >
@@ -47,12 +47,37 @@
                         <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img"/>
                     </el-popover>
                 </div>
-            </div>
+            </div> -->
 
         </div>
+        <!-- 手机端显示此加入时间，隐藏原有 -->
         <div class=" m-join-phone">
             <div class="m-author-primary">
                 <div class="m-right">
+                    <!-- 关注 -->
+                    <div class="m-focus" v-if="!isSelf">
+                        <div class="u-btn-box">
+                            <el-button icon="el-icon-plus" class="u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
+                            <div class="u-already-attention" v-else >
+                                <el-button class="u-btn" size="mini" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" @click="unfollow">{{ attentionText }}</el-button>
+                                <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
+                            </div>
+                        </div>
+                        <div class="u-more">
+                            <el-popover
+                                placement="bottom-end"
+                                trigger="click"
+                                width="90"
+                                v-model="moreOperatePhone"
+                            >
+                                <a href="/feedback" target="_blank">
+                                    <el-button size="mini" class="u-more-btn">举报</el-button>
+                                </a><br>
+                                <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
+                                <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img"/>
+                            </el-popover>
+                        </div>
+                    </div>
                     <!--        加入时间-->
                     <div class="m-common-box m-join-box">
                         <div class="u-join">
@@ -76,6 +101,30 @@
                 <Left class="m-common-box u-content"></Left>
             </div>
             <div class="m-right">
+                <!-- 关注 -->
+                <div class="m-focus u-in-phone" v-if="!isSelf">
+                    <div class="u-btn-box">
+                        <el-button icon="el-icon-plus" class="u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
+                        <div class="u-already-attention" v-else >
+                            <el-button class="u-btn" size="mini" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" @click="unfollow">{{ attentionText }}</el-button>
+                            <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
+                        </div>
+                    </div>
+                    <div class="u-more">
+                        <el-popover
+                            placement="bottom-end"
+                            trigger="click"
+                            width="90"
+                            v-model="moreOperate"
+                        >
+                            <a href="/feedback" target="_blank">
+                                <el-button size="mini" class="u-more-btn">举报</el-button>
+                            </a><br>
+                            <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
+                            <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img"/>
+                        </el-popover>
+                    </div>
+                </div>
                 <!--        加入时间-->
                 <div class="m-common-box m-join-box u-in-phone">
                     <div class="u-join">
@@ -124,6 +173,7 @@ export default {
             isFollow:false,
             attentionText:'已关注',
             moreOperate:false,
+            moreOperatePhone:false,
             fansNum:0,
             authorInfo:{},
             avatarSize:'l',

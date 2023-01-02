@@ -11,9 +11,11 @@
             <img slot="logo" svg-inline src="./assets/img/logo.svg" />
             <Info :uid="uid" :userdata="userdata" />
         </Breadcrumb>
-        <div class="m-author" v-if="uid">
-            <Me />
-            <Footer></Footer>
+        <div class="m-theme">
+            <div class="m-author" v-if="uid">
+                <Me />
+                <Footer></Footer>
+            </div>
         </div>
     </div>
 </template>
@@ -61,5 +63,17 @@ export default {
 <style lang="less" scoped>
 @import "./assets/css/app.less";
 @import './assets/css/post.less';
-
+// .m-theme{
+//     .mt(64px);
+//     min-height: calc(100vh - 112px);
+//     background-image: url(./assets/img-decoration/1_L1_CG.png),url(./assets/img-decoration/1_R2_CG.png);
+//     background-repeat: no-repeat, no-repeat;
+//     background-position: top left,bottom right;
+//     background-attachment: fixed,fixed;
+// }
+// @media screen and (max-width: @phone) {
+//     .m-theme{
+//         background-size: 50%,50%;
+//     }
+// }
 </style>
