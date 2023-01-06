@@ -1,25 +1,27 @@
 <template>
     <div>
         <div class="m-author-header">
-            <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
-            <div class="u-author-info">
-                <span class="u-name">
-                    {{ data.display_name || "匿名" }}&nbsp;<span class="u-uid">(UID : {{ data.ID || 0 }})</span>
-                </span>
-                <div class="u-tips">
-                    <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
-                        <span class="u-level" :class="'lv-' + level" :style="{backgroundColor:showLevelColor(level)}">Lv.{{ level }}</span>
-                    </el-tooltip>
-                    <el-tooltip :content="vipTypeTitle" v-if="isPRO || isVIP" placement="top">
-                        <a class="u-vip" href="/vip/premium?from=user_homepage" target="_blank">
-                            <i class="u-icon vip">{{ vipType }}</i>
-                        </a>
-                    </el-tooltip>
-                    <el-tooltip content="签约作者" v-if="isSuperAuthor" placement="top">
-                        <span class="u-superauthor">
-                            <i class="u-icon superauthor">签约作者</i>
-                        </span>
-                    </el-tooltip>
+            <div class="u-header-info">
+                <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
+                <div class="u-author-info">
+                    <span class="u-name">
+                        {{ data.display_name || "匿名" }}&nbsp;<span class="u-uid">(UID : {{ data.ID || 0 }})</span>
+                    </span>
+                    <div class="u-tips">
+                        <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
+                            <span class="u-level" :class="'lv-' + level" :style="{backgroundColor:showLevelColor(level)}">Lv.{{ level }}</span>
+                        </el-tooltip>
+                        <el-tooltip :content="vipTypeTitle" v-if="isPRO || isVIP" placement="top">
+                            <a class="u-vip" href="/vip/premium?from=user_homepage" target="_blank">
+                                <i class="u-icon vip">{{ vipType }}</i>
+                            </a>
+                        </el-tooltip>
+                        <el-tooltip content="签约作者" v-if="isSuperAuthor" placement="top">
+                            <span class="u-superauthor">
+                                <i class="u-icon superauthor">签约作者</i>
+                            </span>
+                        </el-tooltip>
+                    </div>
                 </div>
                 <!-- <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
                     {{ authorInfo.user_bio||'这个人太懒了~没有写签名。' }}
