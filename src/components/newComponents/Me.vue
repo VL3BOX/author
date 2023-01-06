@@ -5,7 +5,7 @@
                 <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
                 <div class="u-author-info">
                     <span class="u-name">
-                        {{ data.display_name || "匿名" }}&nbsp;<span class="u-uid">(UID : {{ data.ID || 0 }})</span>
+                        <span @click="copyData(data.display_name || '匿名')">{{ data.display_name || "匿名" }}</span>&nbsp;<span class="u-uid" @click="copyData(data.ID || 0)">(UID : {{ data.ID || 0 }})</span>
                     </span>
                     <div class="u-tips">
                         <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
@@ -160,6 +160,7 @@ import dateFormat from "@/utils/dateFormat";
 import {deny,undeny} from "@/service/author";
 import Left from "./Left"
 import  Primary from './Primary';
+
 export default {
     name: "Me",
     components:{
@@ -232,6 +233,22 @@ export default {
         },
     },
     methods: {
+        copyData(text){
+            let _this=this
+            this.$copyText(String(text)).then(function (e) {
+                _this.$notify({
+                    title: '复制成功',
+                    message: '复制内容：' + text,
+                    type: 'success'
+                });
+            }, function (e) {
+                _this.$notify({
+                    title: '复制失败',
+                    message: '请手动复制',
+                    type: 'warning'
+                });
+            })
+        },
         // 关注
         follow() {
             if (!this.isLogin) {
