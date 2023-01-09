@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="m-author-header">
+        <div class="m-author-header" :style="userDefinedStyle.banner">
             <div class="u-header-info">
                 <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
                 <div class="u-author-info">
-                    <span class="u-name">
+                    <span class="u-name" :style="userDefinedStyle.userName">
                         <span @click="copyData(data.display_name || '匿名')">{{ data.display_name || "匿名" }}</span>&nbsp;<span class="u-uid" @click="copyData(data.ID || 0)">(UID : {{ data.ID || 0 }})</span>
                     </span>
                     <div class="u-tips">
@@ -59,13 +59,13 @@
                     <!-- 关注 -->
                     <div class="m-focus" v-if="!isSelf">
                         <div class="u-btn-box">
-                            <el-button icon="el-icon-plus" class="u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
+                            <el-button icon="el-icon-plus" class="u-btn-attention" v-if="!isFollow" @click="follow" size="mini" :style="userDefinedStyle.btn">关注TA</el-button>
                             <div class="u-already-attention" v-else >
                                 <el-button class="u-btn" size="mini" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" @click="unfollow">{{ attentionText }}</el-button>
                                 <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
                             </div>
                         </div>
-                        <div class="u-more">
+                        <div class="u-more" :style="userDefinedStyle.btn">
                             <el-popover
                                 placement="bottom-end"
                                 trigger="click"
@@ -76,7 +76,7 @@
                                     <el-button size="mini" class="u-more-btn">举报</el-button>
                                 </a><br>
                                 <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
-                                <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img"/>
+                                <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img" :style="userDefinedStyle.btn"/>
                             </el-popover>
                         </div>
                     </div>
@@ -88,9 +88,9 @@
                             </i>
                             <span>加入于 {{ data.user_registered | time }}</span>
                         </div>
-                        <div class="u-fans" @click="toFans" :class="isSelf?'self':''">
-                            <i class="u-icon u-icon-fans">
-                                <img svg-inline src="../../assets/img/fans.svg"/>
+                        <div class="u-fans" @click="toFans" :class="isSelf?'self':''" :style="userDefinedStyle.fans">
+                            <i class="u-icon u-icon-fans" >
+                                <img svg-inline src="../../assets/img/fans.svg" class="u-svg" :style="userDefinedStyle.fans"/>
                             </i>粉丝数 <b>{{fansNum}}</b>
                         </div>
                     </div>
@@ -106,13 +106,13 @@
                 <!-- 关注 -->
                 <div class="m-focus u-in-phone" v-if="!isSelf">
                     <div class="u-btn-box">
-                        <el-button icon="el-icon-plus" class="u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
+                        <el-button icon="el-icon-plus" class="u-btn-attention" v-if="!isFollow" @click="follow" size="mini" :style="userDefinedStyle.btn">关注TA</el-button>
                         <div class="u-already-attention" v-else >
                             <el-button class="u-btn" size="mini" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" @click="unfollow">{{ attentionText }}</el-button>
                             <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
                         </div>
                     </div>
-                    <div class="u-more">
+                    <div class="u-more" :style="userDefinedStyle.btn">
                         <el-popover
                             placement="bottom-end"
                             trigger="click"
@@ -123,7 +123,7 @@
                                 <el-button size="mini" class="u-more-btn">举报</el-button>
                             </a><br>
                             <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
-                            <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img"/>
+                            <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img" :style="userDefinedStyle.btn"/>
                         </el-popover>
                     </div>
                 </div>
@@ -135,9 +135,9 @@
                         </i>
                         <span>加入于 {{ data.user_registered | time }}</span>
                     </div>
-                    <div class="u-fans" @click="toFans" :class="isSelf?'self':''">
+                    <div class="u-fans" @click="toFans" :class="isSelf?'self':''" :style="userDefinedStyle.fans" >
                         <i class="u-icon u-icon-fans">
-                            <img svg-inline src="../../assets/img/fans.svg"/>
+                            <img svg-inline src="../../assets/img/fans.svg" class="u-svg" :style="userDefinedStyle.fans" />
                         </i>粉丝数 <b>{{fansNum}}</b>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
 
 <script>
 import { follow, unfollow } from "@jx3box/jx3box-common-ui/service/follow";
-import { __userLevelColor } from "@jx3box/jx3box-common/data/jx3box";
+import { __userLevelColor,__imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
 import frames from "@jx3box/jx3box-common/data/user_avatar_frame.json";
 import User from "@jx3box/jx3box-common/js/user";
@@ -160,7 +160,6 @@ import dateFormat from "@/utils/dateFormat";
 import {deny,undeny} from "@/service/author";
 import Left from "./Left"
 import  Primary from './Primary';
-
 export default {
     name: "Me",
     components:{
@@ -180,7 +179,13 @@ export default {
             fansNum:0,
             authorInfo:{},
             avatarSize:'l',
-            fansLink:'/dashboard/privacy?tab=myfans'
+            fansLink:'/dashboard/privacy?tab=myfans',
+            userDefinedStyle:{
+                fans:{},
+                btn:{},
+                userName:{},
+                banner:{}
+            }
         };
     },
     computed: {
@@ -248,6 +253,52 @@ export default {
                     type: 'warning'
                 });
             })
+        },
+        getDecorationJson(){
+            let decoration_me=sessionStorage.getItem('decoration_me'+this.uid)
+            if(!decoration_me){
+                let intervalTimerId = setInterval(() => {
+                    decoration_me=sessionStorage.getItem('decoration_me'+this.uid)
+                    if(decoration_me){
+                        clearInterval(intervalTimerId)
+                        this.setDecorationStyle(decoration_me)
+                    }
+                }, 100);
+            }else{
+                this.setDecorationStyle(decoration_me)
+            }
+        },
+        showDecoration:function(val,type){
+            return __imgPath + `decoration/images/${val}/${type}.png`;
+        },
+        setDecorationStyle(decoration_me){
+            if(decoration_me == 'no'){
+                return;
+            }
+            let decoration=JSON.parse(decoration_me)
+            if(decoration.highlightcolor){
+                this.userDefinedStyle.fans={
+                    'color':decoration.highlightcolor,
+                    'fill':decoration.highlightcolor
+                }
+            }
+            if(decoration.textcolor){
+                this.userDefinedStyle.userName={
+                    'color':decoration.textcolor
+                }
+            }
+            if(decoration.buttoncolor){
+                this.userDefinedStyle.btn={
+                    'background-color':decoration.buttoncolor,
+                    'fill':decoration.buttontextcolor,
+                }
+            }
+            if(decoration.type.indexOf('homebanner') !== -1){
+                this.userDefinedStyle.banner={
+                    'background':'url('+this.showDecoration(decoration.name,"homebanner")+') no-repeat',
+                    'background-size':'cover'
+                }
+            }
         },
         // 关注
         follow() {
@@ -337,6 +388,7 @@ export default {
     },
     created() {
         this.avatarSizeChange()
+       this.getDecorationJson()
     },
     mounted: function () {
         if (this.uid) {

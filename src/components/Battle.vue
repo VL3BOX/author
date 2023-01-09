@@ -18,8 +18,9 @@
                 </li>
             </ul>
         </div>
-        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
-        </el-alert>
+        <div class="m-empty" v-else>
+            <img src='../assets/img/null.png' width="80%">
+        </div>
 
         <el-pagination
             class="m-author-pages"

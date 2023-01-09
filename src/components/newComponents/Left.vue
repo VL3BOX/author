@@ -96,4 +96,7 @@ export default {
 <style lang="less">
 @import "../../assets/css/newCss/left.less";
 @import "../../assets/css/newCss/content.less";
+.m-empty{
+    text-align: center;
+}
 </style>

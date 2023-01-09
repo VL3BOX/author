@@ -38,13 +38,16 @@
         .m-focus{
             .mb(20px);
             .flex;
+            box-sizing: border-box;
             .u-btn-box{
-                .w(310px);
+                .w(300px);
                 .mr(10px);
                 .u-btn-attention{
                     .w(100%);
+                    .h(40px);
                     color: #ffffff;
                     // border: 2px solid #ffffff;
+                    border: none;
                     border-radius: 6px;
                     background: #FF7CAB;
                     &:hover{
@@ -58,6 +61,7 @@
                     .flex(x, space-between);
                     .u-btn{
                         .w(145px);
+                        .h(40px);
                         color: #ffffff;
                         background:rgba(0,0,0,0.3);
                         outline: none;
@@ -72,8 +76,11 @@
             .u-more{
                 background: #ffffff;
                 transform: rotate(-90deg);
-                .size(30px);
+                .size(40px);
                 border-radius: 6px;
+                .u-more-img{
+                    fill: #B4B2B3;
+                }
             }
         }
         .m-join-box{
@@ -91,8 +98,8 @@
                 .mr(5px);
                 .h(20px);
                 .mt(2px);
-                svg {
-                    fill: #666;
+                .u-svg {
+                    fill: #FF7CAB;
                 }
             }
         }

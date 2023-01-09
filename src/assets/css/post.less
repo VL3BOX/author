@@ -1,16 +1,21 @@
 #app{
     background: #F6F8FA;
-    .min-height(calc(100vh - (@header-height + @bread-height)));
+    // .min-height(calc(100vh - (@header-height + @bread-height)));
+    .min-height(calc(100vh - @header-height));
     max-width: 100%;
 }
 .m-author {
-    .mt(@header-height + @bread-height);
+    // .mt(@header-height + @bread-height);
+    .mt(@header-height);
     max-width: 1100px;
     .auto(x);
     padding: 30px 0;
     @media screen and (max-width: @phone) {
         padding: 20px 0;
     }
+}
+.m-author-admin{
+    .mt(@header-height + @bread-height);
 }
 .m-post-list {
     p,

@@ -42,8 +42,9 @@
                 </li>
             </ul>
         </div>
-        <el-alert v-else show-icon title="没有找到相关条目" type="info"> </el-alert>
-
+        <div class="m-empty" v-else>
+            <img src='../assets/img/null.png' width="80%">
+        </div>
         <el-pagination
             :current-page.sync="page"
             :hide-on-single-page="true"

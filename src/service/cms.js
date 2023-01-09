@@ -1,4 +1,6 @@
 import { $cms } from "@jx3box/jx3box-common/js/https";
+import axios from 'axios'
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 
 function getPosts(params) {
     return $cms().get(`/api/cms/posts`, {
@@ -41,7 +43,16 @@ function getUserEmotions(params) {
         params
     })
 }
-
+//获取装扮
+function getDecoration(params) {
+    return $cms().get(`/api/cms/user/decoration`,{
+        params
+    });
+}
+function getDecorationJson(){
+    let url = __imgPath + "decoration/index.json"
+    return axios.get(url)
+}
 export {
     getPosts,
     getUserInfo,
@@ -49,5 +60,7 @@ export {
     getIdentity,
     getUserPz,
     getUserJokes,
-    getUserEmotions
+    getUserEmotions,
+    getDecoration,
+    getDecorationJson
 };

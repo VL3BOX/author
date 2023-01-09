@@ -11,8 +11,9 @@
                 <i class="u-star-mark" v-if="!!item.star">STAR</i>
             </div>
         </div>
-        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
-        </el-alert>
+        <div class="m-empty" v-else>
+            <img src='../../assets/img/null.png' width="80%">
+        </div>
 
         <el-pagination
             class="m-author-pages"
