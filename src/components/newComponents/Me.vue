@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="m-author-header" :style="userDefinedStyle.banner">
+        <div class="m-author-header" :style="{ backgroundImage: userDefinedStyle.banner }">
             <div class="u-header-info">
                 <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
                 <div class="u-author-info">
@@ -257,9 +257,11 @@ export default {
         getDecorationJson(){
             let decoration_me=sessionStorage.getItem('decoration_me'+this.uid)
             if(!decoration_me){
+                let num=0
                 let intervalTimerId = setInterval(() => {
                     decoration_me=sessionStorage.getItem('decoration_me'+this.uid)
-                    if(decoration_me){
+                    num++
+                    if(decoration_me || num>10){
                         clearInterval(intervalTimerId)
                         this.setDecorationStyle(decoration_me)
                     }
@@ -271,8 +273,12 @@ export default {
         showDecoration:function(val,type){
             return __imgPath + `decoration/images/${val}/${type}.png`;
         },
+        setDefaultBanner(){
+            this.userDefinedStyle.banner=`url(https://img.jx3box.com/decoration/images/0_TESTSAMPLE/homebanner.png)`
+        },
         setDecorationStyle(decoration_me){
             if(decoration_me == 'no'){
+                this.setDefaultBanner()
                 return;
             }
             let decoration=JSON.parse(decoration_me)
@@ -294,10 +300,7 @@ export default {
                 }
             }
             if(decoration.type.indexOf('homebanner') !== -1){
-                this.userDefinedStyle.banner={
-                    'background':'url('+this.showDecoration(decoration.name,"homebanner")+') no-repeat',
-                    'background-size':'cover'
-                }
+                this.userDefinedStyle.banner='url('+this.showDecoration(decoration.name,"homebanner")
             }
         },
         // 关注

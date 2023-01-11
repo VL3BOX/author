@@ -57,8 +57,9 @@ export default {
             getUserInfo(this.uid).then((res) => {
                 this.$store.state.userdata = res.data.data;
             });
+            this.getDecoration()
         }
-        this.getDecoration()
+        
     },
     components: {
         Info,
