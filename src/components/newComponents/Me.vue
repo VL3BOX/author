@@ -299,9 +299,7 @@ export default {
                     'fill':decoration.buttontextcolor,
                 }
             }
-            if(decoration.type.indexOf('homebanner') !== -1){
-                this.userDefinedStyle.banner='url('+this.showDecoration(decoration.name,"homebanner")
-            }
+            this.userDefinedStyle.banner='url('+this.showDecoration(decoration.name,"homebanner")
         },
         // 关注
         follow() {
