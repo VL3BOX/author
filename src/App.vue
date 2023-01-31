@@ -1,10 +1,10 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb :name="name" slug="author" :root="root" :feedbackEnable="true" :withoutLeft="true" v-if="isAdmin">
+        <!-- <Breadcrumb :name="name" slug="author" :root="root" :feedbackEnable="true" :withoutLeft="true" v-if="isAdmin">
             <img slot="logo" svg-inline src="./assets/img/logo.svg" />
             <Info :uid="uid" :userdata="userdata" />
-        </Breadcrumb>
+        </Breadcrumb> -->
         <div class="m-theme" :style="themeStyle">
             <div class="m-author" v-if="uid" :class="isAdmin ? 'm-author-admin' : ''">
                 <Me />
@@ -16,7 +16,7 @@
 
 <script>
 import Me from "@/components/newComponents/Me.vue";
-import Info from "@/components/Info.vue";
+// import Info from "@/components/Info.vue";
 import { getRewrite } from "@jx3box/jx3box-common/js/utils";
 import { getUserInfo, getDecoration, getDecorationJson } from "@/service/cms";
 import User from "@jx3box/jx3box-common/js/user";
@@ -54,7 +54,7 @@ export default {
         }
     },
     components: {
-        Info,
+        // Info,
         Me,
     },
     methods: {
