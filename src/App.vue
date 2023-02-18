@@ -101,12 +101,16 @@ export default {
                     getDecorationJson().then((json) => {
                         let decoration_json = json.data;
                         let theme = JSON.parse(JSON.stringify(decoration_json[decoration.val]));
+                        theme.status = true;
+                        sessionStorage.setItem(DECORATION_KEY + this.uid, JSON.stringify(theme));
                         this.setDecoration(theme);
                         //缓存远程JSON文件
                         sessionStorage.setItem(DECORATION_JSON, JSON.stringify(decoration_json));
                     });
                 } else {
                     let theme = JSON.parse(decorationJson)[decoration.val];
+                    theme.status = true;
+                    sessionStorage.setItem(DECORATION_KEY + this.uid, JSON.stringify(theme));
                     this.setDecoration(theme);
                 }
             });
@@ -115,8 +119,6 @@ export default {
             return __imgPath + `decoration/images/${val}/${type}.png`;
         },
         setDecoration(theme) {
-            theme.status = true;
-            sessionStorage.setItem(DECORATION_KEY + this.uid, JSON.stringify(theme));
             this.decorationMe = theme;
             let bgImg = [],
                 w = document.body.offsetWidth;
