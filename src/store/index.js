@@ -5,15 +5,14 @@ Vue.use(Vuex);
 
 let store = {
     state: {
-        userdata : '',
-        client : location.href.includes('origin') ? 'origin' : 'std'
+        userdata: "",
+        client: location.href.includes("origin") ? "origin" : "std",
     },
-    mutations: {
-    },
-    getters: {
-    },
+    mutations: {},
+    getters: {},
     actions: {},
-    modules: {}
+    modules: {},
+    decoration_me: null,
 };
 
 export default new Vuex.Store(store);

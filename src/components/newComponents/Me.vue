@@ -1,15 +1,21 @@
 <template>
     <div>
-        <div class="m-author-header" :style="{ backgroundImage: userDefinedStyle.banner }">
+        <div class="m-author-header" :style="{ backgroundImage: `url(${userDefinedStyle.banner})` }">
             <div class="u-header-info">
                 <Avatar class="u-author-avatar" :uid="uid" :url="avatar" :size="avatarSize" :frame="avatar_frame" />
                 <div class="u-author-info">
                     <span class="u-name" :style="userDefinedStyle.userName">
-                        <span @click="copyData(data.display_name || '匿名')">{{ data.display_name || "匿名" }}</span>&nbsp;<span class="u-uid" @click="copyData(data.ID || 0)">(UID : {{ data.ID || 0 }})</span>
+                        <span @click="copyData(data.display_name || '匿名')">{{ data.display_name || "匿名" }}</span
+                        >&nbsp;<span class="u-uid" @click="copyData(data.ID || 0)">(UID : {{ data.ID || 0 }})</span>
                     </span>
                     <div class="u-tips">
                         <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
-                            <span class="u-level" :class="'lv-' + level" :style="{backgroundColor:showLevelColor(level)}">Lv.{{ level }}</span>
+                            <span
+                                class="u-level"
+                                :class="'lv-' + level"
+                                :style="{ backgroundColor: showLevelColor(level) }"
+                                >Lv.{{ level }}</span
+                            >
                         </el-tooltip>
                         <el-tooltip :content="vipTypeTitle" v-if="isPRO || isVIP" placement="top">
                             <a class="u-vip" href="/vip/premium?from=user_homepage" target="_blank">
@@ -21,6 +27,9 @@
                                 <i class="u-icon superauthor">签约作者</i>
                             </span>
                         </el-tooltip>
+                    </div>
+                    <div class="u-honor" :style="userDefinedStyle.honor" v-if="honor">
+                        {{ honor }}
                     </div>
                 </div>
                 <!-- <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
@@ -50,33 +59,48 @@
                     </el-popover>
                 </div>
             </div> -->
-
         </div>
         <!-- 手机端显示此加入时间，隐藏原有 -->
-        <div class=" m-join-phone">
+        <div class="m-join-phone">
             <div class="m-author-primary">
                 <div class="m-right">
                     <!-- 关注 -->
                     <div class="m-focus" v-if="!isSelf">
                         <div class="u-btn-box">
-                            <el-button icon="el-icon-plus" class="u-btn-attention" v-if="!isFollow" @click="follow" size="mini" :style="userDefinedStyle.btn">关注TA</el-button>
-                            <div class="u-already-attention" v-else >
-                                <el-button class="u-btn" size="mini" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" @click="unfollow">{{ attentionText }}</el-button>
-                                <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
+                            <el-button
+                                icon="el-icon-plus"
+                                class="u-btn-attention"
+                                v-if="!isFollow"
+                                @click="follow"
+                                size="mini"
+                                :style="userDefinedStyle.btn"
+                                >关注TA</el-button
+                            >
+                            <div class="u-already-attention" v-else>
+                                <el-button
+                                    class="u-btn"
+                                    size="mini"
+                                    @mouseenter.native="attentionText = '取消关注'"
+                                    @mouseleave.native="attentionText = '已关注'"
+                                    @click="unfollow"
+                                    >{{ attentionText }}</el-button
+                                >
+                                <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true">发消息</el-button>
                             </div>
                         </div>
                         <div class="u-more" :style="userDefinedStyle.btn">
-                            <el-popover
-                                placement="bottom-end"
-                                trigger="click"
-                                width="90"
-                                v-model="moreOperatePhone"
-                            >
+                            <el-popover placement="bottom-end" trigger="click" width="90" v-model="moreOperatePhone">
                                 <a href="/feedback" target="_blank">
-                                    <el-button size="mini" class="u-more-btn">举报</el-button>
-                                </a><br>
+                                    <el-button size="mini" class="u-more-btn">举报</el-button> </a
+                                ><br />
                                 <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
-                                <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img" :style="userDefinedStyle.btn"/>
+                                <img
+                                    src="@/assets/img/more.svg"
+                                    svg-inline
+                                    slot="reference"
+                                    class="u-more-img"
+                                    :style="userDefinedStyle.btn"
+                                />
                             </el-popover>
                         </div>
                     </div>
@@ -88,10 +112,20 @@
                             </i>
                             <span>加入于 {{ data.user_registered | time }}</span>
                         </div>
-                        <div class="u-fans" @click="toFans" :class="isSelf?'self':''" :style="userDefinedStyle.fans">
-                            <i class="u-icon u-icon-fans" >
-                                <img svg-inline src="../../assets/img/fans.svg" class="u-svg" :style="userDefinedStyle.fans"/>
-                            </i>粉丝数 <b>{{fansNum}}</b>
+                        <div
+                            class="u-fans"
+                            @click="toFans"
+                            :class="isSelf ? 'self' : ''"
+                            :style="userDefinedStyle.fans"
+                        >
+                            <i class="u-icon u-icon-fans">
+                                <img
+                                    svg-inline
+                                    src="../../assets/img/fans.svg"
+                                    class="u-svg"
+                                    :style="userDefinedStyle.fans"
+                                /> </i
+                            >粉丝数 <b>{{ fansNum }}</b>
                         </div>
                     </div>
                 </div>
@@ -106,24 +140,40 @@
                 <!-- 关注 -->
                 <div class="m-focus u-in-phone" v-if="!isSelf">
                     <div class="u-btn-box">
-                        <el-button icon="el-icon-plus" class="u-btn-attention" v-if="!isFollow" @click="follow" size="mini" :style="userDefinedStyle.btn">关注TA</el-button>
-                        <div class="u-already-attention" v-else >
-                            <el-button class="u-btn" size="mini" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" @click="unfollow">{{ attentionText }}</el-button>
-                            <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
+                        <el-button
+                            icon="el-icon-plus"
+                            class="u-btn-attention"
+                            v-if="!isFollow"
+                            @click="follow"
+                            size="mini"
+                            :style="userDefinedStyle.btn"
+                            >关注TA</el-button
+                        >
+                        <div class="u-already-attention" v-else>
+                            <el-button
+                                class="u-btn"
+                                size="mini"
+                                @mouseenter.native="attentionText = '取消关注'"
+                                @mouseleave.native="attentionText = '已关注'"
+                                @click="unfollow"
+                                >{{ attentionText }}</el-button
+                            >
+                            <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true">发消息</el-button>
                         </div>
                     </div>
                     <div class="u-more" :style="userDefinedStyle.btn">
-                        <el-popover
-                            placement="bottom-end"
-                            trigger="click"
-                            width="90"
-                            v-model="moreOperate"
-                        >
+                        <el-popover placement="bottom-end" trigger="click" width="90" v-model="moreOperate">
                             <a href="/feedback" target="_blank">
-                                <el-button size="mini" class="u-more-btn">举报</el-button>
-                            </a><br>
+                                <el-button size="mini" class="u-more-btn">举报</el-button> </a
+                            ><br />
                             <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
-                            <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img" :style="userDefinedStyle.btn"/>
+                            <img
+                                src="@/assets/img/more.svg"
+                                svg-inline
+                                slot="reference"
+                                class="u-more-img"
+                                :style="userDefinedStyle.btn"
+                            />
                         </el-popover>
                     </div>
                 </div>
@@ -135,10 +185,15 @@
                         </i>
                         <span>加入于 {{ data.user_registered | time }}</span>
                     </div>
-                    <div class="u-fans" @click="toFans" :class="isSelf?'self':''" :style="userDefinedStyle.fans" >
+                    <div class="u-fans" @click="toFans" :class="isSelf ? 'self' : ''" :style="userDefinedStyle.fans">
                         <i class="u-icon u-icon-fans">
-                            <img svg-inline src="../../assets/img/fans.svg" class="u-svg" :style="userDefinedStyle.fans" />
-                        </i>粉丝数 <b>{{fansNum}}</b>
+                            <img
+                                svg-inline
+                                src="../../assets/img/fans.svg"
+                                class="u-svg"
+                                :style="userDefinedStyle.fans"
+                            /> </i
+                        >粉丝数 <b>{{ fansNum }}</b>
                     </div>
                 </div>
 
@@ -150,21 +205,46 @@
 
 <script>
 import { follow, unfollow } from "@jx3box/jx3box-common-ui/service/follow";
-import { __userLevelColor,__imgPath } from "@jx3box/jx3box-common/data/jx3box";
+import { __userLevelColor, __imgPath } from "@jx3box/jx3box-common/data/jx3box";
 import { user as medal_map } from "@jx3box/jx3box-common/data/medals.json";
 import frames from "@jx3box/jx3box-common/data/user_avatar_frame.json";
 import User from "@jx3box/jx3box-common/js/user";
 import { getFansCount } from "@jx3box/jx3box-common-ui/service/follow";
-import {tvLink} from "@jx3box/jx3box-common/js/utils";
+import { tvLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "@/utils/dateFormat";
-import {deny,undeny} from "@/service/author";
-import Left from "./Left"
-import  Primary from './Primary';
+import { deny, undeny } from "@/service/author";
+import Left from "./Left";
+import Primary from "./Primary";
+
+const DECORATION_KEY = "decoration_me";
+const HONOR_KEY = "honor_me";
 export default {
     name: "Me",
-    components:{
+    components: {
         Left,
-        Primary
+        Primary,
+    },
+    props: {
+        decorationMe: {
+            type: Object,
+            default: function () {
+                return {};
+            },
+        },
+        honor: {
+            type: String,
+            default: "",
+        },
+    },
+    watch: {
+        decorationMe: {
+            handler(val) {
+                // console.log(val);
+                this.setDecorationStyle();
+            },
+            immediate: true,
+            deep: true,
+        },
     },
     data: function () {
         return {
@@ -172,20 +252,22 @@ export default {
             medal_map,
             frames,
             isVIP: false,
-            isFollow:false,
-            attentionText:'已关注',
-            moreOperate:false,
-            moreOperatePhone:false,
-            fansNum:0,
-            authorInfo:{},
-            avatarSize:'l',
-            fansLink:'/dashboard/privacy?tab=myfans',
-            userDefinedStyle:{
-                fans:{},
-                btn:{},
-                userName:{},
-                banner:{}
-            }
+            isFollow: false,
+            attentionText: "已关注",
+            moreOperate: false,
+            moreOperatePhone: false,
+            fansNum: 0,
+            authorInfo: {},
+            avatarSize: "l",
+            fansLink: "/dashboard/privacy?tab=myfans",
+            userDefinedStyle: {
+                fans: {},
+                btn: {},
+                userName: {},
+                honor: {},
+                banner: `${__imgPath}/decoration/images/0_TESTSAMPLE/homebanner.png`,
+            },
+            // honor: null, //称号
         };
     },
     computed: {
@@ -228,78 +310,60 @@ export default {
         isLogin: function () {
             return User.isLogin();
         },
-        isSelf:function(){
-            return User.getInfo().uid == this.uid
-        }
+        isSelf: function () {
+            return User.getInfo().uid == this.uid;
+        },
     },
-    filters:{
+    filters: {
         time: (val) => {
             return dateFormat(new Date(val));
         },
     },
     methods: {
-        copyData(text){
-            let _this=this
-            this.$copyText(String(text)).then(function (e) {
-                _this.$notify({
-                    title: '复制成功',
-                    message: '复制内容：' + text,
-                    type: 'success'
-                });
-            }, function (e) {
-                _this.$notify({
-                    title: '复制失败',
-                    message: '请手动复制',
-                    type: 'warning'
-                });
-            })
-        },
-        getDecorationJson(){
-            let decoration_me=sessionStorage.getItem('decoration_me'+this.uid)
-            if(!decoration_me){
-                let num=0
-                let intervalTimerId = setInterval(() => {
-                    decoration_me=sessionStorage.getItem('decoration_me'+this.uid)
-                    num++
-                    if(decoration_me || num>10){
-                        clearInterval(intervalTimerId)
-                        this.setDecorationStyle(decoration_me)
-                    }
-                }, 100);
-            }else{
-                this.setDecorationStyle(decoration_me)
-            }
-        },
-        showDecoration:function(val,type){
-            return __imgPath + `decoration/images/${val}/${type}.png`;
-        },
-        setDefaultBanner(){
-            this.userDefinedStyle.banner=`url(https://img.jx3box.com/decoration/images/0_TESTSAMPLE/homebanner.png)`
-        },
-        setDecorationStyle(decoration_me){
-            if(decoration_me == 'no'){
-                this.setDefaultBanner()
-                return;
-            }
-            let decoration=JSON.parse(decoration_me)
-            if(decoration.highlightcolor){
-                this.userDefinedStyle.fans={
-                    'color':decoration.highlightcolor,
-                    'fill':decoration.highlightcolor
+        copyData(text) {
+            let _this = this;
+            this.$copyText(String(text)).then(
+                function (e) {
+                    _this.$notify({
+                        title: "复制成功",
+                        message: "复制内容：" + text,
+                        type: "success",
+                    });
+                },
+                function (e) {
+                    _this.$notify({
+                        title: "复制失败",
+                        message: "请手动复制",
+                        type: "warning",
+                    });
                 }
+            );
+        },
+        setDecorationStyle() {
+            let decoration = this.decorationMe;
+            if (!decoration.status) return;
+            if (decoration.highlightcolor) {
+                this.userDefinedStyle.fans = {
+                    color: decoration.highlightcolor,
+                    fill: decoration.highlightcolor,
+                };
             }
-            if(decoration.textcolor){
-                this.userDefinedStyle.userName={
-                    'color':decoration.textcolor
-                }
+            if (decoration.textcolor) {
+                this.userDefinedStyle.userName = {
+                    color: decoration.textcolor,
+                };
             }
-            if(decoration.buttoncolor){
-                this.userDefinedStyle.btn={
-                    'background-color':decoration.buttoncolor,
-                    'fill':decoration.buttontextcolor,
-                }
+            if (decoration.buttoncolor) {
+                this.userDefinedStyle.btn = {
+                    "background-color": decoration.buttoncolor,
+                    fill: decoration.buttontextcolor,
+                };
+                this.userDefinedStyle.honor = {
+                    "background-color": decoration.buttoncolor,
+                    color: decoration.buttontextcolor,
+                };
             }
-            this.userDefinedStyle.banner='url('+this.showDecoration(decoration.name,"homebanner")
+            this.userDefinedStyle.banner = __imgPath + `decoration/images/${decoration.name}/homebanner.png`;
         },
         // 关注
         follow() {
@@ -311,7 +375,7 @@ export default {
                 .then((res) => {
                     this.$message.success("关注成功");
                     this.isFollow = true;
-                    this.loadFans()
+                    this.loadFans();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -323,20 +387,22 @@ export default {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning",
-            }).then(() => {
-                unfollow(this.uid)
-                    .then((res) => {
-                        this.$message.success("取关成功");
-                        this.isFollow = false;
-                        this.loadFans();
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            }).catch(_ => {});;
+            })
+                .then(() => {
+                    unfollow(this.uid)
+                        .then((res) => {
+                            this.$message.success("取关成功");
+                            this.isFollow = false;
+                            this.loadFans();
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                })
+                .catch((_) => {});
         },
-        showLevelColor : function (level){
-            return __userLevelColor[level]
+        showLevelColor: function (level) {
+            return __userLevelColor[level];
         },
         // 格式化粉丝数
         formatFansNum(num) {
@@ -346,61 +412,63 @@ export default {
                 return (num / 10000).toFixed(1) + "万";
             }
         },
-        loadFans(){
-            getFansCount(this.$store.state.uid).then(res=>{
+        loadFans() {
+            getFansCount(this.$store.state.uid).then((res) => {
                 this.fansNum = res.data.data.follower_count || 0;
                 this.isFollow = res.data.data.is_followed;
-            })
+            });
         },
-        getAuthorInfo(v){
-            this.authorInfo=v
+        getAuthorInfo(v) {
+            this.authorInfo = v;
         },
         //拉黑
-        joinBlacklist(){
+        joinBlacklist() {
             this.$confirm("确定要拉黑此人？", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning",
-            }).then(() => {
-                deny(this.uid).then(() => {
-                    this.$message.success("拉黑成功");
-                }) .catch((err) => {
-                    console.log(err);
-                });
-            }).catch(_ => {});;
-
+            })
+                .then(() => {
+                    deny(this.uid)
+                        .then(() => {
+                            this.$message.success("拉黑成功");
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                })
+                .catch((_) => {});
         },
-        avatarSizeChange(){
-            let w=document.body.clientWidth || document.documentElement.clientWidth
-            if(w>720){
-                this.avatarSize='l'
-            }else if(w>500){
-                this.avatarSize='m'
-            }else{
-                this.avatarSize='s'
+        avatarSizeChange() {
+            let w = document.body.clientWidth || document.documentElement.clientWidth;
+            if (w > 720) {
+                this.avatarSize = "l";
+            } else if (w > 500) {
+                this.avatarSize = "m";
+            } else {
+                this.avatarSize = "s";
             }
         },
         // 跳转粉丝界面
-        toFans(){
-            if(this.isSelf){
-                window.open(this.fansLink,'_blank')
+        toFans() {
+            if (this.isSelf) {
+                window.open(this.fansLink, "_blank");
             }
-        }
+        },
     },
     created() {
-        this.avatarSizeChange()
-       this.getDecorationJson()
+        this.avatarSizeChange();
     },
     mounted: function () {
         if (this.uid) {
             this.loadFans();
         }
-        let _this=this
+        let _this = this;
         window.onresize = function () {
             _this.avatarSizeChange();
-        }
+        };
     },
-}
+};
 </script>
 
 <style scoped lang="less">
