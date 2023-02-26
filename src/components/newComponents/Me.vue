@@ -85,7 +85,12 @@
                                     @click="unfollow"
                                     >{{ attentionText }}</el-button
                                 >
-                                <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true">发消息</el-button>
+                                <a :href="sendLink" target="_blank" v-if="level > 3">
+                                    <el-button class="u-btn" size="mini">发消息</el-button></a
+                                >
+                                <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true" v-else
+                                    >发消息</el-button
+                                >
                             </div>
                         </div>
                         <div class="u-more" :style="userDefinedStyle.btn">
@@ -158,24 +163,27 @@
                                 @click="unfollow"
                                 >{{ attentionText }}</el-button
                             >
-                            <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true">发消息</el-button>
+                            <a :href="sendLink" target="_blank" v-if="level > 3">
+                                <el-button class="u-btn" size="mini">发消息</el-button></a
+                            >
+                            <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true" v-else
+                                >发消息</el-button
+                            >
                         </div>
                     </div>
-                    <div class="u-more" :style="userDefinedStyle.btn">
-                        <el-popover placement="bottom-end" trigger="click" width="90" v-model="moreOperate">
-                            <a href="/feedback" target="_blank">
-                                <el-button size="mini" class="u-more-btn">举报</el-button> </a
-                            ><br />
-                            <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
+                    <el-popover placement="bottom-end" trigger="click" width="90" v-model="moreOperate">
+                        <a href="/feedback" target="_blank">
+                            <el-button size="mini" class="u-more-btn">举报</el-button> </a
+                        ><br />
+                        <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
+                        <div class="u-more" :style="userDefinedStyle.btn" slot="reference">
                             <img
                                 src="@/assets/img/more.svg"
                                 svg-inline
-                                slot="reference"
                                 class="u-more-img"
                                 :style="userDefinedStyle.btn"
-                            />
-                        </el-popover>
-                    </div>
+                            /></div
+                    ></el-popover>
                 </div>
                 <!--        加入时间-->
                 <div class="m-common-box m-join-box u-in-phone">
@@ -312,6 +320,9 @@ export default {
         },
         isSelf: function () {
             return User.getInfo().uid == this.uid;
+        },
+        sendLink: function () {
+            return "/dashboard/msg?tab=letter&receiver=" + this.uid;
         },
     },
     filters: {
