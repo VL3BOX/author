@@ -322,7 +322,7 @@ export default {
             return User.getInfo().uid == this.uid;
         },
         sendLink: function () {
-            return "/dashboard/msg?tab=letter&receiver=" + this.uid;
+            return "/dashboard/letter?receiver=" + this.uid;
         },
     },
     filters: {
