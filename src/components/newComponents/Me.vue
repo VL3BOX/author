@@ -85,7 +85,7 @@
                                     @click="unfollow"
                                     >{{ attentionText }}</el-button
                                 >
-                                <a :href="sendLink" target="_blank" v-if="level > 3">
+                                <a :href="sendLink" target="_blank" v-if="canSendLetter">
                                     <el-button class="u-btn" size="mini">发消息</el-button></a
                                 >
                                 <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true" v-else
