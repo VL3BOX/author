@@ -163,7 +163,7 @@
                                 @click="unfollow"
                                 >{{ attentionText }}</el-button
                             >
-                            <a :href="sendLink" target="_blank" v-if="level > 3">
+                            <a :href="sendLink" target="_blank" v-if="canSendLetter">
                                 <el-button class="u-btn" size="mini">发消息</el-button></a
                             >
                             <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true" v-else
@@ -276,6 +276,7 @@ export default {
                 banner: `${__imgPath}/decoration/images/0_TESTSAMPLE/homebanner.png`,
             },
             // honor: null, //称号
+            canSendLetter: false,
         };
     },
     computed: {
@@ -478,6 +479,11 @@ export default {
         window.onresize = function () {
             _this.avatarSizeChange();
         };
+
+        User.getAsset().then((data) => {
+            let exp = data.experience;
+            this.canSendLetter = !!(User.getLevel(exp) > 3);
+        });
     },
 };
 </script>
