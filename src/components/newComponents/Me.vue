@@ -86,7 +86,7 @@
                                     >{{ attentionText }}</el-button
                                 >
                                 <a :href="sendLink" target="_blank" v-if="canSendLetter">
-                                    <el-button class="u-btn" size="mini" :style="userDefinedStyle.sendMsg"
+                                    <el-button class="u-btn u-send-msg" size="mini" :style="userDefinedStyle.sendMsg"
                                         >发消息</el-button
                                     ></a
                                 >
@@ -166,7 +166,7 @@
                                 >{{ attentionText }}</el-button
                             >
                             <a :href="sendLink" target="_blank" v-if="canSendLetter">
-                                <el-button class="u-btn" size="mini" :style="userDefinedStyle.sendMsg"
+                                <el-button class="u-btn u-send-msg" size="mini" :style="userDefinedStyle.sendMsg"
                                     >发消息</el-button
                                 ></a
                             >
