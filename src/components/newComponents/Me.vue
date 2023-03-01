@@ -86,7 +86,9 @@
                                     >{{ attentionText }}</el-button
                                 >
                                 <a :href="sendLink" target="_blank" v-if="canSendLetter">
-                                    <el-button class="u-btn" size="mini">发消息</el-button></a
+                                    <el-button class="u-btn" size="mini" :style="userDefinedStyle.sendMsg"
+                                        >发消息</el-button
+                                    ></a
                                 >
                                 <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true" v-else
                                     >发消息</el-button
@@ -164,7 +166,9 @@
                                 >{{ attentionText }}</el-button
                             >
                             <a :href="sendLink" target="_blank" v-if="canSendLetter">
-                                <el-button class="u-btn" size="mini">发消息</el-button></a
+                                <el-button class="u-btn" size="mini" :style="userDefinedStyle.sendMsg"
+                                    >发消息</el-button
+                                ></a
                             >
                             <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true" v-else
                                 >发消息</el-button
@@ -273,6 +277,7 @@ export default {
                 btn: {},
                 userName: {},
                 honor: {},
+                sendMsg: {},
                 banner: `${__imgPath}/decoration/images/0_TESTSAMPLE/homebanner.png`,
             },
             // honor: null, //称号
@@ -372,6 +377,11 @@ export default {
                 };
                 this.userDefinedStyle.honor = {
                     "background-color": decoration.buttoncolor,
+                    color: decoration.buttontextcolor,
+                };
+                this.userDefinedStyle.sendMsg = {
+                    "background-color": decoration.buttoncolor,
+                    "border-color": decoration.buttoncolor,
                     color: decoration.buttontextcolor,
                 };
             }
@@ -483,6 +493,7 @@ export default {
         User.getAsset().then((data) => {
             let exp = data.experience;
             this.canSendLetter = !!(User.getLevel(exp) > 3);
+            // this.canSendLetter = true;
         });
     },
 };
