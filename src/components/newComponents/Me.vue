@@ -28,9 +28,11 @@
                             </span>
                         </el-tooltip>
                     </div>
-                    <div class="u-honor" :style="{ backgroundImage: `url(${imgUrl()})` }" v-if="honor">
+
+                    <!-- <div class="u-honor" :style="{ backgroundImage: `url(${imgUrl()})` }" v-if="honor">
                         <span :style="{ color: honor.color }">{{ honor.honor }}</span>
-                    </div>
+                    </div> -->
+                    <Honor :uid="uid"></Honor>
                 </div>
                 <!-- <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
                     {{ authorInfo.user_bio||'这个人太懒了~没有写签名。' }}
@@ -227,21 +229,16 @@ import dateFormat from "@/utils/dateFormat";
 import { deny, undeny } from "@/service/author";
 import Left from "./Left";
 import Primary from "./Primary";
-
+import Honor from "@jx3box/jx3box-common-ui/src/author/AuthorHonor.vue";
 export default {
     name: "Me",
     components: {
         Left,
         Primary,
+        Honor,
     },
     props: {
         decorationMe: {
-            type: Object,
-            default: function () {
-                return {};
-            },
-        },
-        honor: {
             type: Object,
             default: function () {
                 return {};
@@ -382,14 +379,6 @@ export default {
                 };
             }
             this.userDefinedStyle.banner = __imgPath + `decoration/images/${decoration.name}/homebanner.png`;
-        },
-        imgUrl: function () {
-            let item = this.honor;
-            if (!item) return;
-            if (item.isImgIndex) {
-                return __imgPath + `decoration/honor/${item.val}/${item.val}_${item.imgIndex}.${item.ext}`;
-            }
-            return __imgPath + `decoration/honor/${item.val}/${item.val}.${item.ext}`;
         },
         // 关注
         follow() {
