@@ -28,8 +28,8 @@
                             </span>
                         </el-tooltip>
                     </div>
-                    <div class="u-honor" :style="userDefinedStyle.honor" v-if="honor">
-                        {{ honor }}
+                    <div class="u-honor" :style="{ backgroundImage: `url(${imgUrl()})` }" v-if="honor">
+                        <span :style="{ color: honor.color }">{{ honor.honor }}</span>
                     </div>
                 </div>
                 <!-- <div class="u-info" :title="authorInfo.user_bio||'这个人太懒了~没有写签名。'">
@@ -228,8 +228,6 @@ import { deny, undeny } from "@/service/author";
 import Left from "./Left";
 import Primary from "./Primary";
 
-const DECORATION_KEY = "decoration_me";
-const HONOR_KEY = "honor_me";
 export default {
     name: "Me",
     components: {
@@ -244,8 +242,10 @@ export default {
             },
         },
         honor: {
-            type: String,
-            default: "",
+            type: Object,
+            default: function () {
+                return {};
+            },
         },
     },
     watch: {
@@ -375,10 +375,6 @@ export default {
                     "background-color": decoration.buttoncolor,
                     fill: decoration.buttontextcolor,
                 };
-                this.userDefinedStyle.honor = {
-                    "background-color": decoration.buttoncolor,
-                    color: decoration.buttontextcolor,
-                };
                 this.userDefinedStyle.sendMsg = {
                     "background-color": decoration.buttoncolor,
                     "border-color": decoration.buttoncolor,
@@ -386,6 +382,14 @@ export default {
                 };
             }
             this.userDefinedStyle.banner = __imgPath + `decoration/images/${decoration.name}/homebanner.png`;
+        },
+        imgUrl: function () {
+            let item = this.honor;
+            if (!item) return;
+            if (item.isImgIndex) {
+                return __imgPath + `decoration/honor/${item.val}/${item.val}_${item.imgIndex}.${item.ext}`;
+            }
+            return __imgPath + `decoration/honor/${item.val}/${item.val}.${item.ext}`;
         },
         // 关注
         follow() {

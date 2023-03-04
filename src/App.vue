@@ -18,12 +18,13 @@
 import Me from "@/components/newComponents/Me.vue";
 // import Info from "@/components/Info.vue";
 import { getRewrite } from "@jx3box/jx3box-common/js/utils";
-import { getUserInfo, getDecoration, getDecorationJson } from "@/service/cms";
+import { getUserInfo, getDecoration, getDecorationJson, getHonorJson } from "@/service/cms";
 import User from "@jx3box/jx3box-common/js/user";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 const DECORATION_JSON = "decoration_json";
 const DECORATION_KEY = "decoration_me";
 const HONOR_KEY = "honor_me";
+const HONOR_IMG_KEY = "honor_img";
 export default {
     name: "App",
     props: [],
@@ -66,9 +67,10 @@ export default {
         //获取装扮,动态获取uid的装扮，缓存指定UID
         getDecoration() {
             let decoration_local = sessionStorage.getItem(DECORATION_KEY + this.uid);
-            let honor_local = sessionStorage.getItem(HONOR_KEY + this.uid);
+            let honor_local = sessionStorage.getItem(HONOR_IMG_KEY + this.uid);
             if (honor_local) {
-                this.honor = honor_local;
+                // this.honor = honor_local;
+                this.getHonor(honor_local);
             }
             if (decoration_local) {
                 //解析本地缓存
@@ -87,8 +89,9 @@ export default {
                 //筛选称号
                 let honor = decorationList.find((item) => item.type == "honor");
                 if (honor) {
-                    sessionStorage.setItem(HONOR_KEY + this.uid, honor.val);
-                    this.honor = honor.val;
+                    sessionStorage.setItem(HONOR_KEY + this.uid, JSON.stringify(honor));
+                    // this.honor = honor.val;
+                    this.getHonor(honor);
                 }
                 if (!decoration) {
                     //空 则为无主题，不再加载接口，Me界面设No
@@ -113,6 +116,58 @@ export default {
                     sessionStorage.setItem(DECORATION_KEY + this.uid, JSON.stringify(theme));
                     this.setDecoration(theme);
                 }
+            });
+        },
+        getHonor(data) {
+            let honor_img_local = sessionStorage.getItem(HONOR_IMG_KEY + this.uid);
+            if (honor_img_local) {
+                //解析本地缓存
+                let honor_img_parse = JSON.parse(honor_img_local);
+                if (!honor_img_parse == "no") return;
+                this.honor = honor_img_parse;
+                return;
+            }
+            getHonorJson().then((res) => {
+                let honorList = res.data;
+                //过滤称号信息
+                let honorConfig = honorList[data.val];
+                //正则取出前缀
+                let prefix = honorConfig.prefix;
+                let regPrefix = honorConfig.prefix.match(/(?<=\{)(.+?)(?=\})/g);
+                let ranking = honorConfig.ranking;
+                let honorStr = honorConfig.year || "";
+                if (regPrefix) {
+                    honorStr = honorStr + (data[regPrefix[0]] || "");
+                } else {
+                    honorStr = honorStr + prefix;
+                }
+                //排名处理
+                if (ranking.length > 0) {
+                    data.imgIndex = 0;
+                    for (let i = 0; i < ranking.length; i++) {
+                        //处在范围内取数组第三个值进行称号拼接
+                        if (data.ranking != undefined && inRange(Number(data.ranking), ranking[i][0], ranking[i][1])) {
+                            data.imgIndex = i;
+                            let str = ranking[i][2];
+                            //正则取出需替换值，如果没有则直接拼接
+                            let regStr = str.match(/(?<=\{)(.+?)(?=\})/g);
+                            if (regStr) {
+                                //包含花括号替换
+                                honorStr = honorStr + str.replace(/\{(.+?)\}/g, data[regStr[0]]);
+                            } else {
+                                honorStr = honorStr + str;
+                            }
+                            break;
+                        }
+                    }
+                }
+                data.honor = honorStr + honorConfig.suffix;
+                data.color = honorConfig.color;
+                data.ext = honorConfig.ext;
+                data.isHave = true;
+                data.isImgIndex = honorConfig.ranking.length > 0 ? true : false;
+                sessionStorage.setItem(HONOR_IMG_KEY + this.uid, JSON.stringify(data));
+                this.honor = data;
             });
         },
         showDecoration: function (val, type) {

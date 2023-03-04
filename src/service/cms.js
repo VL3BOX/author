@@ -53,6 +53,10 @@ function getDecorationJson(){
     let url = __imgPath + "decoration/index.json"
     return axios.get(url)
 }
+function getHonorJson() {
+    let url = __imgPath + "decoration/honor.json";
+    return axios.get(url);
+}
 export {
     getPosts,
     getUserInfo,
@@ -62,5 +66,6 @@ export {
     getUserJokes,
     getUserEmotions,
     getDecoration,
-    getDecorationJson
+    getDecorationJson,
+    getHonorJson
 };
