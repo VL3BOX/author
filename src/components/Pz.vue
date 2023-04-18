@@ -1,21 +1,5 @@
 <template>
     <div class="m-post" v-loading="loading">
-<!--        <el-timeline class="m-post-list" v-if="list && list.length">-->
-<!--            <el-timeline-item-->
-<!--                v-for="(item, i) in list"-->
-<!--                :key="i"-->
-<!--                :timestamp="item.updated_at | dateFormat"-->
-<!--                placement="top"-->
-<!--            >-->
-<!--                <h4 class="u-type">配装方案</h4>-->
-<!--                <p>-->
-<!--                    <a :href="postLink(item.id, item.client)" class="u-title" target="_blank"-->
-<!--                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i-->
-<!--                        >{{ item.title || "无标题" }}</a-->
-<!--                    >-->
-<!--                </p>-->
-<!--            </el-timeline-item>-->
-<!--        </el-timeline>-->
         <!-- 列表 -->
         <div v-if="list && list.length" class="m-archive-list">
             <ul class="u-list">
@@ -33,8 +17,6 @@
 
                     <!-- 作者 -->
                     <div class="u-misc">
-<!--                        <img class="u-author-avatar" :src="item.pz_author_info | showAvatar" :alt="item.pz_author_info | showNickname" />-->
-<!--                        <a class="u-author-name" :href="item.user_id | authorLink" target="_blank">{{ item.pz_author_info | showNickname }}</a>-->
                         <span class="u-date">
                             Updated on
                             <time >{{ item.updated_at | dateFormat }}</time>

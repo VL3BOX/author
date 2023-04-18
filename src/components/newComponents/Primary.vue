@@ -12,7 +12,7 @@
         <div class="m-common-box m-links" v-if="data!=''&& (data.weibo_id || data.github_id||data.tv_id)">
 <!--            ||data.tuilan_id-->
             <div class="u-label"><i class="el-icon-user"></i><span>TA的信息</span></div>
-            <AuthorLink class="u-links" :uid="uid" :data="data" />
+            <AuthorLink class="u-links-box" :uid="uid" :data="data" />
         </div>
 <!--        他的荣誉-->
         <AuthorMedals :uid="uid" class="u-trophy m-common-box m-medals"></AuthorMedals>
@@ -100,83 +100,4 @@ export default {
 
 <style scoped lang="less">
 @import "../../assets/css/newCss/primary.less";
-//.c-author {
-//
-//    .u-tips {
-//        .db;
-//        color: #555;
-//        font-size: 12px;
-//    }
-//
-//    .u-label {
-//        margin: 15px 0 10px 0;
-//        padding: 0 5px 10px 0;
-//        i {
-//            .mr(5px);
-//        }
-//        span {
-//            .fz(13px);
-//        }
-//        border-bottom: 1px solid @border;
-//    }
-//
-//    @keyframes living-icon-ani {
-//        0% {
-//            -webkit-transform: scaleY(0.5);
-//            transform: scaleY(0.5);
-//        }
-//        50% {
-//            -webkit-transform: scaleY(1);
-//            transform: scaleY(1);
-//        }
-//        to {
-//            -webkit-transform: scaleY(0.5);
-//            transform: scaleY(0.5);
-//        }
-//    }
-//
-//    .u-tv-living {
-//        .dbi;
-//        .ml(10px);
-//    }
-//
-//    .u-tv-living-icon {
-//        .h(10px);
-//    }
-//
-//    .u-tv-living-icon-col {
-//        .dbi;
-//        transform-origin: bottom;
-//        width: 2px;
-//        height: 100%;
-//        margin: 0 1px;
-//        background-color: #fb7299;
-//        border-radius: 2px;
-//        animation: living-icon-ani 0.6s linear infinite;
-//    }
-//    .u-tv-living-icon-col.first {
-//        animation-delay: -0.2s;
-//    }
-//    .u-tv-living-icon-col.last {
-//        animation-delay: 0.2s;
-//    }
-//
-//    .u-interact{
-//        .mt(5px);
-//        display: flex;
-//    }
-//    .u-links{
-//        .mt(15px);
-//    }
-//
-//}
-
-//.c-sidebar-left .c-author {
-//    margin: 10px;
-//}
-//
-//.c-sidebar-right .c-author {
-//    margin: 15px;
-//}
-
 </style>

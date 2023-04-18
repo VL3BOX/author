@@ -1,23 +1,5 @@
 <template>
     <div class="m-post" v-loading="loading">
-<!--        <el-timeline class="m-post-list" v-if="list && list.length">-->
-<!--            <el-timeline-item-->
-<!--                v-for="(item, i) in list"-->
-<!--                :key="i"-->
-<!--                :timestamp="item.updated | dateFormat"-->
-<!--                placement="top"-->
-<!--            >-->
-<!--                <h4 class="u-type">文集小册</h4>-->
-<!--                <p>-->
-<!--                    <a-->
-<!--                        :href="postLink(item.id)"-->
-<!--                        class="u-title"-->
-<!--                        target="_blank"-->
-<!--                        >{{ item.title || "无标题" }}</a-->
-<!--                    >-->
-<!--                </p>-->
-<!--            </el-timeline-item>-->
-<!--        </el-timeline>-->
         <!-- 列表 -->
         <div v-if="list && list.length" class="m-archive-list">
             <ul class="u-list">

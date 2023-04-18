@@ -28,7 +28,8 @@ import Namespace from "@/components/Namespace.vue";
 import Jokes from "@/components/Jokes.vue";
 import Emotions from "@/components/Emotions.vue";
 import Data from "@/components/newComponents/Data.vue";
-import Fallow from "@/components/newComponents/Fallow"
+import Fallow from "@/components/newComponents/Fallow";
+import Other from "@/components/newComponents/Other";
 export default {
     name: "Left",
     components: {
@@ -62,31 +63,24 @@ export default {
                     component: Data,
                 },
                 {
-                    label: "文集",
-                    value: "Collection",
-                    component: Collection,
-                },
-
-                {
-                    label: "考试",
-                    value: "Exam",
-                    component: Exam
-                },
-
-                {
                     label: "休闲",
                     value: "Fallow",
                     component: Fallow,
+                },
+                {
+                    label: "其他",
+                    value: "Other",
+                    component: Other,
                 }
             ],
         };
     },
     computed: {
         currentComponent: function () {
-            return this.types.find((item) => item.value === this.active).component;
+            return this.types.find((item) => item.value === this.active)?.component;
         },
         activeType: function () {
-            return this.types.find((item) => item.value === this.active).value;
+            return this.types.find((item) => item.value === this.active)?.value;
         },
     },
 

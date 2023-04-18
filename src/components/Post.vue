@@ -1,36 +1,20 @@
 <template>
     <div class="m-post" v-loading="loading">
-<!--        <el-timeline class="m-post-list" v-if="list && list.length">-->
-<!--            <el-timeline-item-->
-<!--                v-for="(item, i) in list"-->
-<!--                :key="i"-->
-<!--                :timestamp="item.post_modified | dateFormat"-->
-<!--                placement="top"-->
-<!--            >-->
-<!--                <h4 class="u-type">{{ item.post_type | typeFormat }}</h4>-->
-<!--                <p>-->
-<!--                    <a :href="postLink(item.post_type, item.ID, item.client)" class="u-title" target="_blank"-->
-<!--                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i-->
-<!--                        >{{ item.post_title || "无标题" }}</a-->
-<!--                    >-->
-<!--                </p>-->
-<!--            </el-timeline-item>-->
-<!--        </el-timeline>-->
+        <!--        </el-timeline>-->
         <div v-if="list && list.length" class="m-archive-list">
             <ul class="u-list">
-                <li class="u-item" v-for="(item, i) in list"  :key="i + item">
+                <li class="u-item" v-for="(item, i) in list" :key="i + item">
                     <!-- Banner -->
                     <a class="u-banner" :href="postLink(item.post_type, item.ID, item.client)" target="_blank">
-                        <img :src="getBanner(item, item.post_subtype,item.post_type)" :key="item.ID" />
+                        <img :src="getBanner(item, item.post_subtype, item.post_type)" :key="item.ID" />
                     </a>
 
                     <!-- 标题 -->
                     <h2 class="u-post">
-                        <!-- 图标 -->
-                        <!-- <img class="u-icon" svg-inline src="../assets/img/post.svg" /> -->
-
                         <!-- 标题文字 -->
-                        <a class="u-title" :href="postLink(item.post_type, item.ID, item.client)" target="_blank">{{ item.post_title || "无标题" }}</a>
+                        <a class="u-title" :href="postLink(item.post_type, item.ID, item.client)" target="_blank">{{
+                            item.post_title || "无标题"
+                        }}</a>
                     </h2>
 
                     <!-- 字段 -->
@@ -50,7 +34,7 @@
         </div>
         <!-- <el-alert v-else title="没有找到相关条目" type="info" show-icon> </el-alert> -->
         <div class="m-empty" v-else>
-            <img src='../assets/img/null.png' width="80%">
+            <img src="../assets/img/null.png" width="80%" />
         </div>
         <el-pagination
             class="m-author-pages"
@@ -66,14 +50,14 @@
 </template>
 
 <script>
-import {getLink, showBanner} from "@jx3box/jx3box-common/js/utils";
+import { getLink, showBanner } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getPosts } from "@/service/cms.js";
-import { __postType, __clients , __Root, __OriginRoot,__imgPath} from "@jx3box/jx3box-common/data/jx3box.json";
+import { __postType, __clients, __Root, __OriginRoot, __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import xfmap from "@jx3box/jx3box-data/data/xf/xf.json";
 export default {
     props: [],
-    data: function() {
+    data: function () {
         return {
             loading: false,
             list: [],
@@ -81,29 +65,29 @@ export default {
             per: 6,
             page: 1,
             root: {
-                std: __Root.slice(0,-1),
-                origin: __OriginRoot.slice(0,-1),
-                all : ''
+                std: __Root.slice(0, -1),
+                origin: __OriginRoot.slice(0, -1),
+                all: "",
             },
         };
     },
     computed: {
-        params: function() {
+        params: function () {
             return {
                 author: this.uid,
                 page: this.page,
                 per: this.per,
             };
         },
-        uid: function() {
+        uid: function () {
             return this.$store.state.uid;
         },
-        userdata: function() {
+        userdata: function () {
             return this.$store.state.userdata;
         },
     },
     methods: {
-        loadData: function(i = 1) {
+        loadData: function (i = 1) {
             this.loading = true;
             getPosts(this.params)
                 .then((res) => {
@@ -115,17 +99,17 @@ export default {
                 });
         },
         postLink: function (type, id, client) {
-            client = client || "all"
+            client = client || "all";
             return this.root[client] + getLink(type, id);
         },
-        getBanner: function(item, subtype,post_type) {
+        getBanner: function (item, subtype, post_type) {
             if (item.post_banner) {
                 return showBanner(item.post_banner);
             } else {
-                if(post_type=='bps' || post_type=='macro'){
-                    let img_name = (subtype && xfmap[subtype]?.['id']) || 0;
+                if (post_type == "bps" || post_type == "macro" || post_type == "pvp") {
+                    let img_name = (subtype && xfmap[subtype]?.["id"]) || 0;
                     return __imgPath + "image/bps_thumbnail/" + img_name + ".png";
-                }else if(post_type=='fb'){
+                } else if (post_type == "fb") {
                     let zlp = item.post_meta?.fb_zlp || item.zlp || this.$store.state.default_zlp;
                     let fb = item.post_subtype || this.$store.state.default_fb;
                     let img = this.$store.state.map?.[zlp]?.dungeon?.[fb].icon;
@@ -134,7 +118,7 @@ export default {
                     } else {
                         return __imgPath + "image/fb_map_thumbnail/null.png";
                     }
-                }else if(post_type=='share'){
+                } else if (post_type == "share") {
                     let url = _.get(item.post_meta, "pics[0]['url']");
                     if (url) {
                         return showBanner(url, "face");
@@ -142,18 +126,18 @@ export default {
                         return __imgPath + "image/face/null2.png";
                     }
                 }
-                return __imgPath + `image/banner/`+post_type+ subtype + ".png";
+                return __imgPath + `image/banner/` + post_type + subtype + ".png";
             }
         },
     },
     filters: {
-        dateFormat: function(val) {
+        dateFormat: function (val) {
             return dateFormat(new Date(val));
         },
-        typeFormat: function(type) {
+        typeFormat: function (type) {
             return __postType[type];
         },
-        clientLabel: function(val) {
+        clientLabel: function (val) {
             val = val || "std";
             return __clients[val];
         },
@@ -162,12 +146,12 @@ export default {
         params: {
             deep: true,
             immediate: true,
-            handler: function() {
+            handler: function () {
                 this.loadData();
             },
         },
     },
-    mounted: function() {},
+    mounted: function () {},
 };
 </script>
 

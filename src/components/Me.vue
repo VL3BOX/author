@@ -32,7 +32,7 @@
             </div>
             <div class="u-bio">{{ data.user_bio }}</div>
 
-            <div class="u-links">
+            <div class="u-links-box">
                 <el-row :gutter="20">
                     <el-col :span="6">
                         <div>
@@ -112,28 +112,10 @@ export default {
     },
     data: function () {
         return {
-            // data: {},
             medals: [],
             medal_map,
             frames,
-            teams: [
-                // {
-                //     team_id: 2,
-                //     team_logo:
-                //         "https://oss.jx3box.com/upload/avatar/2020/12/11/8908884.png",
-                //     team_name: "诗画印象",
-                //     team_server: "蝶恋花",
-                // },
-                // {
-                //     team_id: 2,
-                //     team_logo:
-                //         "https://oss.jx3box.com/upload/avatar/2020/12/11/8908884.png",
-                //     team_name: "诗画印象",
-                //     team_server: "蝶恋花",
-                // },
-            ],
-            // isSuperAuthor: false,
-            // isPRO: false,
+            teams: [],
             isVIP: false,
         };
     },

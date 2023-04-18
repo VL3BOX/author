@@ -1,24 +1,5 @@
 <template>
     <div class="m-post" v-loading="loading">
-<!--        <el-timeline class="m-post-list" v-if="list && list.length">-->
-<!--            <el-timeline-item-->
-<!--                v-for="(item, i) in list"-->
-<!--                :key="i"-->
-<!--                :timestamp="item.createTime | dateFormat"-->
-<!--                placement="top"-->
-<!--            >-->
-<!--                <h4 class="u-type">题库题目</h4>-->
-<!--                <p>-->
-<!--                    <a-->
-<!--                        :href="postLink(item.id,item.client)"-->
-<!--                        class="u-title"-->
-<!--                        target="_blank"-->
-<!--                        ><i class="u-client" :class="item.client">{{ item.client | clientLabel }}</i-->
-<!--                        >{{ item.title || '无标题' }}</a-->
-<!--                    >-->
-<!--                </p>-->
-<!--            </el-timeline-item>-->
-<!--        </el-timeline>-->
         <!-- 列表 -->
         <div v-if="list && list.length" class="m-archive-list">
             <ul class="u-list">

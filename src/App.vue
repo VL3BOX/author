@@ -1,10 +1,6 @@
 <template>
     <div id="app">
         <Header></Header>
-        <!-- <Breadcrumb :name="name" slug="author" :root="root" :feedbackEnable="true" :withoutLeft="true" v-if="isAdmin">
-            <img slot="logo" svg-inline src="./assets/img/logo.svg" />
-            <Info :uid="uid" :userdata="userdata" />
-        </Breadcrumb> -->
         <div class="m-theme" :style="themeStyle">
             <div class="m-author" v-if="uid" :class="isAdmin ? 'm-author-admin' : ''">
                 <Me :decorationMe="decorationMe" :honor="honor" />
@@ -78,7 +74,6 @@ export default {
                 }
             }
             getDecoration({ using: 1, user_id: this.uid, type: "homebg" }).then((res) => {
-                console.log(res);
                 let decorationList = res.data.data;
                 //筛选个人装扮
                 let decoration = decorationList.find((item) => item.type == "homebg");
