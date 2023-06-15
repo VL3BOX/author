@@ -3,29 +3,28 @@
         <!-- 列表 -->
         <div v-if="list && list.length" class="m-archive-list">
             <ul class="u-list">
-                <li v-for="(item, i) in list"  :key="i + item" class="u-item">
+                <li v-for="(item, i) in list" :key="i + item" class="u-item">
                     <!-- 标题 -->
                     <h2 class="u-post">
                         <!-- 标题文字 -->
                         <a :href="postLink(item.id)" class="u-title" target="_blank">{{ item.title || "无标题" }}</a>
                     </h2>
                     <!-- 字段 -->
-                    <div class="u-content u-desc">
-                        {{ item.excerpt || item.title }}
+                    <div class="u-content u-desc" v-html="item.description || item.title">
                     </div>
 
                     <!-- 作者 -->
                     <div class="u-misc">
                         <span class="u-date">
                             Updated on
-                            <time >{{ item.updated | dateFormat }}</time>
+                            <time>{{ item.updated | dateFormat }}</time>
                         </span>
                     </div>
                 </li>
             </ul>
         </div>
         <div class="m-empty" v-else>
-            <img src='../assets/img/null.png' width="80%">
+            <img src="../assets/img/null.png" width="80%" />
         </div>
 
         <el-pagination
@@ -46,60 +45,59 @@ import { getLink } from "@jx3box/jx3box-common/js/utils";
 import dateFormat from "../utils/dateFormat";
 import { getCollections } from "@/service/helper.js";
 export default {
+    name: "Collection",
     props: [],
-    data: function() {
+    data: function () {
         return {
             loading: false,
             list: [],
             total: 1,
-            per : 8,
-            page : 1
+            per: 8,
+            page: 1,
         };
     },
-    computed : {
-        params : function (){
+    computed: {
+        params: function () {
             return {
                 user_id: this.uid,
                 page: this.page,
-                limit: this.per
-            }
+                per: this.per,
+            };
         },
-        uid : function (){
-            return this.$store.state.uid
-        }
+        uid: function () {
+            return this.$store.state.uid;
+        },
     },
     methods: {
-        loadData: function() {
+        loadData: function () {
             this.loading = true;
             getCollections(this.params)
                 .then((res) => {
-                    this.list = res.data.data.data;
-                    this.total = res.data.data.total;
+                    this.list = res.data.list;
+                    this.total = res.data.total;
                 })
                 .finally(() => {
                     this.loading = false;
                 });
         },
-        postLink: function(id) {
+        postLink: function (id) {
             return getLink("collection", id);
         },
     },
     filters: {
-        dateFormat: function(val) {
-            return dateFormat(new Date(~~val*1000));
+        dateFormat: function (val) {
+            return dateFormat(new Date(~~val * 1000));
         },
     },
-    watch : {
-        params : {
-            deep:true,
-            immediate:true,
-            handler : function (){
+    watch: {
+        params: {
+            deep: true,
+            immediate: true,
+            handler: function () {
                 this.loadData();
-            }
-        }
+            },
+        },
     },
-    mounted: function() {
-
-    },
+    mounted: function () {},
 };
 </script>

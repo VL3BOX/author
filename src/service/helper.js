@@ -1,11 +1,8 @@
-import { $helper} from './axios'
+import { $helper } from './axios'
+import { $cms } from "@jx3box/jx3box-common/js/https.js"
 
 function getCollections(params) {
-    return $helper()({
-        method: "GET",
-        url: `/api/post/collections`,
-        params: params,
-    });
+    return $cms().get(`/api/cms/post/collection`, { params });
 }
 
 function getNamespaces(params) {
