@@ -73,8 +73,8 @@ export default {
             this.loading = true;
             getCollections(this.params)
                 .then((res) => {
-                    this.list = res.data.list;
-                    this.total = res.data.total;
+                    this.list = res.data.data.list || [];
+                    this.total = res.data.data.total || 1;
                 })
                 .finally(() => {
                     this.loading = false;
