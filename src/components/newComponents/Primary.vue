@@ -63,7 +63,8 @@ export default {
             return {
                 user_id: this.uid,
                 page: 1,
-                limit: 5,
+                per: 5,
+                status: 1
             };
         },
     },
@@ -88,7 +89,7 @@ export default {
         getNamespacesList: function() {
             getNamespaces(this.params)
                 .then((res) => {
-                    this.namespaceList = res.data.data.data;
+                    this.namespaceList = res.data.data.list;
                 })
                 .finally(() => {
 

@@ -6,11 +6,7 @@ function getCollections(params) {
 }
 
 function getNamespaces(params) {
-    return $helper()({
-        method: "GET",
-        url: `/api/namespaces`,
-        params: params,
-    });
+    return $cms().get(`/api/cms/namespace`, { params });
 }
 
 function getPlans(params) {

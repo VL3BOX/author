@@ -61,7 +61,8 @@ export default {
             return {
                 user_id: this.uid,
                 page: this.page,
-                limit: this.per,
+                per: this.per,
+                status: 1,
             };
         },
         uid : function (){
@@ -76,7 +77,7 @@ export default {
             this.loading = true;
             getNamespaces(this.params)
                 .then((res) => {
-                    this.list = res.data.data.data;
+                    this.list = res.data.data.list;
                     this.total = res.data.data.total;
                 })
                 .finally(() => {
