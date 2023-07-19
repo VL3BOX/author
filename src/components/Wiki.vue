@@ -63,6 +63,7 @@ export default {
             page: 1,
             root: {
                 std: __Root.slice(0,-1),
+                all: __Root.slice(0,-1),
                 origin: __OriginRoot.slice(0,-1),
             },
         };
