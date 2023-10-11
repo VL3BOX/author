@@ -4,6 +4,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "preview": "cross-env BUILD_MODE=preview vue-cli-service build",
     "lint": "vue-cli-service lint",
     "inspect": "vue inspect > output.js",
     "update": "npm --registry https://registry.npmjs.org install @jx3box/jx3box-common@latest @jx3box/jx3box-common-ui@latest",
