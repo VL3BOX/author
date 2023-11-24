@@ -9,9 +9,9 @@ function getPosts(params) {
 }
 
 function getUserInfo(uid) {
-    return $cms().get(`/api/cms/user/${uid}/info`,{
-        params : {
-            nocache : 1
+    return $cms().get(`/api/cms/user/${uid}/info`, {
+        params: {
+            nocache: 1
         }
     });
 }
@@ -24,9 +24,9 @@ function getIdentity(uid) {
     return $cms().get(`/api/cms/user/${uid}/identity`)
 }
 
-function getUserPz(params){
-    return $cms().get(`/api/cms/app/pz`,{
-        params : params
+function getUserPz(params) {
+    return $cms().get(`/api/cms/app/pz`, {
+        params: params
     })
 }
 
@@ -45,16 +45,18 @@ function getUserEmotions(params) {
 }
 //获取装扮
 function getDecoration(params) {
-    return $cms().get(`/api/cms/user/decoration`,{
+    return $cms().get(`/api/cms/user/decoration`, {
         params
     });
 }
-function getDecorationJson(){
-    let url = __imgPath + "decoration/index.json"
+
+function getDecorationJson() {
+    let url = __imgPath + `decoration/index.json${Date.now()}}`
     return axios.get(url)
 }
+
 function getHonorJson() {
-    let url = __imgPath + "decoration/honor.json";
+    let url = __imgPath + `decoration/honor.json${Date.now()}}}`;
     return axios.get(url);
 }
 export {

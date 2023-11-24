@@ -15,7 +15,7 @@ function getUserMedals(uid) {
 }
 
 function getFrames() {
-    return axios.get(__imgPath + "data/user_avatar_frame.json");
+    return axios.get(__imgPath + `data/user_avatar_frame.json?${Date.now()}}`);
 }
 
 function getUserPublicTeams(uid) {
@@ -63,10 +63,10 @@ function getBlackList(params) {
  *  指定玩家的公开战斗数据
  * pageIndex  user_id
  */
-function getBattleList(params){
+function getBattleList(params) {
     return $team({ mute: true })
         .get(`/api/team/battle/public-list`, {
             params,
         })
 }
-export { getDouyu, getUserMedals, getFrames, getUserPublicTeams,deny,undeny,getBlackList,getBattleList };
+export { getDouyu, getUserMedals, getFrames, getUserPublicTeams, deny, undeny, getBlackList, getBattleList };
