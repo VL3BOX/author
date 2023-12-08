@@ -1,6 +1,5 @@
 <template>
-    <div id="app">
-        <Header></Header>
+    <AppLayout>
         <div class="m-birthday" v-if="userdata">
             <div class="m-birthday-video">
                 <video
@@ -35,13 +34,15 @@
             </div>
             <Footer></Footer>
         </div>
-    </div>
+    </AppLayout>
 </template>
 
 <script>
 import { showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { Base64 } from "js-base64";
 import { getUserInfo } from "@/service/cms.js";
+import AppLayout from "@/layouts/AppLayout.vue";
+import { getRewrite } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "Birthday",
     props: [],
@@ -55,8 +56,7 @@ export default {
     },
     computed: {
         uid: function () {
-            let path = location.pathname.split("/");
-            return path[path.length - 1];
+            return getRewrite("uid");
         },
         params: function () {
             return new URLSearchParams(location.search);
@@ -71,8 +71,7 @@ export default {
     methods: {
         buildCard: function () {
             let _code = this.params.get("code");
-            let code =
-                (_code && Base64.decode(_code)) || Base64.decode(this.democode);
+            let code = (_code && Base64.decode(_code)) || Base64.decode(this.democode);
             this.age = ~~code.slice(8) || 1;
             this.zip = code.slice(2, 8);
         },
@@ -82,16 +81,17 @@ export default {
             });
         },
     },
-    mounted: function () {},
+    mounted: function () { },
     created: function () {
         if (!isNaN(this.uid))
             this.loadData().then(() => {
                 this.buildCard();
             });
     },
+    components: { AppLayout }
 };
 </script>
 
 <style lang="less">
-@import "../assets/css/birthday.less";
+@import "~@/assets/css/birthday.less";
 </style>
