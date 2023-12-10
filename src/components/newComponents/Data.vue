@@ -16,24 +16,29 @@
 
 <script>
 import Pz from "@/components/Pz";
-import Battle from "@/components/Battle"
+import Battle from "@/components/Battle";
+import DBM from "@/components/DBM";
 export default {
     name: "Data",
     components: {
-        Pz,Battle
+        Pz,Battle,DBM
     },
     data: function () {
         return {
             active: "Pz",
             types: [
                 {
-                    label: "配装",
+                    label: "配装方案",
                     value: "Pz",
                     component: Pz,
                 },{
-                    label: "战斗",
+                    label: "战斗记录",
                     value: "Battle",
                     component: Battle,
+                },{
+                    label: "数据包",
+                    value: "DBM",
+                    component: DBM,
                 }
             ],
         };

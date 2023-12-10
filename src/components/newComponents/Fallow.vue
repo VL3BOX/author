@@ -18,14 +18,19 @@
 import Emotions from "@/components/Emotions";
 import Jokes from "@/components/Jokes";
 import Face from "@/components/newComponents/Face";
+import Paper from "@/components/Paper.vue";
+import Question from "@/components/Question.vue";
+import Body from "@/components/newComponents/Body.vue";
 
 export default {
     name: "Fallow",
     components: {
         Emotions,
         Jokes,
-        Face
-
+        Face,
+        Paper,
+        Question,
+        Body
     },
     data: function () {
         return {
@@ -37,6 +42,11 @@ export default {
                     component: Face,
                 },
                 {
+                    label: "体型",
+                    value: "Body",
+                    component: Body,
+                },
+                {
                     label: "趣图",
                     value: "Emotions",
                     component: Emotions,
@@ -45,6 +55,16 @@ export default {
                     label: "骚话",
                     value: "Jokes",
                     component: Jokes,
+                },
+                {
+                    label: "试卷",
+                    value: "Paper",
+                    component: Paper
+                },
+                {
+                    label: "题目",
+                    value: "Question",
+                    component: Question
                 },
             ],
         };
@@ -57,7 +77,6 @@ export default {
             return this.types.find((item) => item.value === this.active).value;
         },
     },
-
 }
 </script>
 

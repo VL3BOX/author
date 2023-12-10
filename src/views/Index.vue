@@ -12,14 +12,13 @@
 <script>
 import AppLayout from "@/layouts/AppLayout.vue";
 import Me from "@/components/newComponents/Me.vue";
-import { getRewrite } from "@jx3box/jx3box-common/js/utils";
 import { getUserInfo, getDecoration, getDecorationJson } from "@/service/cms";
 import User from "@jx3box/jx3box-common/js/user";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 const DECORATION_JSON = "decoration_json";
 const DECORATION_KEY = "decoration_me";
 export default {
-    name: "App",
+    name: "Author",
     components: {
     Me,
     AppLayout,
@@ -39,7 +38,7 @@ export default {
             return this.$store.state.userdata;
         },
         uid: function () {
-            return this.$store.state.uid;
+            return this.$route.params.id
         },
         root: function () {
             return "/author/" + this.uid;
@@ -48,10 +47,9 @@ export default {
             return this.$store.state.userdata.display_name || "魔盒";
         },
     },
-    mounted: function () {
-        this.$store.state.uid = this.$route.params.id
-        console.log(this.uid)
+    created: function () {
         if (this.uid) {
+            this.$store.state.uid = this.uid;
             getUserInfo(this.uid).then((res) => {
                 this.$store.state.userdata = res.data.data;
             });

@@ -16,34 +16,41 @@
 
 <script>
 import Collection from "@/components/Collection";
-import Question from "@/components/Question.vue";
-import Paper from "@/components/Paper.vue";
+// import Question from "@/components/Question.vue";
+// import Paper from "@/components/Paper.vue";
+import Namespace from "../Namespace.vue";
 export default {
     name: "Other",
     components: {
         Collection,
-        Question,
-        Paper,
+        Namespace,
+        // Question,
+        // Paper,
     },
     data: function () {
         return {
             active: "Collection",
             types: [
                 {
-                    label: "文集",
+                    label: "小册",
                     value: "Collection",
                     component: Collection,
                 },
+                // {
+                //     label: "试卷",
+                //     value: "Paper",
+                //     component: Paper
+                // },
+                // {
+                //     label: "题目",
+                //     value: "Question",
+                //     component: Question
+                // },
                 {
-                    label: "试卷",
-                    value: "Paper",
-                    component: Paper
-                },
-                {
-                    label: "题目",
-                    value: "Question",
-                    component: Question
-                },
+                    label: "铭牌",
+                    value: "Namespace",
+                    component: Namespace
+                }
             ],
         };
     },

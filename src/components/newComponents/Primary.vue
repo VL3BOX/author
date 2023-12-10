@@ -57,7 +57,7 @@ export default {
     },
     computed: {
         uid: function () {
-            return this.$store.state.uid;
+            return this.$route.params.id
         },
         params: function() {
             return {
