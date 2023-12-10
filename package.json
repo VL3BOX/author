@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@jx3box/jx3box-common": "^8.1.1",
-    "@jx3box/jx3box-common-ui": "^7.0.5",
+    "@jx3box/jx3box-common-ui": "^8.0.2",
     "axios": "^0.21.1",
     "core-js": "^3.4.3",
     "dayjs": "^1.11.4",
