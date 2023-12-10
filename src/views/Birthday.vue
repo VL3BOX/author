@@ -42,7 +42,7 @@ import { showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { Base64 } from "js-base64";
 import { getUserInfo } from "@/service/cms.js";
 import AppLayout from "@/layouts/AppLayout.vue";
-import { getRewrite } from "@jx3box/jx3box-common/js/utils";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "Birthday",
     props: [],
@@ -56,7 +56,7 @@ export default {
     },
     computed: {
         uid: function () {
-            return this.$route.query?.uid
+            return User.isLogin() ? User.getInfo()?.uid : 0
         },
         params: function () {
             return new URLSearchParams(location.search);
