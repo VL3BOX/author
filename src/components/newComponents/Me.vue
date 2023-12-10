@@ -6,7 +6,7 @@
                 <div class="u-author-info">
                     <span class="u-name" :style="userDefinedStyle.userName">
                         <span @click="copyData(data.display_name || '匿名')">{{ data.display_name || "匿名" }}</span
-                        >&nbsp;<span class="u-uid" @click="copyData(data.ID || 0)">(UID : {{ data.ID || 0 }})</span>
+                        ><span class="u-uid" @click="copyData(data.ID || 0)">（UID : {{ data.ID || 0 }}）</span>
                     </span>
                     <div class="u-tips">
                         <el-tooltip :content="`当前经验 ${data.experience || 0}`" placement="top">
