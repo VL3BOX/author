@@ -56,7 +56,7 @@ export default {
     },
     computed: {
         uid: function () {
-            return getRewrite("uid");
+            return this.$route.query?.uid
         },
         params: function () {
             return new URLSearchParams(location.search);
@@ -83,7 +83,7 @@ export default {
     },
     mounted: function () { },
     created: function () {
-        if (!isNaN(this.uid))
+        if (!isNaN(this.uid) && this.uid)
             this.loadData().then(() => {
                 this.buildCard();
             });

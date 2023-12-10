@@ -24,7 +24,7 @@
                 </li>
             </ul>
         </div>
-        <div class="m-empty">
+        <div class="m-empty" v-else>
             <img src='../assets/img/null.png' width="80%">
         </div>
 

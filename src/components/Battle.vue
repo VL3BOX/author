@@ -8,6 +8,11 @@
                         <!-- 标题文字 -->
                         <a :href="postLink(item.id)" class="u-title" target="_blank">{{ item.title || "无标题" }}</a>
                     </h2>
+                    <!-- 字段 -->
+                    <div class="u-content u-desc">
+                        <i :class="item.client" class="u-client">{{ item.type }}</i>
+                        {{ item.desc || '' }}
+                    </div>
                     <!-- 日期 -->
                     <div class="u-misc">
                         <span class="u-date">
