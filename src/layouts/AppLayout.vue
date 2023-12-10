@@ -1,12 +1,13 @@
 <template>
-    <div id="app">
-        <router-view></router-view>
+    <div>
+        <Header></Header>
+        <slot></slot>
     </div>
 </template>
 
 <script>
 export default {
-    name: "App",
+    name: "AppLayout",
     components: {},
     props: [],
     data: function () {
@@ -16,4 +17,5 @@ export default {
     created: function () {},
     methods: {},
 };
+
 </script>

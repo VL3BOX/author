@@ -4,20 +4,20 @@ const { JX3BOX, SEO } = require("@jx3box/jx3box-common");
 const Setting = require("./setting.json");
 
 module.exports = {
-    pages: {
-        author: {
-            title: "作者" + Setting.suffix,
-            entry: "src/main.js",
-            template: "public/index.html",
-            filename: "index.html",
-        },
-        birthday: {
-            title: "生日贺卡" + Setting.suffix,
-            entry: "src/pages/birthday.js",
-            template: "public/pc.html",
-            filename: "birthday/index.html",
-        },
-    },
+    // pages: {
+    //     author: {
+    //         title: "作者" + Setting.suffix,
+    //         entry: "src/main.js",
+    //         template: "public/index.html",
+    //         filename: "index.html",
+    //     },
+    //     birthday: {
+    //         title: "生日贺卡" + Setting.suffix,
+    //         entry: "src/pages/birthday.js",
+    //         template: "public/pc.html",
+    //         filename: "birthday/index.html",
+    //     },
+    // },
 
     devServer: {
         proxy: {
@@ -84,11 +84,14 @@ module.exports = {
                     request.setHeader("origin", "");
                 },
             },
-            "/api": {
-                target: "https://helper.jx3box.com",
-            },
             "/user/admin": {
                 target: "https://server.jx3box.com",
+            },
+            "/api": {
+                target: "https://next2.jx3box.com",
+                onProxyReq: function (request) {
+                    request.setHeader("origin", "");
+                },
             },
         },
     },
@@ -119,15 +122,15 @@ module.exports = {
     chainWebpack: (config) => {
         //💘 html-webpack-plugin ~
         // Multiple pages disable the block below
-        // config.plugin("html").tap((args) => {
-        //     args[0].meta = {
-        //         //------设置SEO信息
-        //         Keywords: Setting.keys,
-        //         Description: Setting.desc,
-        //     };
-        //     args[0].title = Setting.title + SEO.title; //------自动添加标题后缀
-        //     return args;
-        // });
+        config.plugin("html").tap((args) => {
+            args[0].meta = {
+                //------设置SEO信息
+                Keywords: Setting.keys,
+                Description: Setting.desc,
+            };
+            args[0].title = Setting.title + SEO.title; //------自动添加标题后缀
+            return args;
+        });
 
         //💝 in-line small imgs ~
         config.module

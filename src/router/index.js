@@ -1,18 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Index from "../views/Index.vue";
-import Birthday from "../views/Birthday.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
-    { path: "/", name: "index", component: Index },
-    { path: "/birthday", name: "birthday", component: Birthday },
+    { path: "/:id", name: "index", component: () => import("@/views/Index.vue") },
+    { path: "/birthday", name: "birthday", component: () => import("@/views/Birthday.vue") },
 ];
 
 const router = new VueRouter({
     routes,
+    mode: "history",
+    base: "/author"
 });
 
 export default router;

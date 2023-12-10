@@ -3,6 +3,7 @@
         <el-tabs class="m-tabs" v-model="active" type="card">
             <el-tab-pane v-for="item in types" :key="item.value" :label="item.label" :name="item.value" :lazy="true">
                 <span slot="label">
+                    <i :class="item.icon"></i>
                     {{ item.label }}
                 </span>
             </el-tab-pane>
@@ -18,14 +19,19 @@
 import Emotions from "@/components/Emotions";
 import Jokes from "@/components/Jokes";
 import Face from "@/components/newComponents/Face";
+import Paper from "@/components/Paper.vue";
+import Question from "@/components/Question.vue";
+import Body from "@/components/newComponents/Body.vue";
 
 export default {
     name: "Fallow",
     components: {
         Emotions,
         Jokes,
-        Face
-
+        Face,
+        Paper,
+        Question,
+        Body
     },
     data: function () {
         return {
@@ -35,16 +41,37 @@ export default {
                     label: "捏脸",
                     value: "Face",
                     component: Face,
+                    icon:'el-icon-grape'
+                },
+                {
+                    label: "体型",
+                    value: "Body",
+                    component: Body,
+                    icon:'el-icon-watermelon'
                 },
                 {
                     label: "趣图",
                     value: "Emotions",
                     component: Emotions,
+                    icon : 'el-icon-cherry'
                 },
                 {
                     label: "骚话",
                     value: "Jokes",
                     component: Jokes,
+                    icon : 'el-icon-apple'
+                },
+                {
+                    label: "试卷",
+                    value: "Paper",
+                    component: Paper,
+                    icon : 'el-icon-ice-cream-round'
+                },
+                {
+                    label: "题目",
+                    value: "Question",
+                    component: Question,
+                    icon : 'el-icon-lollipop'
                 },
             ],
         };
@@ -57,7 +84,6 @@ export default {
             return this.types.find((item) => item.value === this.active).value;
         },
     },
-
 }
 </script>
 

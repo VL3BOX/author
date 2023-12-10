@@ -51,14 +51,21 @@ function getDecoration(params) {
 }
 
 function getDecorationJson() {
-    let url = __imgPath + `decoration/index.json${Date.now()}}`
+    let url = __imgPath + `decoration/index.json?${Date.now()}}`
     return axios.get(url)
 }
 
 function getHonorJson() {
-    let url = __imgPath + `decoration/honor.json${Date.now()}}}`;
+    let url = __imgPath + `decoration/honor.json?${Date.now()}}}`;
     return axios.get(url);
 }
+
+function getDBM(params){
+    return $cms().get(`/api/cms/dbm/pkg`, {
+        params
+    });
+}
+
 export {
     getPosts,
     getUserInfo,
@@ -69,5 +76,6 @@ export {
     getUserEmotions,
     getDecoration,
     getDecorationJson,
-    getHonorJson
+    getHonorJson,
+    getDBM
 };

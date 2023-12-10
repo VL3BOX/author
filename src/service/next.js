@@ -18,4 +18,10 @@ function getFaceList(params){
     });
 }
 
-export { getPapers, getQuestions,getFaceList };
+function getBodyList(params){
+    return $next().get("api/pvxbody", {
+        params: params,
+    });
+}
+
+export { getPapers, getQuestions,getFaceList,getBodyList };
