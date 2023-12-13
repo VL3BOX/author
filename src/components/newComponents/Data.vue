@@ -27,25 +27,25 @@ export default {
     },
     data: function () {
         return {
-            active: "Pz",
+            active: "DBM",
             types: [
                 {
                     label: "配装",
                     value: "Pz",
                     component: Pz,
-                    icon : 'el-icon-sugar'
+                    icon: "el-icon-sugar",
                 },
                 {
                     label: "战斗",
                     value: "Battle",
                     component: Battle,
-                    icon : 'el-icon-ice-cream'
+                    icon: "el-icon-ice-cream",
                 },
                 {
                     label: "数据",
                     value: "DBM",
                     component: DBM,
-                    icon : 'el-icon-cold-drink'
+                    icon: "el-icon-cold-drink",
                 },
             ],
         };
