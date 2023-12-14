@@ -52,8 +52,7 @@ export default {
             return {
                 user_id: this.uid,
                 page: 1,
-                per: 5,
-                status: 1,
+                per: 5, 
             };
         },
     },

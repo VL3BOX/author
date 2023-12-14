@@ -61,8 +61,7 @@ export default {
             return {
                 user_id: this.uid,
                 page: this.page,
-                per: this.per,
-                status: 1,
+                per: this.per, 
             };
         },
         uid : function (){
