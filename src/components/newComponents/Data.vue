@@ -27,7 +27,7 @@ export default {
     },
     data: function () {
         return {
-            active: "DBM",
+            active: "Pz",
             types: [
                 {
                     label: "配装",
