@@ -2,7 +2,7 @@
     <div class="m-author-info">
         <div class="m-top">
             <div class="u-title">
-                TA的作品
+                {{ $t('TA的作品') }}
             </div>
             <el-tabs class="m-tabs" v-model="active" stretch>
                 <el-tab-pane v-for="item in types" :key="item.value" :label="item.label" :name="item.value" :lazy="true">

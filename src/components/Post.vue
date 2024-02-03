@@ -13,13 +13,13 @@
                     <h2 class="u-post">
                         <!-- 标题文字 -->
                         <a class="u-title" :href="postLink(item.post_type, item.ID, item.client)" target="_blank">{{
-                            item.post_title || "无标题"
+                            item.post_title || $t('无标题')
                         }}</a>
                     </h2>
 
                     <!-- 字段 -->
                     <div class="u-content u-desc">
-                        {{ item.post_excerpt || item.post_title || "这个作者很懒,什么都没有留下" }}
+                        {{ item.post_excerpt || item.post_title || $t('这个作者很懒,什么都没有留下') }}
                     </div>
 
                     <!-- 作者 -->
@@ -32,7 +32,7 @@
                 </li>
             </ul>
         </div>
-        <!-- <el-alert v-else title="没有找到相关条目" type="info" show-icon> </el-alert> -->
+        <!-- <el-alert v-else :title="$t('没有找到相关条目')" type="info" show-icon> </el-alert> -->
         <div class="m-empty" v-else>
             <img src="../assets/img/null.png" width="80%" />
         </div>

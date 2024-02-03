@@ -13,11 +13,11 @@
                     <!-- 标题 -->
                     <h2 class="u-post">
                         <!-- 标题文字 -->
-                        <a :href="postLink(item.type, item.source_id, item.client)" class="u-title" target="_blank">{{ item.title || "无标题" }}</a>
+                        <a :href="postLink(item.type, item.source_id, item.client)" class="u-title" target="_blank">{{ item.title || $t('无标题') }}</a>
                     </h2>
                     <!-- 字段 -->
                     <div class="u-content u-desc">
-                        <i :class="item.client" class="u-client">{{ item.client | clientLabel }}</i>{{ item.type | showType }}百科
+                        <i :class="item.client" class="u-client">{{ item.client | clientLabel }}</i>{{ item.type | showType }}{{ $t('百科') }}
                     </div>
 
                     <!-- 作者 -->

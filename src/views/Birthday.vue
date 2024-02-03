@@ -24,8 +24,8 @@
                     <img class="u-circle" src="../assets/img/birthday/bg.png" alt />
                     <img class="u-light" src="../assets/img/birthday/light.png" alt />
                     <div class="u-title">
-                        祝
-                        <b>{{name}}</b>侠士
+                        {{ $t('祝') }}
+                        <b>{{name}}</b>{{ $t('侠士') }}
                     </div>
                     <div class="u-age">
                         <span>{{age}}</span>

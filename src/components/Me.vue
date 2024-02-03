@@ -4,7 +4,7 @@
         <div class="m-author-info">
             <span class="u-name">
                 {{ data.display_name || "匿名" }}
-                <el-tooltip content="签约作者" v-if="isSuperAuthor" placement="top">
+                <el-tooltip :content="$t('签约作者')" v-if="isSuperAuthor" placement="top">
                     <span class="u-superauthor">
                         <img :src="super_author_icon" alt="superauthor" />
                     </span>

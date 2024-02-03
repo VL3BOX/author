@@ -22,9 +22,9 @@
                                 <i class="u-icon vip">{{ vipType }}</i>
                             </a>
                         </el-tooltip>
-                        <el-tooltip content="签约作者" v-if="isSuperAuthor" placement="top">
+                        <el-tooltip :content="$t('签约作者')" v-if="isSuperAuthor" placement="top">
                             <span class="u-superauthor">
-                                <i class="u-icon superauthor">签约作者</i>
+                                <i class="u-icon superauthor">{{ $t('签约作者') }}</i>
                             </span>
                         </el-tooltip>
                     </div>
@@ -43,7 +43,7 @@
                     <el-button icon="el-icon-plus" class="m-btn u-btn-attention" v-if="!isFollow" @click="follow" size="mini">关注TA</el-button>
                     <div class="m-btn u-already-attention" v-else >
                         <el-button class="u-btn" size="mini" @mouseenter.native="attentionText='取消关注'" @mouseleave.native="attentionText='已关注'" @click="unfollow">{{ attentionText }}</el-button>
-                        <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">发消息</el-button>
+                        <el-button class="u-btn u-btn-disabled" size="mini"  :disabled="true">{{ $t('发消息') }}</el-button>
                     </div>
                 </div>
                 <div class="u-more">
@@ -54,9 +54,9 @@
                         v-model="moreOperate"
                     >
                         <a href="/feedback" target="_blank">
-                            <el-button size="mini" class="u-more-btn">举报</el-button>
+                            <el-button size="mini" class="u-more-btn">{{ $t('举报') }}</el-button>
                         </a><br>
-                        <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
+                        <el-button size="mini" class="u-more-btn" @click="joinBlacklist">{{ $t('拉黑') }}</el-button>
                         <img src="@/assets/img/more.svg" svg-inline  slot="reference" class="u-more-img"/>
                     </el-popover>
                 </div>
@@ -89,20 +89,20 @@
                                 >
                                 <a :href="sendLink" target="_blank" v-if="canSendLetter">
                                     <el-button class="u-btn u-send-msg" size="mini" :style="userDefinedStyle.sendMsg"
-                                        >发消息</el-button
+                                        >{{ $t('发消息') }}</el-button
                                     ></a
                                 >
                                 <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true" v-else
-                                    >发消息</el-button
+                                    >{{ $t('发消息') }}</el-button
                                 >
                             </div>
                         </div>
                         <div class="u-more" :style="userDefinedStyle.btn">
                             <el-popover placement="bottom-end" trigger="click" width="90" v-model="moreOperatePhone">
                                 <a href="/feedback" target="_blank">
-                                    <el-button size="mini" class="u-more-btn">举报</el-button> </a
+                                    <el-button size="mini" class="u-more-btn">{{ $t('举报') }}</el-button> </a
                                 ><br />
-                                <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
+                                <el-button size="mini" class="u-more-btn" @click="joinBlacklist">{{ $t('拉黑') }}</el-button>
                                 <img
                                     src="@/assets/img/more.svg"
                                     svg-inline
@@ -169,19 +169,19 @@
                             >
                             <a :href="sendLink" target="_blank" v-if="canSendLetter">
                                 <el-button class="u-btn u-send-msg" size="mini" :style="userDefinedStyle.sendMsg"
-                                    >发消息</el-button
+                                    >{{ $t('发消息') }}</el-button
                                 ></a
                             >
                             <el-button class="u-btn u-btn-disabled" size="mini" :disabled="true" v-else
-                                >发消息</el-button
+                                >{{ $t('发消息') }}</el-button
                             >
                         </div>
                     </div>
                     <el-popover placement="bottom-end" trigger="click" width="90" v-model="moreOperate">
                         <a href="/feedback" target="_blank">
-                            <el-button size="mini" class="u-more-btn">举报</el-button> </a
+                            <el-button size="mini" class="u-more-btn">{{ $t('举报') }}</el-button> </a
                         ><br />
-                        <el-button size="mini" class="u-more-btn" @click="joinBlacklist">拉黑</el-button>
+                        <el-button size="mini" class="u-more-btn" @click="joinBlacklist">{{ $t('拉黑') }}</el-button>
                         <div class="u-more" :style="userDefinedStyle.btn" slot="reference">
                             <img
                                 src="@/assets/img/more.svg"

@@ -13,12 +13,12 @@
                         :href="postLink(item.id)"
                         class="u-title"
                         target="_blank"
-                        >{{ item.title || "无标题" }}</a
+                        >{{ item.title || $t('无标题') }}</a
                     >
                 </p>
             </el-timeline-item>
         </el-timeline>
-        <el-alert v-else title="没有找到相关条目" type="info" show-icon>
+        <el-alert v-else :title="$t('没有找到相关条目')" type="info" show-icon>
         </el-alert>
 
         <el-pagination

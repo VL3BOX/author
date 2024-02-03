@@ -5,7 +5,7 @@
             size="mini"
             icon="el-icon-warning-outline"
             @click="report"
-            >举报</el-button
+            >{{ $t('举报') }}</el-button
         >
         <el-button
             type="danger"
@@ -13,7 +13,7 @@
             icon="el-icon-turn-off-microphone"
             @click="check(true)"
             v-if="!status"
-            >禁言</el-button
+            >{{ $t('禁言') }}</el-button
         >
         <el-button
             type="success"
@@ -21,10 +21,10 @@
             icon="el-icon-microphone"
             @click="check(false)"
             v-else
-            >解除禁言</el-button
+            >{{ $t('解除禁言') }}</el-button
         >
         <el-dialog
-            title="操作"
+            :title="$t('操作')"
             :visible.sync="dialogVisible"
             width="30%"
             :append-to-body="true"
@@ -32,18 +32,18 @@
             :close-on-click-modal="false"
         >
             <div>
-                <p>请填写禁言/解除禁言原因</p>
+                <p>{{ $t('请填写禁言/解除禁言原因') }}</p>
                 <el-input
                     v-model="reason"
-                    placeholder="请输入内容"
+                    :placeholder="$t('请输入内容')"
                     :maxlength="30"
                     :show-word-limit="true"
                 ></el-input>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button @click="dialogVisible = false">{{ $t('取 消') }}</el-button>
                 <el-button type="primary" @click="confirmCheck"
-                    >确 定</el-button
+                    >{{ $t('确 定') }}</el-button
                 >
             </span>
         </el-dialog>

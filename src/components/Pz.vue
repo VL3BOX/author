@@ -7,12 +7,12 @@
                     <!-- 标题 -->
                     <h2 class="u-post">
                         <!-- 标题文字 -->
-                        <a :href="postLink(item.id, item.client)" class="u-title" target="_blank">{{ item.title || "无标题" }}</a>
+                        <a :href="postLink(item.id, item.client)" class="u-title" target="_blank">{{ item.title || $t('无标题') }}</a>
                     </h2>
                     <!-- 字段 -->
                     <div class="u-content u-desc">
                         <i :class="item.client" class="u-client">{{ item.client | clientLabel }}</i>
-                        {{ item.desc || "这个配装没有任何描述" }}
+                        {{ item.desc || $t('这个配装没有任何描述') }}
                     </div>
 
                     <!-- 作者 -->
