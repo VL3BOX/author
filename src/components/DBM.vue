@@ -103,7 +103,7 @@ export default {
                 });
         },
         postLink(id) {
-            return getLink('dbm', id);
+            return getLink('pkg', id);
         }
     }
 }
