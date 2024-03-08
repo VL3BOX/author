@@ -15,15 +15,16 @@ import Me from "@/components/newComponents/Me.vue";
 import { getUserInfo, getDecoration, getDecorationJson } from "@/service/cms";
 import User from "@jx3box/jx3box-common/js/user";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import logoVue from "@jx3box/jx3box-common-ui/src/header/logo.vue";
 const DECORATION_JSON = "decoration_json";
 const DECORATION_KEY = "decoration_me";
 export default {
     name: "Author",
     components: {
-    Me,
-    AppLayout,
-    AppLayout
-},
+        Me,
+        AppLayout,
+        AppLayout,
+    },
     props: [],
     data: function () {
         return {
@@ -38,7 +39,7 @@ export default {
             return this.$store.state.userdata;
         },
         uid: function () {
-            return this.$route.params.id
+            return this.$route.params.id;
         },
         root: function () {
             return "/author/" + this.uid;
@@ -115,19 +116,18 @@ export default {
                 size = 2;
             }
             if (theme.homebg_lt) {
-                bgImg.push(`url(${this.showDecoration(theme.name, `homebg_lt@${size}x`)} ) top left no-repeat fixed`);
+                bgImg.push(`url(${this.showDecoration(theme.name, `homebg_lt@${size}x`)}) no-repeat fixed top left / cover`);
             }
             if (theme.homebg_rt) {
-                bgImg.push(`url( ${this.showDecoration(theme.name, `homebg_rt@${size}x`)}) top right no-repeat fixed`);
+                bgImg.push(`url( ${this.showDecoration(theme.name, `homebg_rt@${size}x`)}) no-repeat fixed top right / cover`);
             }
             if (theme.homebg_lb) {
-                bgImg.push(`url(${this.showDecoration(theme.name, `homebg_lb@${size}x`)}) bottom left no-repeat fixed`);
+                bgImg.push(`url(${this.showDecoration(theme.name, `homebg_lb@${size}x`)}) no-repeat fixed bottom left / cover`);
             }
             if (theme.homebg_rb) {
-                bgImg.push(
-                    `url(${this.showDecoration(theme.name, `homebg_rb@${size}x`)}) bottom right no-repeat fixed`
-                );
+                bgImg.push(`url(${this.showDecoration(theme.name, `homebg_rb@${size}x`)})  no-repeat fixed bottom right / cover`);
             }
+            console.log(bgImg);
             this.themeStyle = {
                 background: bgImg.toString(),
             };
